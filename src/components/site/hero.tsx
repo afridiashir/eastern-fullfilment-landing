@@ -11,7 +11,7 @@ export function Hero() {
       className="relative overflow-hidden bg-gradient-to-b from-secondary/60 to-background"
     >
       <div className="pointer-events-none absolute inset-0 hero-grid" />
-      <div className="container-px min-h-[70dvh] flex flex-col items-center justify-end relative py-20  ">
+      <div className="container-px min-h-[65dvh] flex flex-col items-center justify-end relative py-20  ">
         <div className="flex flex-col items-center">
           
 
