@@ -11,7 +11,7 @@ type Stat = {
 };
 
 const stats: Stat[] = [
-  { value: 1300000, suffix: "+", label: "Orders fulfilled" },
+  { value: 130, suffix: "k+", label: "Orders fulfilled" },
   { value: 99.8, suffix: "%", decimals: 1, label: "Order accuracy" },
   { value: 500, suffix: "+", label: "Brands onboarded" },
   { value: 150, suffix: "+", label: "Carrier integrations" },
