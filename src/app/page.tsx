@@ -6,6 +6,7 @@ import { VideoSection } from "@/components/site/video";
 import { Services } from "@/components/site/services";
 import { Integrations } from "@/components/site/integrations";
 import { Testimonials } from "@/components/site/testimonials";
+import { Faq } from "@/components/site/faq";
 import { CtaBanner } from "@/components/site/cta";
 import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
@@ -22,6 +23,7 @@ export default function Home() {
         <Integrations />
         <Pricing />
         <Testimonials />
+        <Faq />
         <CtaBanner />
         <Contact />
       </main>
