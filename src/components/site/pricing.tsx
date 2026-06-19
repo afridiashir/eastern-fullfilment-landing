@@ -6,67 +6,78 @@ import { cn } from "@/lib/utils";
 
 const plans = [
   {
-    name: "Consult Plan",
-    price: "$0",
-    cadence: "/mo",
-    tagline: "No Credit, No Charge",
-    description: "A free discovery call to map out your project and roadmap.",
+    name: "Starter",
+    price: "$2.75",
+    cadence: "/order",
+    tagline: "New & growing brands",
+    description:
+      "Everything you need to launch fulfillment, with no long-term contract.",
     features: [
-      "30-min strategy session",
-      "Project scope & roadmap",
-      "Tech stack recommendation",
-      "No commitment required",
+      "Up to 500 orders / mo",
+      "Pick & pack included",
+      "Standard storage & receiving",
+      "Live carrier rates",
+      "Shopify & marketplace sync",
+      "Email & chat support",
     ],
     cta: "Get started",
     featured: false,
   },
   {
-    name: "Website Plan",
-    price: "$99",
-    cadence: "/mo",
-    tagline: "Best for startups",
-    description: "A managed website built and maintained by certified engineers.",
+    name: "Growth",
+    price: "$1.95",
+    cadence: "/order",
+    tagline: "Best for scaling DTC brands",
+    description:
+      "Lower per-order rates and pro tooling as your volume ramps up.",
     features: [
-      "Delivered in 48–72 hours",
-      "3 Google Meet sessions / mo",
-      "Lifetime email support",
-      "Ongoing updates & hosting",
+      "500 – 5,000 orders / mo",
+      "Discounted carrier rates",
+      "Same-day receiving",
+      "Branded packaging & inserts",
+      "Returns processing included",
+      "Dedicated account manager",
     ],
     cta: "Get started",
     featured: true,
   },
   {
-    name: "AI Voice Agent Plan",
-    price: "$149",
-    cadence: "/mo",
-    tagline: "Automate every call",
-    description: "An AI agent that handles calls, follow-ups, and bookings 24/7.",
+    name: "Enterprise",
+    price: "Custom",
+    cadence: "",
+    tagline: "High-volume & B2B/retail",
+    description:
+      "Volume-based pricing with multi-warehouse distribution and custom SLAs.",
     features: [
-      "24/7 inbound & outbound calls",
-      "Automated follow-ups",
-      "Appointment scheduling",
-      "CRM integration",
+      "5,000+ orders / mo",
+      "Multi-warehouse distribution",
+      "EDI & B2B/retail routing",
+      "Kitting & custom projects",
+      "Custom SLAs & reporting",
+      "24/7 priority support",
     ],
-    cta: "Get started",
+    cta: "Talk to sales",
     featured: false,
   },
+];
+
+const feeBreakdown = [
+  { label: "Receiving", value: "from $35 / hr" },
+  { label: "Storage", value: "from $18 / pallet / mo" },
+  { label: "Pick & pack", value: "1st item free, +$0.35 each" },
+  { label: "Returns", value: "from $3.50 / order" },
 ];
 
 export function Pricing() {
   return (
     <section id="pricing" className="container-px py-20 lg:py-28">
       <div className="mx-auto max-w-2xl text-center">
-        <Badge
-          variant="secondary"
-          className="mb-4 rounded-full border border-primary/20 bg-primary/10 text-primary"
-        >
-          Pricing
-        </Badge>
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Simple plans that scale with you
+          Fulfillment pricing that scales with you
         </h2>
         <p className="mt-4 text-muted-foreground">
-          Start free, then pick a plan with no hidden fees. Cancel anytime.
+          Transparent per-order rates that drop as you grow — no hidden fees, no
+          long-term contracts.
         </p>
       </div>
 
@@ -89,6 +100,11 @@ export function Pricing() {
             <h3 className="text-lg font-semibold">{plan.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{plan.tagline}</p>
             <div className="mt-6 flex items-end gap-1">
+              {plan.cadence && (
+                <span className="mb-1 mr-0.5 text-sm text-muted-foreground">
+                  from
+                </span>
+              )}
               <span className="text-4xl font-bold tracking-tight">
                 {plan.price}
               </span>
@@ -116,6 +132,26 @@ export function Pricing() {
             </Button>
           </div>
         ))}
+      </div>
+
+      <div className="mx-auto mt-12 max-w-4xl rounded-3xl border border-border bg-card p-8">
+        <div className="text-center">
+          <h3 className="text-lg font-semibold">Transparent storage & handling</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Only pay for what you use. Common add-on fees, billed at cost.
+          </p>
+        </div>
+        <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {feeBreakdown.map((fee) => (
+            <div
+              key={fee.label}
+              className="rounded-2xl border border-border bg-background p-4 text-center"
+            >
+              <dt className="text-sm text-muted-foreground">{fee.label}</dt>
+              <dd className="mt-1 font-semibold">{fee.value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

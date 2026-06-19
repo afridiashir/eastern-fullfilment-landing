@@ -58,12 +58,7 @@ export function Integrations() {
         </div>
 
         <div className="order-1 lg:order-2">
-          <Badge
-            variant="secondary"
-            className="mb-4 rounded-full border border-primary/20 bg-primary/10 text-primary"
-          >
-            Integrations
-          </Badge>
+          
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Connect Every Channel, Carrier, and Tool You Already Use
           </h2>
