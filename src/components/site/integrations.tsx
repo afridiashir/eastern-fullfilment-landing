@@ -52,7 +52,7 @@ export function Integrations() {
             ))}
           </div>
           <div className="absolute -bottom-5 -right-3 rounded-2xl border border-border bg-card px-5 py-3 shadow-lg">
-            <div className="text-2xl font-bold text-primary">60+</div>
+            <div className="text-2xl font-bold text-foreground">60+</div>
             <div className="text-xs text-muted-foreground">Integrations</div>
           </div>
         </div>
@@ -70,10 +70,10 @@ export function Integrations() {
           <ul className="mt-8 space-y-4">
             {highlights.map((item) => (
               <li key={item.label} className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-foreground">
                   <item.icon className="h-5 w-5" />
                 </span>
-                <span className="font-medium">{item.label}</span>
+                <span className="font-medium text-foreground">{item.label}</span>
               </li>
             ))}
           </ul>

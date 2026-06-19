@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Manrope, DM_Sans } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
+import { SmoothScroll } from "@/components/site/smooth-scroll";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -37,7 +39,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }

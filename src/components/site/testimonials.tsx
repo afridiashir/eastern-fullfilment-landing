@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Star } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -52,18 +51,6 @@ const testimonials = [
     quote:
       "Branded packaging and custom inserts kept our unboxing experience intact after outsourcing. Our customers can't tell we don't ship it ourselves.",
   },
-  {
-    name: "Carlos Mendes",
-    role: "VP Supply Chain, Atlas Pet Supply",
-    quote:
-      "Multi-warehouse distribution cut our average transit time by two days and shaved a real chunk off our shipping spend.",
-  },
-  {
-    name: "Emily Carter",
-    role: "Founder, Saffron Kitchen",
-    quote:
-      "Our dedicated account manager actually knows our business. Whenever something comes up, it's handled before it becomes a problem.",
-  },
 ];
 
 const testimonialsAlt = [
@@ -108,18 +95,6 @@ const testimonialsAlt = [
     role: "Founder, Hearth & Hue",
     quote:
       "Their team flagged a carrier delay before our customers even noticed. That kind of proactive support is genuinely rare.",
-  },
-  {
-    name: "Diego Romero",
-    role: "VP Ops, Cobalt Apparel",
-    quote:
-      "We scaled from 200 to 4,000 orders a month with zero added headcount on our side. The operation just absorbed it.",
-  },
-  {
-    name: "Rachel Kim",
-    role: "Founder, Tidewater Goods",
-    quote:
-      "Onboarding was genuinely smooth — we were live and shipping within ten days of signing the contract.",
   },
 ];
 
