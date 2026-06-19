@@ -1,6 +1,12 @@
 import Link from "next/link";
-import { CalendarCheck } from "lucide-react";
+import { ArrowRight, CalendarCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const steps = [
+  { step: "01", label: "Tell us your volume", detail: "Share your order volume, SKUs, and channels." },
+  { step: "02", label: "Get a custom quote", detail: "We map the right plan and warehouse mix." },
+  { step: "03", label: "Go live in 30 minutes", detail: "Connect your store and start sending us orders in under 30 minutes." },
+];
 
 export function CtaBanner() {
   return (
@@ -10,20 +16,44 @@ export function CtaBanner() {
         <div className="pointer-events-none absolute -bottom-20 -right-10 h-64 w-64 rounded-full bg-white/10 blur-2xl" />
         <div className="relative mx-auto max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Talk to our agent!
+            Ready to outsource your fulfillment?
           </h2>
           <p className="mt-4 text-lg text-primary-foreground/80">
-            Book a free appointment and let&apos;s map out your next build
-            together.
+            Get faster shipping, accurate inventory, and per-order rates that
+            scale with you — with no long-term contract.
           </p>
-          <Button
-            render={<Link href="#contact" />}
-            size="lg"
-            variant="secondary"
-            className="mt-8 rounded-full"
-          >
-            <CalendarCheck className="h-4 w-4" /> Book Appointment
-          </Button>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button
+              render={<Link href="#contact" />}
+              size="lg"
+              variant="secondary"
+              className="rounded-full"
+            >
+              Get started <ArrowRight className="h-4 w-4" />
+            </Button>
+            <Button
+              render={<Link href="#contact" />}
+              size="lg"
+              variant="outline"
+              className="rounded-full border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+            >
+              <CalendarCheck className="h-4 w-4" /> Book a call
+            </Button>
+          </div>
+        </div>
+
+        <div className="relative mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-3">
+          {steps.map((s) => (
+            <div key={s.step} className="text-center sm:text-left">
+              <div className="text-sm font-semibold text-primary-foreground/60">
+                {s.step}
+              </div>
+              <div className="mt-1 font-semibold">{s.label}</div>
+              <p className="mt-1 text-sm text-primary-foreground/70">
+                {s.detail}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

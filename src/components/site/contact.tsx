@@ -8,9 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "hello@indicho.com" },
-  { icon: Phone, label: "WhatsApp", value: "+1 (555) 012-3456" },
-  { icon: MapPin, label: "Offices", value: "Lahore, PK · Austin, US" },
+  { icon: Mail, label: "Email", value: "hello@easternfulfillment.com" },
+  { icon: Phone, label: "Phone", value: "+1 (555) 012-3456" },
+  { icon: MapPin, label: "Fulfillment centers", value: "Dallas, TX · Newark, NJ" },
 ];
 
 export function Contact() {
@@ -25,18 +25,12 @@ export function Contact() {
     <section id="contact" className="container-px py-20 lg:py-28">
       <div className="grid gap-12 lg:grid-cols-2">
         <div>
-          <Badge
-            variant="secondary"
-            className="mb-4 rounded-full border border-primary/20 bg-primary/10 text-primary"
-          >
-            Contact
-          </Badge>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            We are here to assist you with all your queries
+            Let&apos;s get your fulfillment running
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Tell us what you&apos;re building and we&apos;ll get back to you
-            within one business day.
+            Tell us about your order volume and sales channels, and we&apos;ll
+            send a custom quote within one business day.
           </p>
 
           <ul className="mt-10 space-y-5">
@@ -64,7 +58,8 @@ export function Contact() {
               </span>
               <h3 className="mt-5 text-xl font-semibold">Thanks for reaching out!</h3>
               <p className="mt-2 text-muted-foreground">
-                We&apos;ve received your query and will be in touch shortly.
+                We&apos;ve received your details and will send your custom quote
+                shortly.
               </p>
             </div>
           ) : (
@@ -89,31 +84,42 @@ export function Contact() {
                   />
                 </div>
               </div>
-              <div className="space-y-2">
-                <label htmlFor="phone" className="text-sm font-medium">
-                  Contact Number
-                </label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+1 (555) 000-0000"
-                />
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="volume" className="text-sm font-medium">
+                    Monthly orders
+                  </label>
+                  <Input
+                    id="volume"
+                    name="volume"
+                    placeholder="e.g. 1,500 / mo"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="channels" className="text-sm font-medium">
+                    Sales channels
+                  </label>
+                  <Input
+                    id="channels"
+                    name="channels"
+                    placeholder="Shopify, Amazon…"
+                  />
+                </div>
               </div>
               <div className="space-y-2">
-                <label htmlFor="query" className="text-sm font-medium">
-                  Your Query
+                <label htmlFor="message" className="text-sm font-medium">
+                  Tell us about your business
                 </label>
                 <Textarea
-                  id="query"
-                  name="query"
+                  id="message"
+                  name="message"
                   rows={4}
-                  placeholder="Tell us about your project..."
+                  placeholder="Product type, current 3PL, what you're looking to improve..."
                   required
                 />
               </div>
               <Button type="submit" className="w-full rounded-full" size="lg">
-                Submit <Send className="h-4 w-4" />
+                Get my quote <Send className="h-4 w-4" />
               </Button>
             </form>
           )}
