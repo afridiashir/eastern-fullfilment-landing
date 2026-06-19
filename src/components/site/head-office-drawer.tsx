@@ -51,14 +51,14 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
         )}
       >
         {/* Content card */}
-        <div className="flex w-[380px] max-w-[85vw] flex-col rounded-lg bg-white shadow-2xl">
+        <div className="flex w-[380px] max-w-[85vw] flex-col rounded-lg bg-card shadow-2xl">
           {/* Header */}
           <div className="flex items-center justify-between gap-2 px-8 pt-8">
             <div className="flex flex-col gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-black text-white">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background">
                 <Sparkles className="h-4 w-4" />
               </span>
-              <span className="text-lg font-semibold tracking-tight text-black">
+              <span className="text-lg font-semibold tracking-tight text-foreground">
                 Eastern Fullfilment
               </span>
             </div>
@@ -66,7 +66,7 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
               type="button"
               aria-label="Close menu"
               onClick={onClose}
-              className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-black transition-colors hover:bg-black hover:text-white md:hidden"
+              className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:bg-foreground hover:text-background md:hidden"
             >
               <X className="h-5 w-5" />
             </button>
@@ -77,12 +77,12 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
             <h2 className="text-xl font-bold tracking-tight">Contacts</h2>
 
             {/* Offices */}
-            <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-black">
+            <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-foreground">
               Our Offices
             </h3>
             <ul className="mt-4 space-y-5">
               <li className="text-sm leading-relaxed">
-                <p className="font-medium text-black">🇵🇰 Pakistan Office</p>
+                <p className="font-medium text-foreground">🇵🇰 Pakistan Office</p>
                 <p className="text-muted-foreground">
                   Vogue Towers, MM Alam Road
                   <br />
@@ -92,7 +92,7 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
                 </p>
               </li>
               <li className="text-sm leading-relaxed">
-                <p className="font-medium text-black">
+                <p className="font-medium text-foreground">
                   🇺🇸 United States Office
                 </p>
                 <p className="text-muted-foreground">
@@ -106,7 +106,7 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
             </ul>
 
             {/* Contact numbers */}
-            <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-black">
+            <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-foreground">
               Contact Numbers
               <span className="ml-1 normal-case text-muted-foreground">
                 (WhatsApp Enabled)
@@ -116,7 +116,7 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
               <li className="flex items-center gap-3">
                 <a
                   href="tel:+923280865227"
-                  className="text-base text-muted-foreground transition-colors hover:text-black"
+                  className="text-base text-muted-foreground transition-colors hover:text-foreground"
                 >
                   🇵🇰 Pakistan: +92 310 1234 567
                 </a>
@@ -124,7 +124,7 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
               <li className="flex items-center gap-3">
                 <a
                   href="tel:+14702327717"
-                  className="text-base text-muted-foreground transition-colors hover:text-black"
+                  className="text-base text-muted-foreground transition-colors hover:text-foreground"
                 >
                   🇺🇸 United States: +1 (470) 123-45678
                 </a>
@@ -135,7 +135,7 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
             <div className="mt-6 flex items-center gap-3">
               <a
                 href="mailto:hello@easternfullfilment.com"
-                className="text-base underline text-muted-foreground transition-colors hover:text-black"
+                className="text-base underline text-muted-foreground transition-colors hover:text-foreground"
               >
                 hello@easternfullfilment.com
               </a>
@@ -165,7 +165,7 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="inline-flex h-9 w-9 items-center justify-center text-black transition-colors hover:text-primary"
+                  className="inline-flex h-9 w-9 items-center justify-center text-foreground transition-colors hover:text-primary"
                 >
                   <FontAwesomeIcon icon={icon} className="h-5 w-5" />
                 </a>

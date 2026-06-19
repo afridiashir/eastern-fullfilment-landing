@@ -90,8 +90,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: oklch(0.546 0.215 262.881);
+  --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -145,10 +145,24 @@
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 80%);
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 80%);
   }
+  .dark .hero-grid {
+    background-image:
+      linear-gradient(to right, oklch(1 0 0 / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 0.08) 1px, transparent 1px);
+  }
   .text-gradient {
     background: linear-gradient(90deg, oklch(0.546 0.215 262.881), oklch(0.62 0.19 290));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+}
+
+@keyframes ef-draw-line {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
   }
 }

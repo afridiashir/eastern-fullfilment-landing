@@ -39,7 +39,7 @@ export function Hero() {
           </a>
           <a
             href="#contact"
-            className=" group inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium text-black transition-colors border bg-gray-100 text-black xl:px-8"
+            className=" group inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition-colors border bg-secondary text-secondary-foreground hover:bg-accent xl:px-8"
           >
             <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
               <ChevronRight className="h-4 w-4 shrink-0 transition-transform duration-500 ease-out group-hover:-translate-x-4" />

@@ -7,6 +7,7 @@ import { X, Sparkles, ChevronRight, LayoutGrid, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HeadOfficeDrawer } from "./head-office-drawer";
+import { ThemeToggle } from "./theme-toggle";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -46,7 +47,7 @@ export function Navbar() {
     <>
       <nav
         className={cn(
-          "container-lg m-auto flex h-14 items-center justify-between bg-gray-100 px-3 h-18 sm:px-4 lg:h-22",
+          "container-lg m-auto flex h-14 items-center justify-between bg-gray-100 dark:bg-card px-3 h-18 sm:px-4 lg:h-22",
           sticky
             ? "rounded-t-none rounded-b-lg md:px-4 md:mx-8 "
             : "rounded-lg border"
@@ -57,16 +58,14 @@ export function Navbar() {
             type="button"
             aria-label="Open menu"
             onClick={() => setSideOpen(true)}
-            className="group hidden lg:inline-flex items-center justify-center text-black cursor-pointer"
+            className="group hidden lg:inline-flex items-center justify-center text-foreground cursor-pointer"
           >
-            <LayoutGrid className="h-6 w-6 fill-transparent transition-colors duration-300 group-hover:fill-black" />
+            <LayoutGrid className="h-6 w-6 fill-transparent transition-colors duration-300 group-hover:fill-foreground" />
           </button>
           <Link href="#home" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Sparkles className="h-4 w-4" />
-            </span>
+            
             <span className="text-base font-semibold tracking-tight sm:text-lg">
-              Eastern <span className="text-primary">Fullfilment</span>
+              Eastern Fullfilment
             </span>
           </Link>
         </div>
@@ -80,9 +79,9 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "group rounded-full uppercase px-5 py-3 text-sm font-medium text-black transition-colors xl:px-8",
+                  "group rounded-full uppercase px-5 py-3 text-sm font-medium text-foreground transition-colors xl:px-8",
                   isActive
-                    ? "bg-white"
+                    ? "bg-white text-black"
                     : "bg-transparent hover:bg-primary hover:text-white"
                 )}
               >
@@ -101,11 +100,12 @@ export function Navbar() {
 
         {/* Desktop actions */}
         <div className="hidden items-center gap-2 lg:flex">
+          <ThemeToggle className="h-11 w-11" />
           <button
             type="button"
             aria-label="Search"
             onClick={() => setSearchOpen(true)}
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-black transition-colors hover:text-muted-foreground"
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground"
           >
             <Search className="h-5 w-5" />
           </button>
@@ -125,17 +125,18 @@ export function Navbar() {
 
         {/* Mobile actions */}
         <div className="flex items-center gap-1 lg:hidden">
+          <ThemeToggle />
           <button
             type="button"
             aria-label="Search"
             onClick={() => setSearchOpen(true)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-black transition-colors hover:text-muted-foreground"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground"
           >
             <Search className="h-5 w-5" />
           </button>
           <button
             type="button"
-            className="group inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-black"
+            className="group inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-foreground"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
           >
@@ -198,7 +199,7 @@ export function Navbar() {
         {/* Panel */}
         <aside
           className={cn(
-            "absolute right-0 top-0 flex h-full w-72 max-w-[80vw] flex-col bg-white shadow-2xl transition-transform duration-500 ease-out",
+            "absolute right-0 top-0 flex h-full w-72 max-w-[80vw] flex-col bg-background shadow-2xl transition-transform duration-500 ease-out",
             open ? "translate-x-0" : "translate-x-full"
           )}
         >
@@ -208,7 +209,7 @@ export function Navbar() {
               type="button"
               aria-label="Close menu"
               onClick={() => setOpen(false)}
-              className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-black transition-colors hover:bg-black hover:text-white"
+              className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:bg-foreground hover:text-background"
             >
               <X className="h-5 w-5" />
             </button>
@@ -226,7 +227,7 @@ export function Navbar() {
                     "rounded-md px-3 py-3 text-sm font-medium uppercase transition-colors",
                     isActive
                       ? "text-primary"
-                      : "text-black hover:text-primary"
+                      : "text-foreground hover:text-primary"
                   )}
                 >
                   {link.label}
@@ -269,7 +270,7 @@ export function Navbar() {
         {/* Bar */}
         <div
           className={cn(
-            "relative bg-white shadow-lg transition-transform duration-500 ease-out",
+            "relative bg-background shadow-lg transition-transform duration-500 ease-out",
             searchOpen ? "translate-y-0" : "-translate-y-full"
           )}
         >
@@ -279,13 +280,13 @@ export function Navbar() {
               type="text"
               autoFocus={searchOpen}
               placeholder="Search..."
-              className="w-full bg-transparent text-base text-black placeholder:text-muted-foreground focus:outline-none sm:text-lg"
+              className="w-full bg-transparent text-base text-foreground placeholder:text-muted-foreground focus:outline-none sm:text-lg"
             />
             <button
               type="button"
               aria-label="Close search"
               onClick={() => setSearchOpen(false)}
-              className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-black transition-colors hover:bg-black hover:text-white"
+              className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:bg-foreground hover:text-background"
             >
               <X className="h-5 w-5" />
             </button>

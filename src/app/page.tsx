@@ -17,9 +17,9 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <VideoSection />
+        <Services />
         <Pricing />
         <About />
-        <Services />
         <Team />
         <Testimonials />
         <CtaBanner />
