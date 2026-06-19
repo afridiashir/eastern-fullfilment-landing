@@ -13,9 +13,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Indicho — Hire 230+ Engineers from $99/mo",
+  title: "Eastern Fullfilment — Order Fulfillment & 3PL for Growing Brands",
   description:
-    "Top-tier engineers, AI-powered systems, and real team support. Build websites, custom web apps, and AI bots managed for your business from $99/month.",
+    "Faster shipping, accurate inventory, and per-order pricing that scales with you. Pick & pack, storage, returns, and multi-warehouse distribution with no long-term contract.",
 };
 
 export default function RootLayout({

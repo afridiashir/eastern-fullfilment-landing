@@ -1,25 +1,27 @@
 import Link from "next/link";
-import { Sparkles, Globe, MessageCircle, AtSign, Share2 } from "lucide-react";
-
-const offices = [
-  {
-    country: "Pakistan",
-    address: "12-C, Gulberg III, Lahore, Punjab 54000",
-    phone: "+92 300 1234567",
-  },
-  {
-    country: "United States",
-    address: "600 Congress Ave, Austin, TX 78701",
-    phone: "+1 (555) 012-3456",
-  },
-];
+import {
+  Globe,
+  MessageCircle,
+  AtSign,
+  Share2,
+  Mail,
+  Phone,
+} from "lucide-react";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
   { label: "Services", href: "#services" },
   { label: "Pricing", href: "#pricing" },
   { label: "Testimonials", href: "#testimonials" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
+];
+
+const services = [
+  "Pick & pack",
+  "Storage & receiving",
+  "Returns processing",
+  "Kitting & bundling",
+  "Multi-warehouse distribution",
 ];
 
 const socials = [
@@ -34,18 +36,16 @@ export function Footer() {
     <footer className="border-t border-border bg-secondary/40">
       <div className="container-px py-16">
         <div className="grid gap-10 lg:grid-cols-4">
+          {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="#home" className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <Sparkles className="h-4 w-4" />
-              </span>
               <span className="text-lg font-semibold tracking-tight">
-                Indi<span className="text-primary">cho</span>
+                Eastern <span className="text-primary">Fullfilment</span>
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              Top-tier engineers, AI systems, and real team support — managed for
-              your business from $99/month.
+              Order fulfillment for growing brands — faster shipping, accurate
+              inventory, and per-order pricing that scales with you.
             </p>
             <div className="mt-6 flex gap-3">
               {socials.map((social) => (
@@ -61,6 +61,7 @@ export function Footer() {
             </div>
           </div>
 
+          {/* Navigation */}
           <div>
             <h4 className="text-sm font-semibold">Navigation</h4>
             <ul className="mt-4 space-y-3">
@@ -77,21 +78,59 @@ export function Footer() {
             </ul>
           </div>
 
-          {offices.map((office) => (
-            <div key={office.country}>
-              <h4 className="text-sm font-semibold">{office.country} Office</h4>
-              <p className="mt-4 text-sm text-muted-foreground">
-                {office.address}
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {office.phone}
-              </p>
-            </div>
-          ))}
+          {/* Services */}
+          <div>
+            <h4 className="text-sm font-semibold">Services</h4>
+            <ul className="mt-4 space-y-3">
+              {services.map((service) => (
+                <li key={service}>
+                  <Link
+                    href="#services"
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    {service}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-sm font-semibold">Get in touch</h4>
+            <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-primary" />
+                <a
+                  href="mailto:hello@easternfulfillment.com"
+                  className="transition-colors hover:text-primary"
+                >
+                  hello@easternfulfillment.com
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-primary" />
+                <a
+                  href="tel:+15550123456"
+                  className="transition-colors hover:text-primary"
+                >
+                  +1 (555) 012-3456
+                </a>
+              </li>
+            </ul>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Fulfillment centers in
+              <br />
+              Dallas, TX · Newark, NJ
+            </p>
+          </div>
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Indicho Digital Solutions. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Eastern Fullfilment. All rights
+            reserved.
+          </p>
           <div className="flex gap-6">
             <Link href="#" className="transition-colors hover:text-primary">
               Privacy
