@@ -129,7 +129,7 @@ export function Services() {
                       <span className="font-semibold">{service.title}</span>
                       <ChevronRight
                         className={cn(
-                          "h-4 w-4 shrink-0 text-muted-foreground transition-transform",
+                          "h-4 w-4 hidden md:block shrink-0 text-muted-foreground transition-transform",
                           isActive
                             ? "translate-x-0 text-primary"
                             : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
