@@ -4,7 +4,7 @@ import { Pricing } from "@/components/site/pricing";
 import { About } from "@/components/site/about";
 import { VideoSection } from "@/components/site/video";
 import { Services } from "@/components/site/services";
-import { Team } from "@/components/site/team";
+import { Integrations } from "@/components/site/integrations";
 import { Testimonials } from "@/components/site/testimonials";
 import { CtaBanner } from "@/components/site/cta";
 import { Contact } from "@/components/site/contact";
@@ -18,9 +18,9 @@ export default function Home() {
         <Hero />
         <VideoSection />
         <Services />
-        <Pricing />
         <About />
-        <Team />
+        <Integrations />
+        <Pricing />
         <Testimonials />
         <CtaBanner />
         <Contact />
