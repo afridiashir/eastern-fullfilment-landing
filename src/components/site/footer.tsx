@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "./logo";
 import {
   Globe,
   MessageCircle,
@@ -38,11 +39,7 @@ export function Footer() {
         <div className="grid gap-10 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="#home" className="flex items-center gap-2">
-              <span className="text-lg font-semibold tracking-tight">
-                Eastern <span className="text-primary">Fullfilment</span>
-              </span>
-            </Link>
+            <Logo imgClassName="h-9 w-auto" />
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
               Order fulfillment for growing brands — faster shipping, accurate
               inventory, and per-order pricing that scales with you.

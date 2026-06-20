@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { onIntroDone } from "@/lib/intro";
 
 type AnimatedHeadingProps = {
   text: string;
@@ -14,13 +15,23 @@ export function AnimatedHeading({ text, className }: AnimatedHeadingProps) {
 
   useGSAP(
     () => {
-      gsap.from(".heading-letter", {
-        y: "0.5em",
-        opacity: 0,
-        rotateX: -90,
-        duration: 0.4,
-        ease: "back.out(1.7)",
-        stagger: 0.025,
+      // Keep the letters hidden until the intro loader has slid away.
+      gsap.set(".heading-letter", { opacity: 0 });
+
+      return onIntroDone(() => {
+        gsap.fromTo(
+          ".heading-letter",
+          { y: "0.5em", opacity: 0, rotateX: -90 },
+          {
+            y: 0,
+            opacity: 1,
+            rotateX: 0,
+            duration: 0.4,
+            ease: "back.out(1.7)",
+            stagger: 0.025,
+            delay: 0.5,
+          }
+        );
       });
     },
     { scope: containerRef }

@@ -1,6 +1,6 @@
 "use client";
 
-import { X, Sparkles, Phone, Mail, ChevronRight } from "lucide-react";
+import { X, ChevronRight } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { cn } from "@/lib/utils";
+import { Logo } from "./logo";
 
 interface HeadOfficeDrawerProps {
   open: boolean;
@@ -55,9 +56,7 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
           {/* Header */}
           <div className="flex items-center justify-between gap-2 px-8 pt-8">
             <div className="flex flex-col gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background">
-                <Sparkles className="h-4 w-4" />
-              </span>
+              <Logo withWordmark={false} imgClassName="h-12 w-auto" />
               <span className="text-lg font-semibold tracking-tight text-foreground">
                 Eastern Fullfilment
               </span>

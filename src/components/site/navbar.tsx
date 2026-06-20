@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HeadOfficeDrawer } from "./head-office-drawer";
 import { ThemeToggle } from "./theme-toggle";
+import { Logo } from "./logo";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -62,12 +63,7 @@ export function Navbar() {
           >
             <LayoutGrid className="h-6 w-6 fill-transparent transition-colors duration-300 group-hover:fill-foreground" />
           </button>
-          <Link href="#home" className="flex items-center gap-2">
-            
-            <span className="text-base font-semibold tracking-tight sm:text-lg">
-              Eastern Fullfilment
-            </span>
-          </Link>
+          <Logo />
         </div>
 
         {/* Desktop links */}
@@ -203,8 +199,8 @@ export function Navbar() {
             open ? "translate-x-0" : "translate-x-full"
           )}
         >
-          <div className="flex items-center justify-end px-5 py-4">
-            
+          <div className="flex items-center justify-between px-5 py-4">
+            <Logo imgClassName="h-8 w-auto" />
             <button
               type="button"
               aria-label="Close menu"

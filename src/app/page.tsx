@@ -10,10 +10,12 @@ import { Faq } from "@/components/site/faq";
 import { CtaBanner } from "@/components/site/cta";
 import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
+import { StructuredData } from "@/components/site/structured-data";
 
 export default function Home() {
   return (
     <>
+      <StructuredData />
       <Navbar />
       <main className="flex-1">
         <Hero />
