@@ -27,7 +27,7 @@ export function VideoSection() {
 
   return (
     <section className="container-px">
-      <div className="group relative mx-auto mt-12 overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-secondary to-purple-400/10 shadow-xl shadow-primary/5">
+      <div className="group relative mx-auto mt-12 overflow-hidden rounded-3xl overflow-hidden border border-border bg-gradient-to-br from-primary/10 via-secondary to-purple-400/10 shadow-xl shadow-primary/5">
         <video
           className="h-full w-full object-cover lg:hidden"
           src="/cloud.mobile-BiHR-WV1.webm"
