@@ -2,11 +2,10 @@
 
 import { useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Star } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(useGSAP);
 
 const testimonials = [
   {
@@ -112,7 +111,6 @@ const brands = [
 
 export function Testimonials() {
   const sectionRef = useRef<HTMLElement>(null);
-  const pinRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const trackReverseRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
@@ -120,35 +118,23 @@ export function Testimonials() {
 
   useGSAP(
     () => {
+      // Continuous card marquees. Each row is rendered twice, so wrapping at
+      // 50% is seamless. The two rows scroll in opposite directions.
       const track = trackRef.current;
+      if (track) {
+        gsap.fromTo(
+          track,
+          { xPercent: 0 },
+          { xPercent: -50, ease: "none", duration: 60, repeat: -1 }
+        );
+      }
+
       const trackReverse = trackReverseRef.current;
-      const pin = pinRef.current;
-      if (track && trackReverse && pin) {
-        // Pin the section and scrub the two card rows horizontally as the user
-        // scrolls vertically — the rows travel in opposite directions.
-        const dist = (el: HTMLElement) =>
-          Math.max(0, el.scrollWidth - window.innerWidth);
-        const getMaxDistance = () => Math.max(dist(track), dist(trackReverse));
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: pin,
-            start: "top top",
-            end: () => `+=${getMaxDistance()}`,
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        // Row 1 drifts left, Row 2 starts shifted left and drifts back right.
-        tl.fromTo(track, { x: 0 }, { x: () => -dist(track), ease: "none" }, 0);
-        tl.fromTo(
+      if (trackReverse) {
+        gsap.fromTo(
           trackReverse,
-          { x: () => -dist(trackReverse) },
-          { x: 0, ease: "none" },
-          0
+          { xPercent: -50 },
+          { xPercent: 0, ease: "none", duration: 60, repeat: -1 }
         );
       }
 
@@ -181,14 +167,10 @@ export function Testimonials() {
       ref={sectionRef}
       className="overflow-hidden bg-secondary/40 py-20 lg:py-28"
     >
-      {/* Pinned horizontal-scroll stage */}
-      <div
-        ref={pinRef}
-        className="flex h-screen flex-col justify-center gap-10 lg:gap-14"
-      >
+      <div className="flex flex-col gap-10 lg:gap-14">
         <div className="container-px">
           <div className="mx-auto max-w-2xl text-center">
-            
+
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Trusted by the brands we ship for
             </h2>
@@ -199,22 +181,19 @@ export function Testimonials() {
           </div>
         </div>
 
-        {/* Horizontal card tracks — two rows, opposite directions */}
+        {/* Horizontal card marquees — two rows, opposite directions */}
         <div className="flex flex-col gap-6">
-          <div
-            ref={trackRef}
-            className="flex w-max items-stretch gap-6 px-5 sm:px-8"
-          >
-            {testimonials.map((t) => (
-              <TestimonialCard key={`row1-${t.name}`} {...t} />
+          <div ref={trackRef} className="flex w-max items-stretch gap-6 pr-6">
+            {[...testimonials, ...testimonials].map((t, i) => (
+              <TestimonialCard key={`row1-${t.name}-${i}`} {...t} />
             ))}
           </div>
           <div
             ref={trackReverseRef}
-            className="flex w-max items-stretch gap-6 px-5 sm:px-8"
+            className="flex w-max items-stretch gap-6 pr-6"
           >
-            {testimonialsAlt.map((t) => (
-              <TestimonialCard key={`row2-${t.name}`} {...t} />
+            {[...testimonialsAlt, ...testimonialsAlt].map((t, i) => (
+              <TestimonialCard key={`row2-${t.name}-${i}`} {...t} />
             ))}
           </div>
         </div>
