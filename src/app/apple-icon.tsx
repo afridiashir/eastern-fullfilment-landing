@@ -1,10 +1,16 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
 // Apple touch icon — no rounded corners (iOS applies its own mask).
-export default function AppleIcon() {
+export default async function AppleIcon() {
+  // White logo mark, embedded so Satori can render it without a network fetch.
+  const logo = await readFile(join(process.cwd(), "public/logo_dark.png"));
+  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -15,13 +21,10 @@ export default function AppleIcon() {
           alignItems: "center",
           justifyContent: "center",
           background: "#3b5bdb",
-          color: "#ffffff",
-          fontSize: 112,
-          fontWeight: 700,
-          fontFamily: "sans-serif",
         }}
       >
-        E
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoSrc} alt="Eastern Fullfilment" width={112} height={112} />
       </div>
     ),
     { ...size },

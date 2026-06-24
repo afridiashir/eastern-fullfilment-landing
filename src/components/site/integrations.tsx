@@ -1,21 +1,65 @@
 import { Plug, RefreshCw, Zap } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
-type Platform = {
-  name: string;
-  logo: string;
+type MarqueeColumn = {
+  logos: string[];
+  animation: string;
 };
 
-const platforms: Platform[] = [
-  { name: "Shopify", logo: "/logos/shopify.svg" },
-  { name: "WooCommerce", logo: "/logos/woocommerce.svg" },
-  { name: "BigCommerce", logo: "/logos/bigcommerce.svg" },
-  { name: "eBay", logo: "/logos/ebay.svg" },
-  { name: "Etsy", logo: "/logos/etsy.svg" },
-  { name: "TikTok Shop", logo: "/logos/tiktok.svg" },
-  { name: "UPS", logo: "/logos/ups.svg" },
-  { name: "FedEx", logo: "/logos/fedex.svg" },
-  { name: "DHL", logo: "/logos/dhl.svg" },
+const base = "/landing-page/integrations";
+
+const columns: MarqueeColumn[] = [
+  {
+    animation: "marquee-down 26s linear infinite",
+    logos: [
+      "airtable_logo",
+      "azure_logo",
+      "cal.com_logo",
+      "calendar_logo",
+      "calendly_logo",
+      "discord_logo",
+      "docs_logo",
+      "square_logo",
+    ],
+  },
+  {
+    animation: "marquee-up 32s linear infinite",
+    logos: [
+      "drive_logo",
+      "dropbox_logo",
+      "excel_logo",
+      "facebook_logo",
+      "gmail_logo",
+      "google_slides_logo",
+      "instagram_logo",
+      "stripe_logo",
+    ],
+  },
+  {
+    animation: "marquee-down 29s linear infinite",
+    logos: [
+      "notion_logo",
+      "outlook_logo",
+      "powerpoint_logo",
+      "sheets_logo",
+      "shopify_logo",
+      "slack_logo",
+      "teams_logo",
+      "acuity_logo",
+    ],
+  },
+  {
+    animation: "marquee-up 35s linear infinite",
+    logos: [
+      "telegram_logo",
+      "tiktok_logo",
+      "twilio_logo",
+      "whatsapp_logo",
+      "word_logo",
+      "x_logo",
+      "youtube_logo",
+      "woo_commerce_logo",
+    ],
+  },
 ];
 
 const highlights = [
@@ -24,41 +68,48 @@ const highlights = [
   { icon: Zap, label: "Real-time webhooks, no polling delays" },
 ];
 
+const maskStyle = {
+  maskImage:
+    "radial-gradient(ellipse 80% 46% at center, black 60%, transparent 100%)",
+  WebkitMaskImage:
+    "radial-gradient(ellipse 80% 46% at center, black 60%, transparent 100%)",
+};
+
 export function Integrations() {
   return (
     <section id="integrations" className="container-px py-20 lg:py-28">
       <div className="grid items-center gap-12 lg:grid-cols-2">
-        <div className="relative order-2 lg:order-1">
-          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-primary/15 to-purple-400/15 blur-2xl" />
-          <div className="relative grid grid-cols-3 gap-3">
-            {platforms.map((p) => (
-              <div
-                key={p.name}
-                className="flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-card p-2 text-center transition-all hover:-translate-y-0.5 hover:shadow-sm hover:shadow-primary/5"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={p.logo}
-                  alt={`${p.name} logo`}
-                  width={48}
-                  height={48}
-                  loading="lazy"
-                  className="h-12 w-12 object-contain"
-                />
-                <span className="truncate text-xs font-medium text-muted-foreground">
-                  {p.name}
-                </span>
+        <div className="order-2 lg:order-1">
+          <div
+            className="relative flex h-[360px] justify-center gap-6 sm:gap-10 lg:h-[520px] lg:gap-10"
+            style={maskStyle}
+          >
+            {columns.map((col, i) => (
+              <div key={i} className="flex-none overflow-hidden">
+                <div
+                  data-marquee-col="true"
+                  className="flex flex-col gap-6 sm:gap-7 lg:gap-8"
+                  style={{ animation: col.animation }}
+                >
+                  {[...col.logos, ...col.logos].map((logo, j) => (
+                    <div
+                      key={`${logo}-${j}`}
+                      className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-border-light bg-white p-3 shadow-sm lg:h-[72px] lg:w-[72px]"
+                    >
+                      <div
+                        aria-hidden="true"
+                        className="h-full w-full bg-contain bg-center bg-no-repeat"
+                        style={{ backgroundImage: `url(${base}/${logo}.svg)` }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
-          </div>
-          <div className="absolute -bottom-5 -right-3 rounded-2xl border border-border bg-card px-5 py-3 shadow-lg">
-            <div className="text-2xl font-bold text-foreground">60+</div>
-            <div className="text-xs text-muted-foreground">Integrations</div>
           </div>
         </div>
 
         <div className="order-1 lg:order-2">
-          
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Connect Every Channel, Carrier, and Tool You Already Use
           </h2>

@@ -26,6 +26,7 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-border-light: var(--border-light);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -65,6 +66,7 @@
   --accent-foreground: oklch(0.42 0.12 262);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0.006 256);
+  --border-light: oklch(0.955 0.004 256);
   --input: oklch(0.922 0.006 256);
   --ring: oklch(0.546 0.215 262.881);
   --chart-1: oklch(0.87 0 0);
@@ -100,6 +102,7 @@
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
+  --border-light: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.87 0 0);
@@ -164,5 +167,29 @@
   }
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes marquee-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-marquee-col="true"] {
+    animation: none !important;
   }
 }
