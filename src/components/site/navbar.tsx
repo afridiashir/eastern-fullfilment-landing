@@ -48,10 +48,10 @@ export function Navbar() {
     <>
       <nav
         className={cn(
-          "container-lg m-auto flex h-14 items-center justify-between bg-gray-100 dark:bg-card px-3 h-18 sm:px-4 lg:h-22",
+          "container-lg m-auto flex h-14 items-center justify-between px-3 h-18 sm:px-4 lg:h-22",
           sticky
-            ? "rounded-t-none rounded-b-lg md:px-4 md:mx-8 "
-            : "rounded-lg border"
+            ? "rounded-t-none rounded-b-lg md:px-4 md:mx-8 border-b border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
+            : "rounded-lg border bg-gray-100 dark:bg-card"
         )}
       >
         <div className="flex items-center gap-3 sm:gap-6 lg:gap-8">
