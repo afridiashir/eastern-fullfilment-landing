@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig, absoluteUrl } from "@/lib/site";
 import { products } from "@/lib/products";
+import { industries } from "@/lib/industries";
 
 // The home page sections are anchors, not crawlable URLs. Real routes (like the
 // product pages) are listed explicitly. Add new routes here as they're introduced.
@@ -15,6 +16,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...products.map((product) => ({
       url: absoluteUrl(`/product/${product.slug}`),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    ...industries.map((industry) => ({
+      url: absoluteUrl(`/industries/${industry.slug}`),
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,

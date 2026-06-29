@@ -11,6 +11,7 @@ import {
   Truck,
   Package,
   MapPin,
+  ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ProductSolution, SolutionBlock } from "@/lib/products";
@@ -311,6 +312,93 @@ function PromiseVisual() {
   );
 }
 
+// "Eliminate routing errors with intelligent geocoding" — address → coordinates.
+function GeocodeVisual() {
+  const rows = [
+    { raw: "12 Baker St, apt", coords: "40.7129, -74.0061", ok: true },
+    { raw: "5th Ave & 42 — NYC", coords: "40.7546, -73.9840", ok: true },
+    { raw: "Unit 9, no zip code", coords: "Needs review", ok: false },
+  ];
+  return (
+    <div>
+      <PreviewHeader title="Address validation" badge="Geocoded" />
+      <div className="space-y-2.5">
+        {rows.map((r) => (
+          <div
+            key={r.raw}
+            className="flex items-center gap-3 rounded-xl border border-border bg-card px-3 py-2.5"
+          >
+            <MapPin
+              className={cn(
+                "h-4 w-4 shrink-0",
+                r.ok ? "text-primary" : "text-yellow-500"
+              )}
+            />
+            <span className="truncate text-xs text-muted-foreground">
+              {r.raw}
+            </span>
+            <ArrowRight className="ml-auto h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+            <span
+              className={cn(
+                "shrink-0 font-mono text-[11px]",
+                r.ok ? "text-foreground" : "text-yellow-600"
+              )}
+            >
+              {r.coords}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 flex items-center justify-between rounded-xl border border-border bg-muted/40 px-3 py-2.5">
+        <span className="text-xs text-muted-foreground">
+          Resolved before dispatch
+        </span>
+        <span className="text-xs font-semibold text-primary">98.7%</span>
+      </div>
+    </div>
+  );
+}
+
+// "Accelerate hub operations with faster parcel sorting" — sort lanes by route.
+function SortingVisual() {
+  const lanes = [
+    { route: "Route A · North", count: 42, pct: 90 },
+    { route: "Route B · Central", count: 31, pct: 70 },
+    { route: "Route C · South", count: 18, pct: 45 },
+  ];
+  return (
+    <div>
+      <PreviewHeader title="Hub sorting" badge="Optimized" />
+      <div className="space-y-3">
+        {lanes.map((l) => (
+          <div key={l.route}>
+            <div className="mb-1.5 flex items-center gap-2 text-xs">
+              <Package className="h-3.5 w-3.5 text-primary" />
+              <span className="font-medium">{l.route}</span>
+              <span className="ml-auto text-muted-foreground">
+                {l.count} parcels
+              </span>
+            </div>
+            <div className="h-2 overflow-hidden rounded-full bg-muted">
+              <div
+                className="h-full rounded-full bg-primary"
+                style={{ width: `${l.pct}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 flex items-center justify-between rounded-xl border border-border bg-muted/40 px-3 py-2.5">
+        <span className="text-xs text-muted-foreground">Loaded & dispatched</span>
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
+          <Truck className="h-3.5 w-3.5" />
+          On schedule
+        </span>
+      </div>
+    </div>
+  );
+}
+
 const visuals: Record<string, () => React.ReactNode> = {
   lifecycle: LifecycleVisual,
   activity: ActivityVisual,
@@ -318,10 +406,12 @@ const visuals: Record<string, () => React.ReactNode> = {
   "checkout-dates": CheckoutDatesVisual,
   "speed-cost": SpeedCostVisual,
   promise: PromiseVisual,
+  geocode: GeocodeVisual,
+  sorting: SortingVisual,
 };
 
 /** Screenshot slot — manually-added image, or a built-in mock visual. */
-function BlockVisual({ block }: { block: SolutionBlock }) {
+export function BlockVisual({ block }: { block: SolutionBlock }) {
   const Visual = block.visual ? visuals[block.visual] : undefined;
   return (
     <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-xl shadow-primary/5">

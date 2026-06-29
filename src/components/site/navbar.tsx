@@ -30,7 +30,7 @@ const navLinks: NavLink[] = [
     label: "Industries",
     children: [
       { label: "E-commerce", href: "/industries/ecommerce" },
-      { label: "Retail", href: "/industries/retail" },
+      { label: "FMCG/CPG", href: "/industries/fmcg-cpg" },
       { label: "Manufacturing", href: "/industries/manufacturing" },
       { label: "Third-Party Logistics", href: "/industries/3pl" },
     ],
