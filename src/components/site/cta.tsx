@@ -42,7 +42,7 @@ export function CtaBanner() {
           </div>
         </div>
 
-        <div className="relative mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-3">
+        {/* <div className="relative mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-3">
           {steps.map((s) => (
             <div key={s.step} className="text-center sm:text-left">
               <div className="text-sm font-semibold text-primary-foreground/60">
@@ -54,7 +54,7 @@ export function CtaBanner() {
               </p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -27,6 +27,11 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-border-light: var(--border-light);
+  --color-border-subtle: var(--border);
+  --color-text-primary: var(--foreground);
+  --color-accent-green: oklch(0.72 0.19 149);
+  --color-accent-blue: oklch(0.62 0.19 256);
+  --color-accent-yellow: oklch(0.79 0.16 86);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);

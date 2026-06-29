@@ -1,15 +1,29 @@
 import type { MetadataRoute } from "next";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, absoluteUrl } from "@/lib/site";
+import { products } from "@/lib/products";
 
-// Single-page site: the on-page sections are anchors, not crawlable URLs, so the
-// sitemap lists the home page. Add new routes here as real pages are introduced.
+// The home page sections are anchors, not crawlable URLs. Real routes (like the
+// product pages) are listed explicitly. Add new routes here as they're introduced.
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
   return [
     {
       url: siteConfig.url,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: "weekly",
       priority: 1,
+    },
+    ...products.map((product) => ({
+      url: absoluteUrl(`/product/${product.slug}`),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    {
+      url: absoluteUrl("/integrations"),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
     },
   ];
 }

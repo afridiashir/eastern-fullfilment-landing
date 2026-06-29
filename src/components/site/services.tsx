@@ -1,627 +1,481 @@
-"use client";
-
-import { useState } from "react";
-import {
-  Boxes,
-  ClipboardList,
-  Warehouse,
-  LayoutDashboard,
-  Truck,
-  BarChart3,
-  ChevronRight,
-  type LucideIcon,
-} from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
-
-type Service = {
-  id: string;
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  path: string;
-  preview: () => React.ReactNode;
-};
-
-const services: Service[] = [
-  {
-    id: "inventory",
-    icon: Boxes,
-    title: "Inventory Management",
-    description:
-      "Monitor stock levels across warehouses with real-time inventory tracking and automated updates.",
-    path: "inventory",
-    preview: InventoryPreview,
-  },
-  {
-    id: "orders",
-    icon: ClipboardList,
-    title: "Order Management",
-    description:
-      "Automatically receive, process, and fulfill orders from multiple sales channels.",
-    path: "orders",
-    preview: OrdersPreview,
-  },
-  {
-    id: "warehouse",
-    icon: Warehouse,
-    title: "Warehouse Operations",
-    description:
-      "Optimize picking, packing, receiving, and shipping workflows to improve efficiency and accuracy.",
-    path: "operations",
-    preview: WarehousePreview,
-  },
-  {
-    id: "portal",
-    icon: LayoutDashboard,
-    title: "Client Portal",
-    description:
-      "Give customers real-time visibility into inventory, orders, shipments, and performance metrics.",
-    path: "portal",
-    preview: PortalPreview,
-  },
-  {
-    id: "shipping",
-    icon: Truck,
-    title: "Shipping Integrations",
-    description:
-      "Connect with leading carriers to generate labels, track shipments, and reduce delivery times.",
-    path: "shipping",
-    preview: ShippingPreview,
-  },
-  {
-    id: "analytics",
-    icon: BarChart3,
-    title: "Analytics & Reporting",
-    description:
-      "Access operational insights, fulfillment performance, inventory trends, and business metrics.",
-    path: "analytics",
-    preview: AnalyticsPreview,
-  },
-];
-
 export function Services() {
-  const [activeId, setActiveId] = useState(services[0].id);
-  const active = services.find((s) => s.id === activeId) ?? services[0];
-
   return (
-    <section id="services" className="container-px py-20 lg:py-28">
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Everything You Need to Scale Fulfillment
-        </h2>
-        <p className="mt-4 text-muted-foreground">
-          A complete fulfillment platform — explore each capability and see it
-          in action.
-        </p>
-      </div>
+    <section id="services" className="pt-16 lg:pt-24 pb-4 lg:pb-5">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:grid-rows-[520px_520px] gap-3 lg:gap-4">
+          {/* Automate Your Business Tasks */}
+          <div className="lg:col-span-8 group" style={{ opacity: 1, transform: "none" }}>
+            <div className="border border-border-light relative h-full rounded-[12px] overflow-hidden min-h-[300px] sm:min-h-[360px] lg:min-h-0 transition-transform duration-300 ease-out flex flex-col sm:block">
+              <div className="relative z-10 flex flex-col gap-4 p-6 lg:p-8 sm:max-w-[55%] md:max-w-[48%] lg:max-w-[50%] sm:h-full overflow-visible">
+                <div className="self-start">
+                  <div className="relative">
+                    <div
+                      className="inline-flex px-3 py-1 sm:px-4 sm:py-1.5 rounded-[12px] sm:rounded-[16px] rounded-bl-[4px] sm:rounded-bl-[6px] whitespace-nowrap"
+                      style={{ backgroundColor: "rgba(59, 130, 246, 0.1)" }}
+                    >
+                      <span
+                        className="text-[12px] sm:text-[13px] lg:text-[14px] font-medium"
+                        style={{ color: "#3b82f6" }}
+                      >
+                        &ldquo;I want to save time writing emails&rdquo;
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <h3 className="text-3xl sm:text-4xl font-semibold text-text-primary leading-[1.1] tracking-tight">
+                  Automate Your
+                  <br />
+                  Business Tasks
+                </h3>
+                <div className="flex-1 hidden sm:block" />
+                <a
+                  className="self-start inline-flex items-center justify-center px-5 py-2.5 sm:px-7 sm:py-3.5 text-[13px] sm:text-[15px] font-semibold rounded-full text-text-primary bg-white border border-border-subtle hover:bg-black/5 transition-colors duration-200"
+                  href="/demo"
+                >
+                  Book a demo
+                </a>
+              </div>
+              <div className="relative sm:absolute sm:right-4 md:right-6 lg:right-8 sm:bottom-0 w-full sm:w-[58%] md:w-[55%] lg:w-[50%] sm:max-w-[380px] sm:origin-bottom-right sm:scale-[0.72] md:scale-[0.78] lg:scale-[0.85] xl:scale-100 px-4 sm:px-0 mt-4 sm:mt-0">
+                <div className="rounded-t-[16px] overflow-hidden shadow-2xl bg-black/70 px-5 pt-5">
+                  <div className="rounded-t-[16px] overflow-hidden shadow-2xl bg-white/15 px-5 pt-5">
+                    <div className="pb-3">
+                      <p className="text-[13px] font-medium text-[#FAFAFA]">Email Assistant</p>
+                    </div>
+                    <div className="pb-3">
+                      <p className="text-[13px] font-semibold text-white/80 mb-2.5">Draft Ready</p>
+                      <div
+                        className="rounded-[16px] px-4 py-3.5 space-y-2 border border-white/15"
+                        style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="text-[13px] font-semibold text-[#FAFAFA]">
+                            Re: Appointment confirmation
+                          </p>
+                        </div>
+                        <p className="text-[11px] text-[#FAFAFA] leading-relaxed">
+                          Hi Sarah, confirming your appointment for Thursday at 2pm. Reply to
+                          reschedule...
+                        </p>
+                      </div>
+                    </div>
+                    <div className="pb-5">
+                      <p className="text-[13px] font-medium text-[#FAFAFA] mb-2.5">Queued</p>
+                      <div
+                        className="rounded-[16px] px-4 py-3.5 space-y-2 border border-white/15"
+                        style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-[13px] font-semibold text-[#FAFAFA]">
+                              Follow-up: Invoice #1042
+                            </p>
+                            <p className="text-[11px] text-[#FAFAFA] mt-0.5">Scheduled for 9:00 AM</p>
+                          </div>
+                          <span className="text-[11px] font-medium text-white/80">Pending</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div className="mx-auto mt-14 grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:items-center">
-        {/* Clickable list */}
-        <ul className="flex flex-col gap-3">
-          {services.map((service) => {
-            const isActive = service.id === activeId;
-            return (
-              <li key={service.id}>
-                <button
-                  type="button"
-                  onClick={() => setActiveId(service.id)}
-                  aria-pressed={isActive}
-                  className={cn(
-                    "group flex w-full items-start gap-4 rounded-2xl border p-5 text-left transition-all",
-                    isActive
-                      ? "border bg-muted shadow-sm shadow-primary/5"
-                      : "border-border bg-card hover:-translate-y-0.5 hover:border hover:shadow-sm"
-                  )}
+          {/* Streamline Your Communications */}
+          <div className="lg:col-span-4" style={{ opacity: 1, transform: "none" }}>
+            <div
+              className="relative h-full rounded-[12px] overflow-hidden isolate min-h-[380px] lg:min-h-0 flex flex-col transition-transform duration-300 ease-out"
+              style={{
+                background:
+                  "linear-gradient(160deg, rgb(192, 132, 252) 0%, rgb(232, 121, 168) 20%, rgb(249, 115, 22) 40%, rgb(232, 121, 168) 55%, rgb(167, 139, 250) 70%, rgb(59, 130, 246) 100%)",
+              }}
+            >
+              <div className="relative z-10 p-6 lg:p-8">
+                <h3 className="text-3xl sm:text-4xl font-semibold text-white leading-[1.1] tracking-tight">
+                  Streamline Your
+                  <br />
+                  Communications
+                </h3>
+              </div>
+              <div className="relative z-10 mx-6 lg:mx-8 mb-6 lg:mb-8 flex-1 flex flex-col justify-end">
+                <div className="bg-black/70 rounded-[16px] overflow-hidden px-4 py-4 space-y-2.5">
+                  <div className="flex items-start gap-2.5">
+                    <div
+                      className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center border border-white/15 mt-0.5"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.6)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="3" y="11" width="18" height="10" rx="2" />
+                        <circle cx="12" cy="5" r="2" />
+                        <path d="M12 7v4" />
+                        <line x1="8" y1="16" x2="8" y2="16" />
+                        <line x1="16" y1="16" x2="16" y2="16" />
+                      </svg>
+                    </div>
+                    <div
+                      className="rounded-[16px] border border-white/15 px-3.5 py-2.5 max-w-[85%]"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <p className="text-[11px] font-semibold text-[#FAFAFA] mb-1">AI Assistant</p>
+                      <span className="text-[12px] lg:text-[13px] text-white/80 leading-relaxed block">
+                        I&rsquo;ve confirmed tomorrow&rsquo;s appointments and sent reminders to each
+                        client.
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex justify-end">
+                    <div
+                      className="rounded-[16px] border border-white/15 px-3.5 py-2.5 max-w-[85%]"
+                      style={{ backgroundColor: "rgba(255,255,255,0.12)" }}
+                    >
+                      <p className="text-[12px] lg:text-[13px] text-white/80 leading-relaxed">
+                        Perfect, can you flag anyone who hasn&rsquo;t replied yet?
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <div
+                      className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center border border-white/15 mt-0.5"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.6)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="3" y="11" width="18" height="10" rx="2" />
+                        <circle cx="12" cy="5" r="2" />
+                        <path d="M12 7v4" />
+                        <line x1="8" y1="16" x2="8" y2="16" />
+                        <line x1="16" y1="16" x2="16" y2="16" />
+                      </svg>
+                    </div>
+                    <div
+                      className="rounded-[16px] border border-white/15 px-3.5 py-2.5 max-w-[85%]"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <p className="text-[11px] font-semibold text-[#FAFAFA] mb-1">AI Assistant</p>
+                      <span className="text-[12px] lg:text-[13px] text-white/80 leading-relaxed block">
+                        Yes, I highlighted the pending replies and queued follow-ups.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Manage Your Finances */}
+          <div className="lg:col-span-4 group" style={{ opacity: 1, transform: "none" }}>
+            <div className="h-full min-h-[440px] lg:min-h-0 rounded-[12px] p-6 lg:p-8 flex flex-col gap-5 bg-secondary transition-transform duration-300 ease-out">
+              <div className="relative">
+                <div
+                  className="inline-flex px-3 py-1 sm:px-4 sm:py-1.5 rounded-[12px] sm:rounded-[16px] rounded-bl-[4px] sm:rounded-bl-[6px] whitespace-nowrap"
+                  style={{ backgroundColor: "#3b82f6" }}
                 >
                   <span
-                    className={cn(
-                      "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors",
-                      isActive
-                        ? "bg-muted text-black dark:text-white "
-                        : "bg-muted text-muted-foreground group-hover:bg-white group-hover:text-black dark:group-hover:bg-white dark:group-hover:text-black"
-                    )}
+                    className="text-[12px] sm:text-[13px] lg:text-[14px] font-medium"
+                    style={{ color: "#ffffff" }}
                   >
-                    <service.icon className="h-5 w-5" />
+                    &ldquo;I want to automate my invoicing&rdquo;
                   </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="flex items-center justify-between gap-2">
-                      <span className="font-semibold">{service.title}</span>
-                      <ChevronRight
-                        className={cn(
-                          "h-4 w-4 hidden md:block shrink-0 text-muted-foreground transition-transform",
-                          isActive
-                            ? "translate-x-0 text-primary"
-                            : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
-                        )}
-                      />
+                </div>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-semibold text-text-primary leading-[1.1] tracking-tight">
+                Manage Your Finances
+              </h3>
+              <div className="flex-1 bg-black/70 rounded-[16px] overflow-hidden flex flex-col">
+                <div className="p-4 flex flex-col flex-1 gap-3">
+                  <div className="flex items-center justify-between">
+                    <p className="text-[11px] font-medium text-[#FAFAFA]">Monthly Overview</p>
+                    <span className="text-[10px] font-medium border border-accent-green text-accent-green px-2 py-0.5 rounded-full">
+                      +12.4%
                     </span>
-                    <span className="mt-1 block text-sm text-muted-foreground">
-                      {service.description}
-                    </span>
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* Interactive browser window */}
-        <div>
-          <BrowserFrame path={active.path}>
-            <div
-              key={active.id}
-              className="animate-in fade-in-50 slide-in-from-bottom-1 duration-300"
-            >
-              <active.preview />
+                  </div>
+                  <div>
+                    <p className="text-[22px] font-bold text-[#FAFAFA] tracking-tight">$24,580</p>
+                    <p className="text-[10px] text-white/80 mt-0.5">Total revenue this month</p>
+                  </div>
+                  <style
+                    dangerouslySetInnerHTML={{
+                      __html: `
+            .bento-bar-dim { background-color: rgba(96,165,250,0.35); }
+            .bento-bar-bright { background-color: rgba(96,165,250,0.8); }
+            .bento-bar-lg-only { background-color: rgba(96,165,250,0.35); }
+            .bento-bar-xl-only { background-color: rgba(96,165,250,0.35); }
+            @media (min-width: 1024px) {
+              .bento-bar-lg-only { background-color: rgba(96,165,250,0.8); }
+            }
+            @media (min-width: 1280px) {
+              .bento-bar-lg-only { background-color: rgba(96,165,250,0.35); }
+              .bento-bar-xl-only { background-color: rgba(96,165,250,0.8); }
+            }
+          `,
+                    }}
+                  />
+                  <div className="flex items-end gap-1 sm:gap-1.5 flex-1 pt-2">
+                    <div className="flex-1 rounded-full bento-bar-dim" style={{ height: "18%" }} />
+                    <div className="flex-1 rounded-full bento-bar-dim" style={{ height: "38%" }} />
+                    <div className="flex-1 rounded-full bento-bar-dim" style={{ height: "24%" }} />
+                    <div className="flex-1 rounded-full bento-bar-dim" style={{ height: "52%" }} />
+                    <div className="flex-1 rounded-full bento-bar-dim" style={{ height: "35%" }} />
+                    <div className="flex-1 rounded-full bento-bar-dim" style={{ height: "60%" }} />
+                    <div className="flex-1 rounded-full bento-bar-dim" style={{ height: "45%" }} />
+                    <div className="flex-1 rounded-full bento-bar-dim" style={{ height: "68%" }} />
+                    <div className="flex-1 rounded-full bento-bar-lg-only" style={{ height: "72%" }} />
+                    <div className="flex-1 rounded-full bento-bar-lg-only" style={{ height: "85%" }} />
+                    <div
+                      className="flex-1 rounded-full lg:hidden xl:block bento-bar-dim"
+                      style={{ height: "62%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden xl:block bento-bar-dim"
+                      style={{ height: "82%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden xl:block bento-bar-dim"
+                      style={{ height: "68%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden xl:block bento-bar-dim"
+                      style={{ height: "78%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden xl:block bento-bar-xl-only"
+                      style={{ height: "88%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden xl:block bento-bar-xl-only"
+                      style={{ height: "95%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-dim"
+                      style={{ height: "70%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-dim"
+                      style={{ height: "55%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-dim"
+                      style={{ height: "80%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-dim"
+                      style={{ height: "62%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-dim"
+                      style={{ height: "85%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-dim"
+                      style={{ height: "72%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-dim"
+                      style={{ height: "78%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-dim"
+                      style={{ height: "88%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-bright"
+                      style={{ height: "82%" }}
+                    />
+                    <div
+                      className="flex-1 rounded-full lg:hidden bento-bar-bright"
+                      style={{ height: "96%" }}
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 pt-1">
+                    <div className="text-center">
+                      <p className="text-[12px] font-semibold text-[#FAFAFA]">142</p>
+                      <p className="text-[9px] text-white/80">Invoices</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[12px] font-semibold text-[#FAFAFA]">$3,200</p>
+                      <p className="text-[9px] text-white/80">Pending</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[12px] font-semibold text-[#FAFAFA]">$21,380</p>
+                      <p className="text-[9px] text-white/80">Paid</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </BrowserFrame>
+          </div>
+
+          {/* Generate Your Campaigns */}
+          <div className="lg:col-span-4 group" style={{ opacity: 1, transform: "none" }}>
+            <div
+              className="relative h-full rounded-[12px] overflow-hidden isolate flex flex-col min-h-[340px] lg:min-h-0 transition-transform duration-300 ease-out"
+              style={{
+                background:
+                  "linear-gradient(160deg, #a78bfa 0%, #818cf8 25%, #f87171 50%, #fb923c 70%, #fbbf24 100%)",
+              }}
+            >
+              <div className="relative lg:absolute lg:top-0 lg:left-0 z-20 p-6 lg:p-8 pb-0">
+                <h3 className="text-3xl sm:text-4xl font-semibold text-white leading-[1.1] tracking-tight">
+                  Generate Your
+                  <br />
+                  Campaigns
+                </h3>
+              </div>
+              <div className="relative z-10 lg:flex-1 lg:flex lg:items-center mx-6 lg:mx-8 mt-4 lg:mt-0 mb-6 lg:mb-0">
+                <div className="w-full bg-black/70 rounded-[16px] overflow-hidden p-4">
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <div
+                      className="rounded-[12px] px-3.5 py-3 border border-white/15"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <p className="text-[12px] font-semibold text-[#FAFAFA]">Summer Sale</p>
+                      <p className="text-[10px] text-white/80 mt-0.5">Email + SMS</p>
+                      <p className="text-[11px] font-semibold mt-2 text-accent-green">2.4k sent</p>
+                    </div>
+                    <div
+                      className="rounded-[12px] px-3.5 py-3 border border-white/15"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <p className="text-[12px] font-semibold text-[#FAFAFA]">New Menu Drop</p>
+                      <p className="text-[10px] text-white/80 mt-0.5">Instagram + Email</p>
+                      <p className="text-[11px] font-semibold mt-2 text-accent-blue">1.8k reached</p>
+                    </div>
+                    <div
+                      className="rounded-[12px] px-3.5 py-3 border border-white/15"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <p className="text-[12px] font-semibold text-[#FAFAFA]">Flash Promo</p>
+                      <p className="text-[10px] text-white/80 mt-0.5">Push + SMS</p>
+                      <p className="text-[11px] font-semibold mt-2 text-accent-yellow">3.1k sent</p>
+                    </div>
+                    <div
+                      className="rounded-[12px] px-3.5 py-3 border border-white/15"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <p className="text-[12px] font-semibold text-[#FAFAFA]">Loyalty Reward</p>
+                      <p className="text-[10px] text-white/80 mt-0.5">Email + In-App</p>
+                      <p className="text-[11px] font-semibold mt-2 text-accent-green">1.2k opened</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Reach Local Customers */}
+          <div className="lg:col-span-4 group" style={{ opacity: 1, transform: "none" }}>
+            <div className="h-full min-h-[380px] lg:min-h-0 rounded-[12px] p-6 lg:p-8 flex flex-col gap-5 border border-border-light transition-transform duration-300 ease-out">
+              <div className="relative">
+                <div
+                  className="inline-flex px-3 py-1 sm:px-4 sm:py-1.5 rounded-[12px] sm:rounded-[16px] rounded-bl-[4px] sm:rounded-bl-[6px] whitespace-nowrap"
+                  style={{ backgroundColor: "rgba(59, 130, 246, 0.1)" }}
+                >
+                  <span
+                    className="text-[12px] sm:text-[13px] lg:text-[14px] font-medium"
+                    style={{ color: "#3b82f6" }}
+                  >
+                    &ldquo;I want to find new leads nearby&rdquo;
+                  </span>
+                </div>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-semibold text-text-primary leading-[1.1] tracking-tight">
+                Reach Local <br /> Customers
+              </h3>
+              <div className="flex-1 bg-black/70 rounded-[16px] overflow-hidden">
+                <div className="p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <p className="text-[11px] font-medium text-[#FAFAFA]">Lead Pipeline</p>
+                    <span className="text-[10px] font-medium text-accent-blue">12 new today</span>
+                  </div>
+                  <div className="space-y-2">
+                    <div
+                      className="flex items-center justify-between rounded-lg px-3 py-2.5 border border-white/15"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold text-[#FAFAFA]"
+                          style={{ backgroundColor: "rgba(255,255,255,0.12)" }}
+                        >
+                          SM
+                        </div>
+                        <div>
+                          <p className="text-[12px] font-semibold text-[#FAFAFA]">Sarah M.</p>
+                          <p className="text-[9px] text-white/80">2m ago</p>
+                        </div>
+                      </div>
+                      <span className="text-[9px] font-semibold border px-2 py-1 rounded-full text-accent-blue border-accent-blue">
+                        Contacted
+                      </span>
+                    </div>
+                    <div
+                      className="flex items-center justify-between rounded-lg px-3 py-2.5 border border-white/15"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold text-[#FAFAFA]"
+                          style={{ backgroundColor: "rgba(255,255,255,0.12)" }}
+                        >
+                          JR
+                        </div>
+                        <div>
+                          <p className="text-[12px] font-semibold text-[#FAFAFA]">James R.</p>
+                          <p className="text-[9px] text-white/80">15m ago</p>
+                        </div>
+                      </div>
+                      <span className="text-[9px] font-semibold border px-2 py-1 rounded-full text-accent-green border-accent-green">
+                        Qualified
+                      </span>
+                    </div>
+                    <div
+                      className="flex items-center justify-between rounded-lg px-3 py-2.5 border border-white/15"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold text-[#FAFAFA]"
+                          style={{ backgroundColor: "rgba(255,255,255,0.12)" }}
+                        >
+                          LK
+                        </div>
+                        <div>
+                          <p className="text-[12px] font-semibold text-[#FAFAFA]">Lisa K.</p>
+                          <p className="text-[9px] text-white/80">1h ago</p>
+                        </div>
+                      </div>
+                      <span className="text-[9px] font-semibold border px-2 py-1 rounded-full text-accent-yellow border-accent-yellow">
+                        New Lead
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between pt-1">
+                    <p className="text-[10px] text-white/80">Conversion rate</p>
+                    <p className="text-[13px] font-bold text-accent-green">34.2%</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-/* ---------- Browser chrome ---------- */
-
-function BrowserFrame({
-  path,
-  children,
-}: {
-  path: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-xl shadow-primary/5">
-      <div className="flex items-center gap-3 border-b border-border bg-muted/40 px-4 py-3">
-        <div className="flex gap-1.5">
-          <span className="h-3 w-3 rounded-full bg-red-400/80" />
-          <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
-          <span className="h-3 w-3 rounded-full bg-green-400/80" />
-        </div>
-        <div className="flex flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground">
-          <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-          <span className="truncate">app.easternfulfillment.com/{path}</span>
-        </div>
-      </div>
-      <div className="min-h-[360px] bg-background p-5">{children}</div>
-    </div>
-  );
-}
-
-/* ---------- Per-feature previews ---------- */
-
-// Staggered entrance for list items — re-runs whenever the preview remounts.
-const stagger = "animate-in fade-in slide-in-from-bottom-2 fill-mode-both";
-const delay = (i: number) => ({ animationDelay: `${i * 70}ms` });
-
-function PreviewHeader({ title, badge }: { title: string; badge: string }) {
-  return (
-    <div className="mb-4 flex items-center justify-between">
-      <h4 className="text-sm font-semibold">{title}</h4>
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-        {badge}
-      </span>
-    </div>
-  );
-}
-
-function InventoryPreview() {
-  const rows = [
-    { sku: "EF-1042", name: "Wireless Earbuds", stock: 86, level: 86 },
-    { sku: "EF-2210", name: "Phone Case — Black", stock: 24, level: 24 },
-    { sku: "EF-3388", name: "USB-C Cable 2m", stock: 62, level: 62 },
-    { sku: "EF-4501", name: "Laptop Stand", stock: 9, level: 9 },
-  ];
-  return (
-    <div>
-      <PreviewHeader title="Inventory Overview" badge="Live sync" />
-      <div className="space-y-3">
-        {rows.map((r, i) => (
-          <div
-            key={r.sku}
-            style={delay(i)}
-            className={cn("rounded-xl border border-border bg-card p-3", stagger)}
-          >
-            <div className="flex items-center justify-between text-sm">
-              <span className="font-medium">{r.name}</span>
-              <span className="font-mono text-xs text-muted-foreground">
-                {r.sku}
-              </span>
-            </div>
-            <div className="mt-2 flex items-center gap-3">
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
-                <div
-                  className={cn(
-                    "h-full rounded-full",
-                    r.level < 15
-                      ? "bg-red-500"
-                      : r.level < 40
-                        ? "bg-yellow-500"
-                        : "bg-primary"
-                  )}
-                  style={{ width: `${r.level}%` }}
-                />
-              </div>
-              <span className="w-16 text-right text-xs text-muted-foreground">
-                {r.stock} units
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function OrdersPreview() {
-  const orders = [
-    { id: "#10482", channel: "Shopify", status: "Fulfilled", tone: "green" },
-    { id: "#10481", channel: "Amazon", status: "Packing", tone: "blue" },
-    { id: "#10480", channel: "Website", status: "Processing", tone: "yellow" },
-    { id: "#10479", channel: "eBay", status: "Received", tone: "muted" },
-  ];
-  const tones: Record<string, string> = {
-    green: "bg-green-500/10 text-green-600 dark:text-green-400",
-    blue: "bg-primary/10 text-primary",
-    yellow: "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400",
-    muted: "bg-muted text-muted-foreground",
-  };
-  return (
-    <div>
-      <PreviewHeader title="Incoming Orders" badge="Multi-channel" />
-      <div className="overflow-hidden rounded-xl border border-border">
-        {orders.map((o, i) => (
-          <div
-            key={o.id}
-            style={delay(i)}
-            className={cn(
-              "flex items-center justify-between px-4 py-3 text-sm",
-              stagger,
-              i !== orders.length - 1 && "border-b border-border"
-            )}
-          >
-            <span className="font-mono font-medium">{o.id}</span>
-            <span className="text-muted-foreground">{o.channel}</span>
-            <span
-              className={cn(
-                "rounded-full px-2.5 py-1 text-[11px] font-medium",
-                tones[o.tone]
-              )}
-            >
-              {o.status}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function WarehousePreview() {
-  const columns = [
-    { title: "Picking", count: 12, items: ["#10482", "#10485"] },
-    { title: "Packing", count: 7, items: ["#10481"] },
-    { title: "Shipping", count: 5, items: ["#10477", "#10478"] },
-  ];
-  return (
-    <div>
-      <PreviewHeader title="Fulfillment Workflow" badge="Real-time" />
-      <div className="grid grid-cols-3 gap-3">
-        {columns.map((c, i) => (
-          <div
-            key={c.title}
-            style={delay(i)}
-            className={cn("rounded-xl border border-border bg-card p-3", stagger)}
-          >
-            <div className="mb-3 flex items-center justify-between">
-              <span className="text-xs font-semibold">{c.title}</span>
-              <span className="rounded-full bg-primary/10 px-1.5 text-[10px] font-medium text-primary">
-                {c.count}
-              </span>
-            </div>
-            <div className="space-y-2">
-              {c.items.map((it) => (
-                <div
-                  key={it}
-                  className="rounded-lg border border-border bg-background px-2 py-1.5 font-mono text-[11px] text-muted-foreground"
-                >
-                  {it}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PortalPreview() {
-  const stats = [
-    { label: "In Stock", value: "8,412", sub: "SKUs" },
-    { label: "Open Orders", value: "126", sub: "this week" },
-    { label: "In Transit", value: "43", sub: "shipments" },
-    { label: "On-time Rate", value: "98.6%", sub: "last 30d" },
-  ];
-  return (
-    <div>
-      <PreviewHeader title="Client Dashboard" badge="Your account" />
-      <div className="grid grid-cols-2 gap-3">
-        {stats.map((s, i) => (
-          <div
-            key={s.label}
-            style={delay(i)}
-            className={cn("rounded-xl border border-border bg-card p-4", stagger)}
-          >
-            <div className="text-xs text-muted-foreground">{s.label}</div>
-            <div className="mt-1 text-2xl font-bold tracking-tight">
-              {s.value}
-            </div>
-            <div className="text-[11px] text-muted-foreground">{s.sub}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ShippingPreview() {
-  const carriers = [
-    { name: "UPS", tracking: "1Z999AA10123456784", status: "Out for delivery" },
-    { name: "FedEx", tracking: "7712 3456 7890", status: "In transit" },
-    { name: "DHL", tracking: "JD0149855372", status: "Label created" },
-  ];
-  return (
-    <div>
-      <PreviewHeader title="Carrier Connections" badge="Integrated" />
-      <div className="space-y-3">
-        {carriers.map((c, i) => (
-          <div
-            key={c.name}
-            style={delay(i)}
-            className={cn(
-              "flex items-center gap-3 rounded-xl border border-border bg-card p-3",
-              stagger
-            )}
-          >
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <Truck className="h-4 w-4" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center justify-between text-sm">
-                <span className="font-semibold">{c.name}</span>
-                <span className="text-[11px] text-primary">{c.status}</span>
-              </div>
-              <div className="truncate font-mono text-xs text-muted-foreground">
-                {c.tracking}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function AnalyticsPreview() {
-  const data = [120, 168, 142, 196, 175, 232, 210];
-  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  const [active, setActive] = useState<number | null>(data.length - 1);
-
-  // Chart geometry (SVG user units)
-  const W = 320;
-  const H = 150;
-  const pl = 30; // left padding (y labels)
-  const pr = 8;
-  const pt = 12;
-  const pb = 22; // bottom padding (x labels)
-  const plotW = W - pl - pr;
-  const plotH = H - pt - pb;
-
-  const max = 250;
-  const ticks = [0, 125, 250];
-  const x = (i: number) => pl + (i / (data.length - 1)) * plotW;
-  const y = (v: number) => pt + (1 - v / max) * plotH;
-
-  const points = data.map((v, i) => [x(i), y(v)] as const);
-
-  // Smooth curve through points (Catmull-Rom → cubic bézier)
-  const linePath = points.reduce((acc, [px, py], i) => {
-    if (i === 0) return `M${px.toFixed(1)},${py.toFixed(1)}`;
-    const [x0, y0] = points[i - 1];
-    const [xp, yp] = points[i - 2] ?? points[i - 1];
-    const [xn, yn] = points[i + 1] ?? points[i];
-    const c1x = x0 + (px - xp) / 6;
-    const c1y = y0 + (py - yp) / 6;
-    const c2x = px - (xn - x0) / 6;
-    const c2y = py - (yn - y0) / 6;
-    return `${acc} C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${px.toFixed(1)},${py.toFixed(1)}`;
-  }, "");
-
-  const areaPath = `${linePath} L${x(data.length - 1).toFixed(1)},${(
-    pt + plotH
-  ).toFixed(1)} L${x(0).toFixed(1)},${(pt + plotH).toFixed(1)} Z`;
-
-  // Tooltip geometry for the active point
-  const tipW = 58;
-  const tipH = 30;
-  const tipX =
-    active !== null
-      ? Math.min(Math.max(x(active) - tipW / 2, pl), W - pr - tipW)
-      : 0;
-  const tipBelow = active !== null && y(data[active]) - tipH - 10 < pt;
-  const tipY =
-    active !== null
-      ? tipBelow
-        ? y(data[active]) + 10
-        : y(data[active]) - tipH - 10
-      : 0;
-
-  return (
-    <div>
-      <PreviewHeader title="Performance Report" badge="Last 7 days" />
-      <div className="mb-4 grid grid-cols-3 gap-3">
-        {[
-          { label: "Orders", value: "1,284" },
-          { label: "Accuracy", value: "99.4%" },
-          { label: "Avg. Ship", value: "1.2d" },
-        ].map((m, i) => (
-          <div
-            key={m.label}
-            style={delay(i)}
-            className={cn("rounded-xl border border-border bg-card p-3", stagger)}
-          >
-            <div className="text-[11px] text-muted-foreground">{m.label}</div>
-            <div className="mt-0.5 text-lg font-bold">{m.value}</div>
-          </div>
-        ))}
-      </div>
-      <div
-        style={delay(3)}
-        className={cn("rounded-xl border border-border bg-card p-4", stagger)}
-      >
-        <div className="mb-3 flex items-center justify-between">
-          <span className="text-xs font-medium">Orders fulfilled / day</span>
-          <span className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
-            <span className="h-2 w-2 rounded-full bg-primary" />
-            This week
-          </span>
-        </div>
-        <svg
-          viewBox={`0 0 ${W} ${H}`}
-          className="h-40 w-full text-primary"
-          preserveAspectRatio="none"
-          role="img"
-          aria-label="Line chart of orders fulfilled per day"
-        >
-          <defs>
-            <linearGradient id="ef-analytics-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="currentColor" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-
-          {/* Gridlines + y-axis labels */}
-          {ticks.map((t) => (
-            <g key={t}>
-              <line
-                x1={pl}
-                x2={W - pr}
-                y1={y(t)}
-                y2={y(t)}
-                className="stroke-border"
-                strokeWidth={1}
-                strokeDasharray="3 3"
-              />
-              <text
-                x={pl - 6}
-                y={y(t) + 3}
-                textAnchor="end"
-                className="fill-muted-foreground"
-                fontSize={9}
-              >
-                {t}
-              </text>
-            </g>
-          ))}
-
-          {/* Area + line */}
-          <path
-            d={areaPath}
-            fill="url(#ef-analytics-fill)"
-            className="animate-in fade-in fill-mode-both duration-700 delay-500"
-          />
-          <path
-            d={linePath}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            pathLength={1}
-            className="[stroke-dasharray:1] [animation:ef-draw-line_900ms_ease-out_forwards] [stroke-dashoffset:1]"
-          />
-
-          {/* Active guide line */}
-          {active !== null && (
-            <line
-              x1={x(active)}
-              x2={x(active)}
-              y1={y(data[active])}
-              y2={pt + plotH}
-              className="stroke-primary/30"
-              strokeWidth={1}
-              strokeDasharray="3 3"
-            />
-          )}
-
-          {/* X-axis labels */}
-          {days.map((d, i) => (
-            <text
-              key={d + i}
-              x={x(i)}
-              y={H - 6}
-              textAnchor="middle"
-              className={cn(
-                "transition-colors",
-                active === i ? "fill-primary font-medium" : "fill-muted-foreground"
-              )}
-              fontSize={9}
-            >
-              {d}
-            </text>
-          ))}
-
-          {/* Tooltip */}
-          {active !== null && (
-            <g className="pointer-events-none">
-              <rect
-                x={tipX}
-                y={tipY}
-                width={tipW}
-                height={tipH}
-                rx={6}
-                className="fill-primary"
-              />
-              <text
-                x={tipX + tipW / 2}
-                y={tipY + 12}
-                textAnchor="middle"
-                className="fill-primary-foreground/80"
-                fontSize={8}
-              >
-                {days[active]}
-              </text>
-              <text
-                x={tipX + tipW / 2}
-                y={tipY + 23}
-                textAnchor="middle"
-                className="fill-primary-foreground font-semibold"
-                fontSize={10}
-              >
-                {data[active]} orders
-              </text>
-            </g>
-          )}
-
-          {/* Tap / hover targets */}
-          {points.map(([px], i) => (
-            <rect
-              key={`hit-${i}`}
-              x={px - plotW / (data.length - 1) / 2}
-              y={pt}
-              width={plotW / (data.length - 1)}
-              height={plotH}
-              fill="transparent"
-              className="cursor-pointer"
-              onClick={() => setActive(i === active ? null : i)}
-              onMouseEnter={() => setActive(i)}
-            />
-          ))}
-        </svg>
-      </div>
-    </div>
   );
 }
