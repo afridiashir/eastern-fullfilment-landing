@@ -9,18 +9,7 @@ import {
   ShoppingCart,
   ShoppingBasket,
   Factory,
-  Warehouse,
   Boxes,
-  Truck,
-  Globe,
-  BarChart3,
-  Layers,
-  Clock,
-  ShieldCheck,
-  Users,
-  Workflow,
-  Receipt,
-  TrendingUp,
   type LucideIcon,
 } from "lucide-react";
 
@@ -224,6 +213,10 @@ export const industries: Industry[] = [
       {
         tag: "Automated scheduling",
         title: "Automate delivery scheduling at scale",
+        image:
+          "https://images.unsplash.com/photo-1565891741441-64926e441838?auto=format&fit=crop&w=1000&q=70",
+        imageAlt:
+          "Aerial view of delivery trucks lined up at warehouse loading docks",
         visual: "activity",
         body: [
           "Eastern groups orders, plans routes, and schedules deliveries from a centralized dispatch interface, reducing manual planning effort for high-volume operations.",
@@ -233,6 +226,9 @@ export const industries: Industry[] = [
       {
         tag: "Flexible delivery options",
         title: "Offer the flexible delivery options customers expect",
+        image:
+          "https://images.unsplash.com/photo-1611095973763-414019e72400?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Customer placing an online order on a laptop",
         visual: "checkout-dates",
         body: [
           "Connect delivery-slot selection and rescheduling workflows with capacity-aware planning, so customers can choose convenient delivery windows without creating operational bottlenecks.",
@@ -242,6 +238,10 @@ export const industries: Industry[] = [
       {
         tag: "Address accuracy",
         title: "Eliminate routing errors with intelligent geocoding",
+        image:
+          "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1000&q=70",
+        imageAlt:
+          "Detailed world map representing address geocoding and coverage",
         visual: "geocode",
         body: [
           "Eastern converts incomplete or inaccurate addresses into precise geographic coordinates before routes are assigned.",
@@ -251,6 +251,9 @@ export const industries: Industry[] = [
       {
         tag: "Multiple delivery channels",
         title: "Utilize fleets efficiently across delivery channels",
+        image:
+          "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Container ships and cranes at a busy shipping port",
         visual: "speed-cost",
         body: [
           "Eastern allocates orders across captive fleets and third-party carriers based on cost, delivery window, location, and available capacity — automatically, at dispatch time.",
@@ -260,6 +263,10 @@ export const industries: Industry[] = [
       {
         tag: "Faster parcel sorting",
         title: "Accelerate hub operations with faster parcel sorting",
+        image:
+          "https://images.unsplash.com/photo-1589792923962-537704632910?auto=format&fit=crop&w=1000&q=70",
+        imageAlt:
+          "Workers moving cartons across a busy fulfillment warehouse floor",
         visual: "sorting",
         body: [
           "Eastern improves dispatch readiness through automated parcel sorting and optimized load sequencing at fulfillment centers.",
@@ -269,6 +276,9 @@ export const industries: Industry[] = [
       {
         tag: "Route productivity",
         title: "Increase route productivity across fulfillment networks",
+        image:
+          "https://images.unsplash.com/photo-1473445730015-841f29a9490b?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Delivery truck traveling a highway route at dusk",
         visual: "promise",
         body: [
           "Eastern aligns routing plans, delivery windows, and fleet schedules so vehicles spend less time waiting at hubs and more time completing deliveries.",
@@ -368,6 +378,9 @@ export const industries: Industry[] = [
       {
         tag: "Unified distribution",
         title: "Unify fulfillment across the entire distribution chain",
+        image:
+          "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Container ships and cranes at a shipping port",
         visual: "lifecycle",
         body: [
           "Manage every leg — from manufacturer to distributor to retail store to DTC — within a single orchestration layer.",
@@ -377,6 +390,9 @@ export const industries: Industry[] = [
       {
         tag: "Smarter restocking",
         title: "Elevate the restocking experience",
+        image:
+          "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Fully stocked supermarket aisle shelves",
         visual: "checkout-dates",
         body: [
           "Optimize store and distributor restocking by aligning deliveries with strict retailer time windows, temperature constraints, and promo-driven demand spikes.",
@@ -386,6 +402,10 @@ export const industries: Industry[] = [
       {
         tag: "Constraint-based routing",
         title: "Optimize routes using 250+ real-world constraints",
+        image:
+          "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1000&q=70",
+        imageAlt:
+          "World map representing multi-stop route planning across regions",
         visual: "sorting",
         body: [
           "Replace static beats with algorithmic route planning that accounts for load type, time windows, capacity, and service levels.",
@@ -395,6 +415,10 @@ export const industries: Industry[] = [
       {
         tag: "Elastic capacity",
         title: "Handle promo spikes and seasonal demand without expanding fleet",
+        image:
+          "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=70",
+        imageAlt:
+          "Busy fulfillment center with sorted parcels during peak volume",
         visual: "speed-cost",
         body: [
           "Promotions and seasonal cycles increase volume unpredictably.",
@@ -404,6 +428,9 @@ export const industries: Industry[] = [
       {
         tag: "Exception control",
         title: "Track and resolve exceptions from DC to doorstep",
+        image:
+          "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Freight truck delivering goods across the all-mile route",
         visual: "promise",
         body: [
           "Monitor execution across DC → store → distributor → DTC in real time.",
@@ -445,216 +472,343 @@ export const industries: Industry[] = [
   {
     slug: "manufacturing",
     name: "Manufacturing",
-    eyebrow: "Manufacturing & Distribution",
+    eyebrow: "Manufacturing Logistics",
     icon: Factory,
-    title: "Warehousing and distribution that keeps lines moving",
+    title:
+      "Cut logistics costs and hit SLAs across every delivery with a manufacturing TMS",
     subtitle:
-      "From raw-material storage to finished-goods distribution, we handle the logistics so your team can focus on production — with lot tracking and B2B fulfillment built in.",
+      "Manufacturers running thousands of daily deliveries across plants, distribution centers, and third-party carriers carry enterprise logistics complexity. Eastern is a decision-intelligent TMS that connects dispatch planning, carrier allocation, route optimization, and delivery execution — so teams cut logistics costs, improve SLA adherence, and scale with control.",
     metaDescription:
-      "Manufacturing logistics with raw-material and finished-goods warehousing, lot tracking, kitting, and B2B distribution. Eastern Fullfilment keeps production lines moving.",
-    challengesHeading:
-      "What we solve for manufacturers",
-    stats: [
-      { value: "Lot-level", label: "Traceability" },
-      { value: "B2B", label: "Distribution" },
-      { value: "Kitting", label: "& assembly" },
-      { value: "99.4%", label: "Pick accuracy" },
+      "A decision-intelligent manufacturing TMS connecting dispatch planning, carrier allocation, route optimization, and delivery execution. Eastern Fullfilment cuts logistics costs and improves SLA adherence.",
+    intro: {
+      heading:
+        "Manufacturing logistics breaks without coordinated planning and execution",
+      body: "Manufacturing distribution is fragmented by design — multiple plants, fluctuating output, mixed fleets, and strict delivery commitments. When dispatch, fleet, carrier, and SLA decisions are made in isolation, plans fail in execution, capacity goes underused, and visibility disappears once shipments leave the facility. Eastern replaces fragmented workflows with a single decision layer across planning and execution.",
+    },
+    orderFlow: {
+      caption:
+        "From ERP order intake to proof of delivery — one decision layer across planning and execution.",
+      stages: [
+        {
+          icon: "clipboard-list",
+          title: "Consolidate dispatch demand",
+          description:
+            "Ingest order volumes from ERP and OMS and prioritize dispatch by commitment, capacity, and constraints.",
+        },
+        {
+          icon: "truck",
+          title: "Assign fleets & carriers",
+          description:
+            "Allocate shipments across owned fleets and carriers by capacity, cost, and lane performance — automatically.",
+        },
+        {
+          icon: "route",
+          title: "Generate constraint-based routes",
+          description:
+            "Build feasible plans from delivery windows, volumes, vehicle capacity, and driver shifts.",
+        },
+        {
+          icon: "map-pin",
+          title: "Execute with live visibility",
+          description:
+            "Track shipments with predictive ETAs and exception alerts so teams intervene before delays hit.",
+        },
+        {
+          icon: "check-circle",
+          title: "Close the loop",
+          description:
+            "Capture proof of delivery and execution data to monitor SLA adherence and settlement accuracy.",
+        },
+      ],
+    },
+    edgeHeading: "The Eastern edge",
+    edge: [
+      {
+        tag: "Control tower",
+        title: "Operate with a unified logistics control tower",
+        image:
+          "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1000&q=70",
+        imageAlt:
+          "Operations engineer monitoring live logistics data on a screen",
+        visual: "updates",
+        body: [
+          "Get a centralized view across dispatch, routing, and delivery execution with predictive ETAs, real-time tracking, and exception alerts.",
+          "Identify delays early and improve SLA adherence across every shipment.",
+        ],
+      },
+      {
+        tag: "Carrier allocation",
+        title: "Automate carrier allocation across 1,000+ partners",
+        image:
+          "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Container ships and cranes at a shipping port",
+        visual: "speed-cost",
+        body: [
+          "Automated tendering spans owned fleets and 1,000+ pre-integrated carriers.",
+          "Allocation decisions weigh capacity, contracted rates, lane performance, and delivery timelines so the right carrier handles each shipment.",
+        ],
+      },
+      {
+        tag: "Constraint-based decisions",
+        title: "Optimize logistics decisions across 250+ constraints",
+        image:
+          "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "World map representing network-wide routing constraints",
+        visual: "geocode",
+        body: [
+          "Dispatch and routing decisions account for delivery windows, shipment size, vehicle capacity, driver shifts, and network constraints together — not in isolation.",
+          "Plans stay feasible at scale, so dispatch decisions hold up in execution.",
+        ],
+      },
+      {
+        tag: "Planning + execution",
+        title: "Connect planning systems with execution workflows",
+        image:
+          "https://images.unsplash.com/photo-1589792923962-537704632910?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Workers and goods moving across a manufacturing floor",
+        visual: "lifecycle",
+        body: [
+          "Eastern integrates with ERP and OMS systems to ingest order volumes, capacity inputs, and delivery commitments.",
+          "Plans are continuously updated as real-world conditions change on the ground.",
+        ],
+      },
+      {
+        tag: "Faster planning",
+        title: "Plan capacity and schedules faster",
+        image:
+          "https://images.unsplash.com/photo-1565891741441-64926e441838?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Aerial view of trucks staged at warehouse loading docks",
+        visual: "activity",
+        body: [
+          "Shift from manual planning to automated schedule generation.",
+          "Align fleet capacity, driver schedules, and dispatch plans ahead of demand spikes, holidays, and seasonal cycles.",
+        ],
+      },
     ],
-    features: [
-      {
-        icon: Warehouse,
-        title: "Material & goods storage",
-        description:
-          "Store raw materials and finished goods with the space and handling each requires.",
-      },
-      {
-        icon: Layers,
-        title: "Lot & batch tracking",
-        description:
-          "Track inventory by lot and batch for full traceability and recall readiness.",
-      },
-      {
-        icon: Workflow,
-        title: "Kitting & assembly",
-        description:
-          "Bundle components into finished kits and ready-to-sell units before they ship.",
-      },
-      {
-        icon: Truck,
-        title: "B2B distribution",
-        description:
-          "Ship to distributors, retailers, and job sites with LTL, FTL, and parcel options.",
-      },
-      {
-        icon: Clock,
-        title: "Just-in-time delivery",
-        description:
-          "Schedule shipments to arrive exactly when your partners need them.",
-      },
-      {
-        icon: ShieldCheck,
-        title: "Quality & compliance",
-        description:
-          "Inspect inbound goods and maintain the documentation your contracts require.",
-      },
-    ],
-    steps: [
-      {
-        title: "Receive inbound",
-        description:
-          "We take in raw materials and finished goods, inspect, and shelve them.",
-      },
-      {
-        title: "Track by lot",
-        description:
-          "Every unit is recorded by lot and batch for end-to-end traceability.",
-      },
-      {
-        title: "Kit and assemble",
-        description:
-          "Components are bundled into finished, ready-to-ship units on demand.",
-      },
-      {
-        title: "Distribute on time",
-        description:
-          "Orders ship to partners and customers on the schedule you set.",
-      },
-    ],
-    benefits: [
-      "Free your team from warehousing and shipping overhead",
-      "Stay recall-ready with full lot and batch traceability",
-      "Offload kitting and assembly to a dedicated team",
-      "Reach distributors and retailers with flexible freight",
-      "Hit just-in-time windows your partners depend on",
-    ],
+    testimonial: {
+      quote:
+        "We leveraged Eastern's intelligent dispatch management to maintain high levels of operational efficiency. With Eastern, we were able to plan, execute, and streamline our entire supply chain — from managing customers, drivers, and locations to sellers.",
+      author: "Deputy Supply Chain Director",
+      role: "Enterprise manufacturer",
+      metric: "90% increase in SLA adherence and 100% digitized proof-of-delivery",
+    },
     faqs: [
       {
-        question: "Do you track inventory by lot or batch?",
+        question: "How does Eastern help manufacturers manage high-volume distribution?",
         answer:
-          "Yes. Every unit is recorded by lot and batch, giving you full traceability and recall readiness across raw materials and finished goods.",
+          "Eastern plans dispatch, allocates shipments, optimizes routes, and tracks deliveries across plants, distribution centers, owned fleets, and third-party carriers — giving operations teams control over large distribution networks and the ability to execute at scale.",
       },
       {
-        question: "Can you handle kitting and assembly?",
+        question: "Can Eastern manage both owned fleets and third-party carriers?",
         answer:
-          "We bundle components into finished kits and ready-to-sell units, so products leave the warehouse complete and ready to ship.",
+          "Yes. Automated tendering allocates each shipment across owned fleets and 1,000+ pre-integrated carriers based on capacity, contracted rates, lane performance, and delivery timelines.",
       },
       {
-        question: "What shipping options do you offer?",
+        question: "How does Eastern improve visibility across manufacturing deliveries?",
         answer:
-          "LTL, FTL, and parcel — we route each B2B and B2C order to the right freight mode for cost and timing.",
+          "Shipments are tracked with predictive ETAs, live status updates, and exception alerts, with digital proof-of-delivery captured at the doorstep — so teams intervene before delays affect downstream schedules or customers.",
       },
       {
-        question: "Can you support just-in-time delivery?",
+        question: "What results have manufacturers achieved with Eastern?",
         answer:
-          "Yes. Shipments are scheduled to arrive exactly when your distributors, retailers, or job sites need them.",
+          "Manufacturers use Eastern to cut logistics costs, raise SLA adherence, and digitize proof-of-delivery while scaling distribution without proportionally increasing overhead.",
       },
     ],
   },
   {
     slug: "3pl",
-    name: "Third-Party Logistics",
-    eyebrow: "3PL & Logistics Providers",
+    name: "3PL & CEP",
+    eyebrow: "3PL & CEP Logistics",
     icon: Boxes,
-    title: "The platform behind your logistics business",
+    title:
+      "3PL and CEP logistics management software for high-performance fulfillment",
     subtitle:
-      "Run your fulfillment operation on infrastructure built for 3PLs — multi-client inventory, branded client portals, and usage-based billing that scales as you grow.",
+      "Operate every hub and route with real-time visibility, accurate ETAs, and digital proof-of-delivery. Eastern coordinates order intake, parcel sortation, route planning, transporter management, and driver workflows in one system — so your network moves more packages per day at lower cost.",
     metaDescription:
-      "3PL fulfillment infrastructure with multi-client inventory, branded client portals, and automated billing. Eastern Fullfilment powers logistics providers at scale.",
-    challengesHeading:
-      "What we solve for 3PL providers",
-    stats: [
-      { value: "Multi-client", label: "Inventory" },
-      { value: "Branded", label: "Client portals" },
-      { value: "24/7", label: "Client access" },
-      { value: "Usage-based", label: "Billing" },
+      "3PL and CEP logistics software: multi-shipper orchestration, parcel sortation, dynamic routing, carrier management, and real-time visibility with digital proof-of-delivery from Eastern Fullfilment.",
+    intro: {
+      heading: "The complete order-to-delivery system for 3PL & CEP enterprises",
+      body: "Eastern coordinates order intake, parcel sortation, route planning, transporter management, and driver workflows in one platform — so 3PL and CEP networks run every hub and route with real-time visibility, accurate ETAs, and digital proof-of-delivery, moving more packages per day at lower cost.",
+    },
+    orderFlow: {
+      caption:
+        "Every parcel moves through one platform — from multi-shipper intake to digital proof-of-delivery.",
+      stages: [
+        {
+          icon: "clipboard-list",
+          title: "Order intake",
+          description:
+            "Multi-shipper orders are received and prioritized by SLA in one queue.",
+        },
+        {
+          icon: "package",
+          title: "Parcel sortation",
+          description:
+            "Parcels are sorted and load-sequenced directly against route logic.",
+        },
+        {
+          icon: "route",
+          title: "Route planned",
+          description:
+            "Routes adapt to traffic, capacity, dock availability, and service levels.",
+        },
+        {
+          icon: "truck",
+          title: "Dispatched",
+          description:
+            "Volume is allocated across captive fleets and carriers at dispatch time.",
+        },
+        {
+          icon: "map-pin",
+          title: "Tracked to doorstep",
+          description:
+            "Every shipment streams live ETAs and geofenced exception alerts.",
+        },
+        {
+          icon: "check-circle",
+          title: "Proof of delivery",
+          description:
+            "Drivers capture digital proof-of-delivery for full shipper transparency.",
+        },
+      ],
+    },
+    edgeHeading: "The Eastern edge",
+    edge: [
+      {
+        tag: "Multi-shipper orchestration",
+        title: "Centralize multi-shipper order orchestration",
+        image:
+          "https://images.unsplash.com/photo-1611095973763-414019e72400?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Operator managing shipment orders on a laptop",
+        visual: "lifecycle",
+        body: [
+          "Manage on-demand and scheduled shipments for multiple shippers within a single platform. Configure workflows by SLA, contract, and service model without switching systems.",
+          "Unify order intake, prioritization, dispatch planning, and proof-of-delivery in one system — reducing manual handoffs while delivering a consistent fulfillment experience across clients.",
+        ],
+      },
+      {
+        tag: "Dynamic routing",
+        title: "Increase deliveries per route with dynamic route optimization",
+        image:
+          "https://images.unsplash.com/photo-1473445730015-841f29a9490b?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Delivery truck traveling a highway route at dusk",
+        visual: "promise",
+        body: [
+          "Plan routes that adapt to traffic, dock availability, vehicle capacity, and service-level commitments in real time.",
+          "Continuous optimization improves route density, accommodates on-demand orders, and lowers cost per order — moving more packages per vehicle without adding fleet.",
+        ],
+      },
+      {
+        tag: "Hub sortation",
+        title: "Optimize hub sortation and load planning",
+        image:
+          "https://images.unsplash.com/photo-1589792923962-537704632910?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Workers sorting cartons across a busy hub floor",
+        visual: "sorting",
+        body: [
+          "Reduce time-under-roof with automated parcel sortation aligned directly to route logic. Allocate orders dynamically based on vehicle type, capacity, shipper SLAs, traffic patterns, and dock constraints.",
+          "Balance on-demand and scheduled volumes while maintaining service levels and improving fleet productivity.",
+        ],
+      },
+      {
+        tag: "Address accuracy",
+        title: "Improve first-attempt delivery rates with intelligent geocoding",
+        image:
+          "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "World map representing precise address geocoding",
+        visual: "geocode",
+        body: [
+          "Convert incomplete or unclear addresses into precise coordinates with built-in geocoding and location-learning technology.",
+          "By aligning address intelligence with route allocation, reduce failed deliveries and costly re-attempts while improving first-attempt delivery rates (FADR).",
+        ],
+      },
+      {
+        tag: "Carrier management",
+        title: "Automate carrier and transporter management",
+        image:
+          "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Container ships and cranes at a shipping port",
+        visual: "speed-cost",
+        body: [
+          "Control carrier contracts, performance, and reconciliations with integrated carrier-management software.",
+          "Validate transporter rates automatically, benchmark performance across lanes, and reduce billing disputes to protect margins as volume scales across regional and national networks.",
+        ],
+      },
+      {
+        tag: "Elastic scale",
+        title: "Scale 3PL and courier operations without increasing cost",
+        image:
+          "https://images.unsplash.com/photo-1565891741441-64926e441838?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Aerial view of trucks lined up at warehouse loading docks",
+        visual: "activity",
+        body: [
+          "Allocate capacity dynamically across hubs, fleets, and carriers during seasonal spikes and demand surges.",
+          "Scale nodes, routes, and shipment volumes without proportionally increasing overhead or cost per order.",
+        ],
+      },
+      {
+        tag: "Real-time visibility",
+        title: "Deliver real-time visibility across every hub and route",
+        image:
+          "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Operator monitoring live shipment data on a screen",
+        visual: "updates",
+        body: [
+          "Monitor shipments across hubs and last-mile routes with live tracking, accurate ETAs, and automated exception alerts.",
+          "Capture digital proof-of-delivery to give shippers transparency and reduce disputes — resolving issues before they impact SLA adherence or customer satisfaction.",
+        ],
+      },
+      {
+        tag: "Driver enablement",
+        title: "Equip drivers with integrated fleet management",
+        visual: "activity",
+        body: [
+          "Give drivers a dedicated mobile app for task sequencing, real-time navigation, and digital proof-of-delivery capture.",
+          "Integrated fleet-management software improves route adherence, increases first-attempt success, and strengthens operational control across high-volume courier networks.",
+        ],
+      },
+      {
+        tag: "Shipper experience",
+        title: "Deliver a captive-fleet experience to shippers",
+        image:
+          "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1000&q=70",
+        imageAlt: "Freight truck delivering goods across the all-mile route",
+        visual: "promise",
+        body: [
+          "Provide white-labeled tracking, accurate ETAs, and real-time status updates across every shipment.",
+          "Offer shippers visibility and control comparable to a captive fleet, even across multi-carrier networks.",
+        ],
+      },
     ],
-    features: [
-      {
-        icon: Users,
-        title: "Multi-client management",
-        description:
-          "Keep every client's inventory, orders, and billing cleanly separated under one operation.",
-      },
-      {
-        icon: Globe,
-        title: "Branded client portals",
-        description:
-          "Give each client a portal in your brand to track inventory, orders, and shipments 24/7.",
-      },
-      {
-        icon: Receipt,
-        title: "Automated billing",
-        description:
-          "Meter storage, pick-pack, and shipping per client and generate invoices automatically.",
-      },
-      {
-        icon: Workflow,
-        title: "Configurable workflows",
-        description:
-          "Set per-client rules for receiving, packing, and shipping without custom code.",
-      },
-      {
-        icon: TrendingUp,
-        title: "Scale on demand",
-        description:
-          "Onboard new clients fast and grow volume without re-platforming your stack.",
-      },
-      {
-        icon: BarChart3,
-        title: "Operational visibility",
-        description:
-          "Monitor SLAs, throughput, and margins across your whole book of clients.",
-      },
-    ],
-    steps: [
-      {
-        title: "Onboard a client",
-        description:
-          "Spin up a new client with their own inventory, rules, and branded portal.",
-      },
-      {
-        title: "Configure workflows",
-        description:
-          "Set receiving, packing, and shipping rules per client — no engineering needed.",
-      },
-      {
-        title: "Run operations",
-        description:
-          "Fulfill every client's orders from one system with clean separation.",
-      },
-      {
-        title: "Bill automatically",
-        description:
-          "Usage is metered per client and invoiced without manual reconciliation.",
-      },
-    ],
-    benefits: [
-      "Manage every client cleanly from one operation",
-      "Offer branded, self-serve portals your clients love",
-      "Bill accurately with automated usage metering",
-      "Onboard new clients without re-platforming",
-      "See SLAs and margins across your whole book",
+    testimonial: {
+      quote:
+        "Eastern has elevated our logistics operations to new heights of performance and productivity. Advanced parcel sorting, combined with geocoding and route allocation, has transformed our order processing — delivering faster order cycle times and 95% route-mapping accuracy.",
+      author: "GM, Operations",
+      role: "National courier & 3PL network",
+      metric: "65% reduction in sorting time and 27% more deliveries per day",
+    },
+    impactHeading: "Our global impact",
+    impact: [
+      { value: "81%", label: "Reduction in dispatch planning time" },
+      { value: "65%", label: "Reduction in sorting time" },
+      { value: "27%", label: "Reduction in operational costs" },
     ],
     faqs: [
       {
-        question: "Can I keep clients' inventory separated?",
+        question:
+          "How does Eastern help 3PL and CEP operators move more packages at lower cost?",
         answer:
-          "Yes. Each client's inventory, orders, and billing are cleanly separated while you run everything from one operation.",
+          "Eastern coordinates order intake, parcel sortation, dynamic routing, carrier management, and driver workflows in one platform. Continuous route optimization increases deliveries per vehicle while automated sortation reduces time-under-roof — moving more packages per day without adding fleet.",
       },
       {
-        question: "Do my clients get their own portal?",
+        question: "Can Eastern manage multiple shippers from one system?",
         answer:
-          "Each client gets a portal in your brand to track inventory, orders, shipments, and billing 24/7 — no calls or emails needed.",
+          "Yes. Manage on-demand and scheduled shipments for many shippers in a single platform, with workflows configured by SLA, contract, and service model — and a consistent fulfillment experience across every client.",
       },
       {
-        question: "How does billing work?",
+        question: "How does Eastern give shippers visibility into their shipments?",
         answer:
-          "Storage, pick-pack, and shipping are metered per client and invoiced automatically, so your billing scales with your volume.",
-      },
-      {
-        question: "Can I configure workflows per client?",
-        answer:
-          "Yes. Set receiving, packing, and shipping rules for each client without writing custom code.",
+          "Eastern provides white-labeled tracking, accurate ETAs, real-time status, and digital proof-of-delivery across multi-carrier networks — giving shippers visibility and control comparable to a captive fleet, with exception alerts that resolve issues before they impact SLAs.",
       },
     ],
   },

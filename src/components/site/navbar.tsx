@@ -32,7 +32,7 @@ const navLinks: NavLink[] = [
       { label: "E-commerce", href: "/industries/ecommerce" },
       { label: "FMCG/CPG", href: "/industries/fmcg-cpg" },
       { label: "Manufacturing", href: "/industries/manufacturing" },
-      { label: "Third-Party Logistics", href: "/industries/3pl" },
+      { label: "3PL & CEP", href: "/industries/3pl" },
     ],
   },
   {

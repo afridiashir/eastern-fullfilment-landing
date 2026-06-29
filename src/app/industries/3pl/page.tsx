@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IndustryPage } from "@/components/site/industry-page";
+import { IndustryRichPage } from "@/components/site/industry-rich-page";
 import { getIndustry } from "@/lib/industries";
 import { pageMetadata } from "@/lib/site";
 
@@ -12,5 +12,5 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function Page() {
-  return <IndustryPage industry={industry} />;
+  return <IndustryRichPage industry={industry} />;
 }
