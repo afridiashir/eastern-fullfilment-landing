@@ -3,25 +3,60 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, Sparkles, ChevronRight, LayoutGrid, Search } from "lucide-react";
+import { X, Sparkles, ChevronRight, ChevronDown, LayoutGrid, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HeadOfficeDrawer } from "./head-office-drawer";
 import { ThemeToggle } from "./theme-toggle";
 import { Logo } from "./logo";
 
-const navLinks = [
+type NavChild = { label: string; href: string };
+type NavLink = { label: string; href?: string; children?: NavChild[] };
+
+const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Fullfilment", href: "fullfilment" },
-  { label: "Software", href: "/software" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  {
+    label: "Product",
+    children: [
+      { label: "Fullfilment Automation", href: "/product/fullfilment-automation" },
+      { label: "Dispatch Planning", href: "/product/dispatch-planning" },
+      { label: "Track & Trace", href: "/product/track-trace" },
+      { label: "Analytics and Insight", href: "/product/analytics-insight" },
+    ],
+  },
+  {
+    label: "Industries",
+    children: [
+      { label: "E-commerce", href: "/industries/ecommerce" },
+      { label: "Retail", href: "/industries/retail" },
+      { label: "Manufacturing", href: "/industries/manufacturing" },
+      { label: "Third-Party Logistics", href: "/industries/3pl" },
+    ],
+  },
+  {
+    label: "Resources",
+    children: [
+      { label: "Blog", href: "/resources/blog" },
+      { label: "Case Studies", href: "/resources/case-studies" },
+      { label: "Documentation", href: "/resources/docs" },
+      { label: "Help Center", href: "/resources/help" },
+    ],
+  },
+  {
+    label: "Company",
+    children: [
+      { label: "About Us", href: "/about" },
+      { label: "Careers", href: "/careers" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [sideOpen, setSideOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [staticHidden, setStaticHidden] = useState(false);
   const pathname = usePathname();
@@ -69,11 +104,63 @@ export function Navbar() {
         {/* Desktop links */}
         <div className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => {
+            if (link.children) {
+              const isActive = link.children.some((c) =>
+                pathname.startsWith(c.href)
+              );
+              return (
+                <div key={link.label} className="group/dd relative">
+                  <button
+                    type="button"
+                    className={cn(
+                      "group flex items-center gap-1.5 rounded-full uppercase px-4 py-3 text-sm font-medium text-foreground transition-colors xl:px-6",
+                      isActive
+                        ? "bg-white text-black"
+                        : "bg-transparent hover:bg-primary hover:text-white"
+                    )}
+                  >
+                    <span className="relative block h-5 overflow-hidden leading-5">
+                      <span className="block transition-transform duration-500 ease-out group-hover:-translate-y-full">
+                        {link.label}
+                      </span>
+                      <span className="block transition-transform duration-500 ease-out group-hover:-translate-y-full">
+                        {link.label}
+                      </span>
+                    </span>
+                    <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover/dd:rotate-180" />
+                  </button>
+
+                  {/* Dropdown panel */}
+                  <div className="invisible absolute left-0 top-full z-50 translate-y-1 pt-3 opacity-0 transition-all duration-300 group-hover/dd:visible group-hover/dd:translate-y-0 group-hover/dd:opacity-100">
+                    <div className="flex min-w-64 flex-col gap-1 rounded-lg border bg-gray-100 p-2 shadow-xl dark:bg-card">
+                      {link.children.map((child) => {
+                        const isChildActive = pathname.startsWith(child.href);
+                        return (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className={cn(
+                              "rounded-full uppercase px-5 py-3 text-sm font-medium leading-5 transition-colors",
+                              isChildActive
+                                ? "bg-white text-black"
+                                : "bg-transparent text-foreground hover:bg-primary hover:text-white"
+                            )}
+                          >
+                            {child.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
-                href={link.href}
+                href={link.href ?? "#"}
                 className={cn(
                   "group rounded-full uppercase px-5 py-3 text-sm font-medium text-foreground transition-colors xl:px-8",
                   isActive
@@ -213,11 +300,58 @@ export function Navbar() {
 
           <div className="flex flex-1 flex-col gap-1 overflow-y-auto px-4">
             {navLinks.map((link) => {
+              if (link.children) {
+                const isOpen = mobileSection === link.label;
+                return (
+                  <div key={link.label}>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMobileSection(isOpen ? null : link.label)
+                      }
+                      className="flex w-full items-center justify-between rounded-md px-3 py-3 text-sm font-medium uppercase text-foreground transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 transition-transform duration-300",
+                          isOpen && "rotate-180"
+                        )}
+                      />
+                    </button>
+                    <div
+                      className={cn(
+                        "grid transition-all duration-300 ease-out",
+                        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                      )}
+                    >
+                      <div className="overflow-hidden">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={() => setOpen(false)}
+                            className={cn(
+                              "block rounded-md px-6 py-2.5 text-sm font-medium uppercase transition-colors",
+                              pathname.startsWith(child.href)
+                                ? "text-primary"
+                                : "text-foreground hover:text-primary"
+                            )}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
-                  href={link.href}
+                  href={link.href ?? "#"}
                   onClick={() => setOpen(false)}
                   className={cn(
                     "rounded-md px-3 py-3 text-sm font-medium uppercase transition-colors",
