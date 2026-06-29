@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
 import { ProductRichPage } from "@/components/site/product-rich-page";
 import { getProduct } from "@/lib/products";
+import { pageMetadata } from "@/lib/site";
 
 const product = getProduct("fullfilment-automation")!;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: product.name,
   description: product.metaDescription,
-  alternates: { canonical: `/product/${product.slug}` },
-  openGraph: {
-    title: `${product.name} — Eastern Fullfilment`,
-    description: product.metaDescription,
-    url: `/product/${product.slug}`,
-  },
-};
+  path: `/product/${product.slug}`,
+});
 
 export default function Page() {
   return <ProductRichPage product={product} />;

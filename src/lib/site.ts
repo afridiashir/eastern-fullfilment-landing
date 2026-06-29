@@ -5,6 +5,8 @@
  * Override the production URL by setting NEXT_PUBLIC_SITE_URL at build time.
  */
 
+import type { Metadata } from "next";
+
 export const siteConfig = {
   name: "Eastern Fullfilment",
   legalName: "Eastern Fullfilment",
@@ -57,4 +59,50 @@ export const siteConfig = {
 /** Build an absolute URL from a site-relative path. */
 export function absoluteUrl(path = "/"): string {
   return `${siteConfig.url}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+/**
+ * Build per-page SEO metadata. Metadata is merged *shallowly* in the App
+ * Router, so a page that declares `openGraph` replaces the layout's entirely —
+ * dropping siteName/type/locale. This helper re-supplies the shared OpenGraph
+ * and Twitter context so every page ships complete social cards.
+ *
+ * `title` is the bare page title; the layout's `%s — Eastern Fullfilment`
+ * template handles the document <title>, while the OG/Twitter titles get the
+ * suffix applied here so cards read well when shared standalone.
+ */
+export function pageMetadata({
+  title,
+  description,
+  path,
+  keywords,
+}: {
+  title: string;
+  description: string;
+  /** Site-relative path, e.g. "/integrations". */
+  path: string;
+  keywords?: readonly string[];
+}): Metadata {
+  const socialTitle = `${title} — ${siteConfig.name}`;
+  return {
+    title,
+    description,
+    ...(keywords ? { keywords: [...keywords] } : {}),
+    alternates: { canonical: path },
+    openGraph: {
+      type: "website",
+      locale: siteConfig.locale,
+      siteName: siteConfig.name,
+      url: path,
+      title: socialTitle,
+      description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: socialTitle,
+      description,
+      creator: siteConfig.twitterHandle,
+      site: siteConfig.twitterHandle,
+    },
+  };
 }

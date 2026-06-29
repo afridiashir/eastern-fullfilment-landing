@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
 import { IntegrationsPage } from "@/components/site/integrations-page";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Integrations",
   description:
     "Connect Shopify, Amazon, DHL, FedEx, and 60+ more channels, carriers, and tools. Orders, inventory, and shipments stay in sync automatically with Eastern Fullfilment.",
-  alternates: { canonical: "/integrations" },
-  openGraph: {
-    title: "Integrations — Eastern Fullfilment",
-    description:
-      "Connect Shopify, Amazon, DHL, FedEx, and 60+ more channels, carriers, and tools — orders, inventory, and shipments in sync automatically.",
-    url: "/integrations",
-  },
-};
+  path: "/integrations",
+  keywords: [
+    "ecommerce integrations",
+    "Shopify integration",
+    "Amazon integration",
+    "carrier integrations",
+    "DHL",
+    "FedEx",
+    "fulfillment API",
+    "order sync",
+    "inventory sync",
+  ],
+});
 
 export default function Page() {
   return <IntegrationsPage />;
