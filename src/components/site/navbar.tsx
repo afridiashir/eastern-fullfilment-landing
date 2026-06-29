@@ -48,7 +48,6 @@ const navLinks: NavLink[] = [
     label: "Company",
     children: [
       { label: "About Us", href: "/about" },
-      { label: "Careers", href: "/careers" },
       { label: "Contact", href: "/contact" },
     ],
   },
