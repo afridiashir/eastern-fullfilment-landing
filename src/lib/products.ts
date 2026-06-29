@@ -651,7 +651,7 @@ export const products: Product[] = [
       "Get a dedicated portal where you manage and track everything we handle for you — inventory, orders, shipments, returns, and billing — all in real time, 24/7.",
     metaDescription:
       "Get your own 3PL client portal to manage and track inventory, orders, shipments, returns, and billing in real time. Full visibility into your records, 24/7.",
-    heroImage: "/product/3pl-client-portal.png",
+    heroImage: "/product/3pl-client-portal2.png",
     heroImageAlt: "3PL Client Portal dashboard",
     stats: [
       { value: "24/7", label: "Portal access" },

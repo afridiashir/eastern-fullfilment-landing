@@ -5,7 +5,7 @@ import { Play, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Source played inside the lightbox. Swap for the real product walkthrough.
-const DEMO_SRC = "/cloud-BOyPb80F.webm";
+const DEMO_SRC = "/eastern-demo.mp4";
 
 export function VideoSection() {
   const [open, setOpen] = useState(false);
