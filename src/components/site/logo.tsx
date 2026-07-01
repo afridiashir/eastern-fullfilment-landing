@@ -11,6 +11,8 @@ type LogoProps = {
   withWordmark?: boolean;
   /** Tailwind height utility for the logo mark (defaults to a navbar-friendly size). */
   imgClassName?: string;
+  /** Force the light-on-dark variant (light logo + white wordmark) regardless of theme. */
+  onDark?: boolean;
 };
 
 export function Logo({
@@ -18,6 +20,7 @@ export function Logo({
   className,
   withWordmark = true,
   imgClassName = "h-9 w-auto",
+  onDark = false,
 }: LogoProps) {
   return (
     <Link
@@ -31,7 +34,7 @@ export function Logo({
         alt={`${siteConfig.name} logo`}
         width={36}
         height={36}
-        className={cn("object-contain dark:hidden", imgClassName)}
+        className={cn("object-contain", onDark ? "hidden" : "dark:hidden", imgClassName)}
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -39,10 +42,15 @@ export function Logo({
         alt={`${siteConfig.name} logo`}
         width={36}
         height={36}
-        className={cn("hidden object-contain dark:block", imgClassName)}
+        className={cn("object-contain", onDark ? "block" : "hidden dark:block", imgClassName)}
       />
       {withWordmark && (
-        <span className="text-base font-semibold tracking-tight sm:text-lg">
+        <span
+          className={cn(
+            "text-base font-semibold tracking-tight sm:text-lg",
+            onDark && "text-white"
+          )}
+        >
           {siteConfig.name}
         </span>
       )}

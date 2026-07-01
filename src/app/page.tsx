@@ -1,9 +1,11 @@
 import { Navbar } from "@/components/site/navbar";
 import { Hero } from "@/components/site/hero";
+import { IntroReel } from "@/components/site/intro-reel";
 import { Pricing } from "@/components/site/pricing";
 import { About } from "@/components/site/about";
 import { VideoSection } from "@/components/site/video";
 import { Services } from "@/components/site/services";
+import { OrderProcess } from "@/components/site/order-process";
 import { Integrations } from "@/components/site/integrations";
 import { Testimonials } from "@/components/site/testimonials";
 import { Faq } from "@/components/site/faq";
@@ -18,9 +20,11 @@ export default function Home() {
       <StructuredData />
       <Navbar />
       <main className="flex-1">
-        <Hero />
-        <VideoSection />
+        <IntroReel />
+        {/* <Hero /> */}
+        {/* <VideoSection /> */}
         <Services />
+        {/* <OrderProcess /> */}
         <About />
         <Integrations />
         <Pricing />

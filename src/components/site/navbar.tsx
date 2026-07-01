@@ -60,14 +60,23 @@ export function Navbar() {
   const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [staticHidden, setStaticHidden] = useState(false);
+  const [overReel, setOverReel] = useState(false);
   const pathname = usePathname();
+  // Homepage opens over the full-screen intro reel: the navbar is transparent
+  // (white) while it sits over that dark video, then turns to glass past it.
+  const isHome = pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      // Transparent as long as the intro-reel video is still behind the navbar.
+      const reel = isHome ? document.getElementById("intro-reel") : null;
+      setOverReel(!!reel && reel.getBoundingClientRect().bottom > 88);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
   // Keep the static navbar hidden while the sticky one is on screen, and only
   // reveal it again after the sticky bar has finished sliding back up.
@@ -80,14 +89,26 @@ export function Navbar() {
     return () => clearTimeout(t);
   }, [scrolled]);
 
-  const bar = (sticky: boolean) => (
+  const bar = (sticky: boolean) => {
+    // Transparent while over the intro-reel video (static bar, or sticky bar
+    // still above the reel). Over dark video → white text/icons.
+    const transparent = isHome && (!sticky || overReel);
+    const fg = transparent ? "text-white" : "text-foreground";
+    return (
     <>
       <nav
         className={cn(
-          "container-lg m-auto flex h-14 items-center justify-between px-3 h-18 sm:px-4 lg:h-22",
+          "container-lg m-auto flex h-14 items-center justify-between px-3 h-18 sm:px-4 lg:h-22 transition-colors duration-300",
+          // Keep the same layout/width as the glass sticky bar so there's no
+          // width jump when it swaps from transparent to glass.
           sticky
-            ? "rounded-t-none rounded-b-lg md:px-4 md:mx-8 border-b border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
-            : "rounded-lg border bg-gray-100 dark:bg-card"
+            ? "rounded-t-none rounded-b-lg md:px-4 md:mx-8"
+            : "rounded-lg",
+          transparent
+            ? "bg-transparent"
+            : sticky
+              ? "border-b border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
+              : "border border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
         )}
       >
         <div className="flex items-center gap-3 sm:gap-6 lg:gap-8">
@@ -95,11 +116,21 @@ export function Navbar() {
             type="button"
             aria-label="Open menu"
             onClick={() => setSideOpen(true)}
-            className="group hidden lg:inline-flex items-center justify-center text-foreground cursor-pointer"
+            className={cn(
+              "group hidden lg:inline-flex items-center justify-center cursor-pointer",
+              fg
+            )}
           >
-            <LayoutGrid className="h-6 w-6 fill-transparent transition-colors duration-300 group-hover:fill-foreground" />
+            <LayoutGrid
+              className={cn(
+                "h-6 w-6 transition-colors duration-300",
+                transparent
+                  ? "fill-current"
+                  : "fill-transparent group-hover:fill-current"
+              )}
+            />
           </button>
-          <Logo />
+          <Logo onDark={transparent} />
         </div>
 
         {/* Desktop links */}
@@ -114,10 +145,10 @@ export function Navbar() {
                   <button
                     type="button"
                     className={cn(
-                      "group flex items-center gap-1.5 rounded-full uppercase px-4 py-3 text-sm font-medium text-foreground transition-colors xl:px-6",
+                      "group flex items-center gap-1.5 rounded-full uppercase px-4 py-3 text-sm font-medium transition-colors xl:px-6",
                       isActive
                         ? "bg-white text-black"
-                        : "bg-transparent hover:bg-primary hover:text-white"
+                        : cn("bg-transparent hover:bg-primary hover:text-white", fg)
                     )}
                   >
                     <span className="relative block h-5 overflow-hidden leading-5">
@@ -163,10 +194,10 @@ export function Navbar() {
                 key={link.href}
                 href={link.href ?? "#"}
                 className={cn(
-                  "group rounded-full uppercase px-5 py-3 text-sm font-medium text-foreground transition-colors xl:px-8",
+                  "group rounded-full uppercase px-5 py-3 text-sm font-medium transition-colors xl:px-8",
                   isActive
                     ? "bg-white text-black"
-                    : "bg-transparent hover:bg-primary hover:text-white"
+                    : cn("bg-transparent hover:bg-primary hover:text-white", fg)
                 )}
               >
                 <span className="relative block h-5 overflow-hidden leading-5">
@@ -184,12 +215,15 @@ export function Navbar() {
 
         {/* Desktop actions */}
         <div className="hidden items-center gap-2 lg:flex">
-          <ThemeToggle className="h-11 w-11" />
+          <ThemeToggle className={cn("h-11 w-11", fg)} />
           <button
             type="button"
             aria-label="Search"
             onClick={() => setSearchOpen(true)}
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground"
+            className={cn(
+              "flex h-11 w-11 cursor-pointer items-center justify-center rounded-full transition-colors hover:text-muted-foreground",
+              fg
+            )}
           >
             <Search className="h-5 w-5" />
           </button>
@@ -209,18 +243,24 @@ export function Navbar() {
 
         {/* Mobile actions */}
         <div className="flex items-center gap-1 lg:hidden">
-          <ThemeToggle />
+          <ThemeToggle className={fg} />
           <button
             type="button"
             aria-label="Search"
             onClick={() => setSearchOpen(true)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground"
+            className={cn(
+              "inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:text-muted-foreground",
+              fg
+            )}
           >
             <Search className="h-5 w-5" />
           </button>
           <button
             type="button"
-            className="group inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-foreground"
+            className={cn(
+              "group inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md",
+              fg
+            )}
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
           >
@@ -237,11 +277,12 @@ export function Navbar() {
         </div>
       </nav>
     </>
-  );
+    );
+  };
 
   return (
     <>
-      {/* Static navbar (over hero) */}
+      {/* Static navbar — transparent over the hero/intro reel */}
       <header
         className={cn(
           "absolute left-0 top-0 z-40 w-full bg-transparent p-3 sm:p-4 lg:px-12",
@@ -251,7 +292,7 @@ export function Navbar() {
         {bar(false)}
       </header>
 
-      {/* Sticky navbar (slides down on scroll) */}
+      {/* Sticky navbar (glass, slides down on scroll) */}
       <header
         className={cn(
           "fixed left-0 top-0 z-50 w-full transition-transform duration-500 ease-out",
