@@ -48,6 +48,7 @@ const navLinks: NavLink[] = [
     label: "Company",
     children: [
       { label: "About Us", href: "/about" },
+      { label: "Careers", href: "/careers" },
       { label: "Contact", href: "/contact" },
     ],
   },
@@ -60,23 +61,14 @@ export function Navbar() {
   const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [staticHidden, setStaticHidden] = useState(false);
-  const [overReel, setOverReel] = useState(false);
   const pathname = usePathname();
-  // Homepage opens over the full-screen intro reel: the navbar is transparent
-  // (white) while it sits over that dark video, then turns to glass past it.
-  const isHome = pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-      // Transparent as long as the intro-reel video is still behind the navbar.
-      const reel = isHome ? document.getElementById("intro-reel") : null;
-      setOverReel(!!reel && reel.getBoundingClientRect().bottom > 88);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome]);
+  }, []);
 
   // Keep the static navbar hidden while the sticky one is on screen, and only
   // reveal it again after the sticky bar has finished sliding back up.
@@ -89,26 +81,14 @@ export function Navbar() {
     return () => clearTimeout(t);
   }, [scrolled]);
 
-  const bar = (sticky: boolean) => {
-    // Transparent while over the intro-reel video (static bar, or sticky bar
-    // still above the reel). Over dark video → white text/icons.
-    const transparent = isHome && (!sticky || overReel);
-    const fg = transparent ? "text-white" : "text-foreground";
-    return (
+  const bar = (sticky: boolean) => (
     <>
       <nav
         className={cn(
-          "container-lg m-auto flex h-14 items-center justify-between px-3 h-18 sm:px-4 lg:h-22 transition-colors duration-300",
-          // Keep the same layout/width as the glass sticky bar so there's no
-          // width jump when it swaps from transparent to glass.
+          "container-lg m-auto flex h-14 items-center justify-between px-3 h-18 sm:px-4 lg:h-22",
           sticky
-            ? "rounded-t-none rounded-b-lg md:px-4 md:mx-8"
-            : "rounded-lg",
-          transparent
-            ? "bg-transparent"
-            : sticky
-              ? "border-b border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
-              : "border border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
+            ? "rounded-t-none rounded-b-lg md:px-4 md:mx-8 border-b border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
+            : "rounded-lg border bg-gray-100 dark:bg-card"
         )}
       >
         <div className="flex items-center gap-3 sm:gap-6 lg:gap-8">
@@ -116,21 +96,11 @@ export function Navbar() {
             type="button"
             aria-label="Open menu"
             onClick={() => setSideOpen(true)}
-            className={cn(
-              "group hidden lg:inline-flex items-center justify-center cursor-pointer",
-              fg
-            )}
+            className="group hidden lg:inline-flex items-center justify-center text-foreground cursor-pointer"
           >
-            <LayoutGrid
-              className={cn(
-                "h-6 w-6 transition-colors duration-300",
-                transparent
-                  ? "fill-current"
-                  : "fill-transparent group-hover:fill-current"
-              )}
-            />
+            <LayoutGrid className="h-6 w-6 fill-transparent transition-colors duration-300 group-hover:fill-foreground" />
           </button>
-          <Logo onDark={transparent} />
+          <Logo />
         </div>
 
         {/* Desktop links */}
@@ -145,10 +115,10 @@ export function Navbar() {
                   <button
                     type="button"
                     className={cn(
-                      "group flex items-center gap-1.5 rounded-full uppercase px-4 py-3 text-sm font-medium transition-colors xl:px-6",
+                      "group flex items-center gap-1.5 rounded-full uppercase px-4 py-3 text-sm font-medium text-foreground transition-colors xl:px-6",
                       isActive
                         ? "bg-white text-black"
-                        : cn("bg-transparent hover:bg-primary hover:text-white", fg)
+                        : "bg-transparent hover:bg-primary hover:text-white"
                     )}
                   >
                     <span className="relative block h-5 overflow-hidden leading-5">
@@ -194,10 +164,10 @@ export function Navbar() {
                 key={link.href}
                 href={link.href ?? "#"}
                 className={cn(
-                  "group rounded-full uppercase px-5 py-3 text-sm font-medium transition-colors xl:px-8",
+                  "group rounded-full uppercase px-5 py-3 text-sm font-medium text-foreground transition-colors xl:px-8",
                   isActive
                     ? "bg-white text-black"
-                    : cn("bg-transparent hover:bg-primary hover:text-white", fg)
+                    : "bg-transparent hover:bg-primary hover:text-white"
                 )}
               >
                 <span className="relative block h-5 overflow-hidden leading-5">
@@ -215,15 +185,12 @@ export function Navbar() {
 
         {/* Desktop actions */}
         <div className="hidden items-center gap-2 lg:flex">
-          <ThemeToggle className={cn("h-11 w-11", fg)} />
+          <ThemeToggle className="h-11 w-11" />
           <button
             type="button"
             aria-label="Search"
             onClick={() => setSearchOpen(true)}
-            className={cn(
-              "flex h-11 w-11 cursor-pointer items-center justify-center rounded-full transition-colors hover:text-muted-foreground",
-              fg
-            )}
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground"
           >
             <Search className="h-5 w-5" />
           </button>
@@ -243,24 +210,18 @@ export function Navbar() {
 
         {/* Mobile actions */}
         <div className="flex items-center gap-1 lg:hidden">
-          <ThemeToggle className={fg} />
+          <ThemeToggle />
           <button
             type="button"
             aria-label="Search"
             onClick={() => setSearchOpen(true)}
-            className={cn(
-              "inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:text-muted-foreground",
-              fg
-            )}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground"
           >
             <Search className="h-5 w-5" />
           </button>
           <button
             type="button"
-            className={cn(
-              "group inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md",
-              fg
-            )}
+            className="group inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-foreground"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
           >
@@ -277,12 +238,11 @@ export function Navbar() {
         </div>
       </nav>
     </>
-    );
-  };
+  );
 
   return (
     <>
-      {/* Static navbar — transparent over the hero/intro reel */}
+      {/* Static navbar (over hero) */}
       <header
         className={cn(
           "absolute left-0 top-0 z-40 w-full bg-transparent p-3 sm:p-4 lg:px-12",
@@ -292,7 +252,7 @@ export function Navbar() {
         {bar(false)}
       </header>
 
-      {/* Sticky navbar (glass, slides down on scroll) */}
+      {/* Sticky navbar (slides down on scroll) */}
       <header
         className={cn(
           "fixed left-0 top-0 z-50 w-full transition-transform duration-500 ease-out",
@@ -407,17 +367,17 @@ export function Navbar() {
               );
             })}
             <a
-            href="#contact"
-            className="mt-10 group inline-flex items-center justify-center rounded-full uppercase px-5 py-3 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white xl:px-8"
-          >
-            <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
-              <ChevronRight className="h-4 w-4 shrink-0 transition-transform duration-500 ease-out group-hover:-translate-x-4" />
-            </span>
-            Get Started
-            <span className="inline-flex h-4 w-0 items-center justify-end overflow-hidden transition-all duration-500 ease-out group-hover:w-4 group-hover:ml-2">
-              <ChevronRight className="h-4 w-4 shrink-0 translate-x-4 transition-transform duration-500 ease-out group-hover:translate-x-0" />
-            </span>
-          </a>
+              href="#contact"
+              className="mt-10 group inline-flex items-center justify-center rounded-full uppercase px-5 py-3 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white xl:px-8"
+            >
+              <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
+                <ChevronRight className="h-4 w-4 shrink-0 transition-transform duration-500 ease-out group-hover:-translate-x-4" />
+              </span>
+              Get Started
+              <span className="inline-flex h-4 w-0 items-center justify-end overflow-hidden transition-all duration-500 ease-out group-hover:w-4 group-hover:ml-2">
+                <ChevronRight className="h-4 w-4 shrink-0 translate-x-4 transition-transform duration-500 ease-out group-hover:translate-x-0" />
+              </span>
+            </a>
           </div>
         </aside>
       </div>

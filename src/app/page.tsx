@@ -20,9 +20,9 @@ export default function Home() {
       <StructuredData />
       <Navbar />
       <main className="flex-1">
-        <IntroReel />
-        {/* <Hero /> */}
-        {/* <VideoSection /> */}
+        {/* <IntroReel /> */}
+        <Hero />
+        <VideoSection />
         <Services />
         {/* <OrderProcess /> */}
         <About />
