@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, DM_Sans } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
@@ -100,6 +101,7 @@ export default function RootLayout({
         <InlineScript html="(function(){try{var t=localStorage.getItem('theme');var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();" />
       </head>
       <body className="min-h-full flex flex-col">
+        <NextTopLoader color="#3b5bdb" height={3} showSpinner={false} />
         <Loader />
         <SmoothScroll>{children}</SmoothScroll>
       </body>

@@ -12,7 +12,7 @@ export function ResourceHero({
   description: string;
 }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-secondary/80 to-blue-100/40 border-b">
+    <section className="relative overflow-hidden bg-gradient-to-b from-secondary/60 to-background border-b">
       <div className="pointer-events-none absolute inset-0 hero-grid" />
       <div className="container-px relative flex flex-col items-center justify-center py-24 text-center lg:py-32 lg:pt-56">
         <span className="inline-flex items-center gap-2 rounded-sm border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
