@@ -1,22 +1,20 @@
 import type { Metadata } from "next";
-import { ComingSoon } from "@/components/site/coming-soon";
+import { CaseStudiesIndex } from "@/components/site/case-studies-index";
+import { client } from "@/sanity/client";
+import { CASE_STUDIES_QUERY } from "@/sanity/queries";
 import { pageMetadata } from "@/lib/site";
+import type { CaseStudyListItem } from "@/sanity/types";
 
-export const metadata: Metadata = {
-  ...pageMetadata({
-    title: "Case Studies",
-    description:
-      "Eastern Fullfilment case studies are coming soon — real results from brands scaling their fulfillment.",
-    path: "/resources/case-studies",
-  }),
-  robots: { index: false, follow: true },
-};
+export const revalidate = 300;
 
-export default function Page() {
-  return (
-    <ComingSoon
-      title="Case studies"
-      description="We're gathering stories of brands that scaled their fulfillment with Eastern. Real numbers, coming soon."
-    />
-  );
+export const metadata: Metadata = pageMetadata({
+  title: "Case Studies",
+  description:
+    "Real results from brands scaling their fulfillment with Eastern Fullfilment.",
+  path: "/resources/case-studies",
+});
+
+export default async function Page() {
+  const caseStudies = await client.fetch<CaseStudyListItem[]>(CASE_STUDIES_QUERY);
+  return <CaseStudiesIndex caseStudies={caseStudies} />;
 }

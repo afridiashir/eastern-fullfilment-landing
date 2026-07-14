@@ -1,22 +1,20 @@
 import type { Metadata } from "next";
-import { ComingSoon } from "@/components/site/coming-soon";
+import { BlogIndex } from "@/components/site/blog-index";
+import { client } from "@/sanity/client";
+import { POSTS_QUERY } from "@/sanity/queries";
 import { pageMetadata } from "@/lib/site";
+import type { PostListItem } from "@/sanity/types";
 
-export const metadata: Metadata = {
-  ...pageMetadata({
-    title: "Blog",
-    description:
-      "The Eastern Fullfilment blog is coming soon — insights on fulfillment, logistics, and all-mile delivery.",
-    path: "/resources/blog",
-  }),
-  robots: { index: false, follow: true },
-};
+export const revalidate = 300;
 
-export default function Page() {
-  return (
-    <ComingSoon
-      title="Our blog"
-      description="We're putting together insights on fulfillment, logistics, and all-mile delivery. Check back soon."
-    />
-  );
+export const metadata: Metadata = pageMetadata({
+  title: "Blog",
+  description:
+    "Insights on fulfillment, logistics, and all-mile delivery from the Eastern Fullfilment team.",
+  path: "/resources/blog",
+});
+
+export default async function Page() {
+  const posts = await client.fetch<PostListItem[]>(POSTS_QUERY);
+  return <BlogIndex posts={posts} />;
 }

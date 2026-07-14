@@ -4,6 +4,7 @@ import "lenis/dist/lenis.css";
 import "./globals.css";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
 import { Loader } from "@/components/site/loader";
+import { InlineScript } from "@/components/site/inline-script";
 import { siteConfig } from "@/lib/site";
 
 const manrope = Manrope({
@@ -95,12 +96,8 @@ export default function RootLayout({
       className={`${manrope.variable} ${dmSans.variable} h-full antialiased`}
     >
       <head>
-        <script
-          // Apply the saved (or system) theme before paint to avoid a flash of the wrong theme.
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();`,
-          }}
-        />
+        {/* Apply the saved (or system) theme before paint to avoid a flash of the wrong theme. */}
+        <InlineScript html="(function(){try{var t=localStorage.getItem('theme');var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();" />
       </head>
       <body className="min-h-full flex flex-col">
         <Loader />
