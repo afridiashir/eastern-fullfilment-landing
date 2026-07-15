@@ -15,10 +15,37 @@ const contactInfo = [
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setError(null);
+    setSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error ?? "Something went wrong. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -118,8 +145,19 @@ export function Contact() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full rounded-full" size="lg">
-                Get my quote <Send className="h-4 w-4" />
+              {error && (
+                <p className="rounded-lg border border-destructive/30 bg-destructive/10 px-3.5 py-2.5 text-sm text-destructive">
+                  {error}
+                </p>
+              )}
+
+              <Button
+                type="submit"
+                className="w-full rounded-full"
+                size="lg"
+                disabled={submitting}
+              >
+                {submitting ? "Sending…" : "Get my quote"} <Send className="h-4 w-4" />
               </Button>
             </form>
           )}
