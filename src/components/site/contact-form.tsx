@@ -5,14 +5,16 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { countries, flagEmoji } from "@/lib/countries";
-import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Shared sizing for inputs/selects so every field is the same comfortable height.
 const inputClass = "h-12 px-3.5 text-base md:text-sm";
-
-const fieldClass =
-  "h-12 w-full min-w-0 rounded-lg border border-input bg-transparent px-3.5 py-1 text-base transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm dark:bg-input/30";
 
 const orderVolumes = [
   "Less than 500 / mo",
@@ -121,29 +123,15 @@ export function ContactForm() {
         <label htmlFor="phone" className="text-sm font-medium">
           Phone number <span className="text-primary">*</span>
         </label>
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <select
-            name="country"
-            aria-label="Country"
-            defaultValue="US"
-            className={cn(fieldClass, "shrink-0 sm:w-44")}
-          >
-            {countries.map((c) => (
-              <option key={c.iso2} value={c.iso2}>
-                {flagEmoji(c.iso2)} {c.name} ({c.dial})
-              </option>
-            ))}
-          </select>
-          <Input
-            id="phone"
-            name="phone"
-            type="tel"
-            inputMode="tel"
-            placeholder="(555) 012-3456"
-            className={inputClass}
-            required
-          />
-        </div>
+        <Input
+          id="phone"
+          name="phone"
+          type="tel"
+          inputMode="tel"
+          placeholder="(555) 012-3456"
+          className={inputClass}
+          required
+        />
       </div>
 
       <div className="space-y-2">
@@ -163,22 +151,18 @@ export function ContactForm() {
         <label htmlFor="monthlyOrders" className="text-sm font-medium">
           Monthly orders <span className="text-primary">*</span>
         </label>
-        <select
-          id="monthlyOrders"
-          name="monthlyOrders"
-          required
-          defaultValue=""
-          className={cn(fieldClass, "text-muted-foreground")}
-        >
-          <option value="" disabled>
-            Select
-          </option>
-          {orderVolumes.map((band) => (
-            <option key={band} value={band} className="text-foreground">
-              {band}
-            </option>
-          ))}
-        </select>
+        <Select name="monthlyOrders" required>
+          <SelectTrigger id="monthlyOrders" className="w-full px-3.5 text-base md:text-sm data-[size=default]:h-12">
+            <SelectValue placeholder="Select" />
+          </SelectTrigger>
+          <SelectContent>
+            {orderVolumes.map((band) => (
+              <SelectItem key={band} value={band}>
+                {band}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="space-y-2">

@@ -36,10 +36,21 @@ export function emailLayout({
         <td align="center">
           <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%; max-width:600px; background-color:#ffffff; border-radius:16px; overflow:hidden; border:1px solid ${BORDER_COLOR};">
             <tr>
-              <td style="padding:28px 32px; border-bottom:1px solid ${BORDER_COLOR};">
-                <img src="${absoluteUrl("/logo_light.png")}" width="28" height="28" alt="${escapeHtml(siteConfig.name)}" style="display:block; vertical-align:middle;" />
-              </td>
+  <td style="padding:28px 32px; border-bottom:1px solid ${BORDER_COLOR};">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td valign="middle" style="padding-right:8px;">
+          <img src="${absoluteUrl("/logo_light.png")}" width="28" height="32" alt="${escapeHtml(siteConfig.name)}" style="display:block;" />
+        </td>
+        <td valign="middle">
+          <span style="font-size:16px; font-weight:600; color:${TEXT_COLOR};">
+            ${escapeHtml(siteConfig.name)}
+          </span>
+        </td>
             </tr>
+          </table>
+        </td>
+      </tr>
             <tr>
               <td style="padding:32px;">
                 ${bodyHtml}
