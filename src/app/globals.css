@@ -193,8 +193,18 @@
   }
 }
 
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  [data-marquee-col="true"] {
+  [data-marquee-col="true"],
+  [data-marquee-row="true"] {
     animation: none !important;
   }
 }

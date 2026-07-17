@@ -1,4 +1,5 @@
 import nodemailer, { type Transporter } from "nodemailer";
+import { siteConfig } from "@/lib/site";
 
 let transporter: Transporter | null = null;
 
@@ -36,6 +37,6 @@ export type MailMessage = {
 };
 
 export async function sendMail(message: MailMessage): Promise<void> {
-  const from = process.env.SMTP_USER;
+  const from = `"${siteConfig.name}" <${process.env.SMTP_USER}>`;
   await getTransporter().sendMail({ from, ...message });
 }
