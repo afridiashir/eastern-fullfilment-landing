@@ -8,6 +8,7 @@ import { Services } from "@/components/site/services";
 import { OrderProcess } from "@/components/site/order-process";
 import { Integrations } from "@/components/site/integrations";
 import { Testimonials } from "@/components/site/testimonials";
+import { CaseStudySpotlight } from "@/components/site/case-study-spotlight";
 import { Faq } from "@/components/site/faq";
 import { CtaBanner } from "@/components/site/cta";
 import { Contact } from "@/components/site/contact";
@@ -29,6 +30,7 @@ export default function Home() {
         <Integrations />
         <Pricing />
         <Testimonials />
+        <CaseStudySpotlight />
         <Faq />
         <CtaBanner />
         <Contact />
