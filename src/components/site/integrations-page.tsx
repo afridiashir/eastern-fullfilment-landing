@@ -4,6 +4,7 @@ import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { CtaBanner } from "@/components/site/cta";
 import { cn } from "@/lib/utils";
+import { gaAttrs } from "@/lib/analytics";
 import {
   featuredIntegrations,
   integrationCategories,
@@ -129,6 +130,14 @@ export function IntegrationsPage() {
                     </ul>
                     <Link
                       href="/#contact"
+                      {...gaAttrs("cta_click", {
+                        cta_location: "integration_detail",
+                        cta_text: `Connect ${item.name}`,
+                        cta_destination: "/#contact",
+                        cta_type: "inline",
+                        integration_name: item.name,
+                        integration_category: item.category,
+                      })}
                       className="group mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-primary"
                     >
                       Connect {item.name}

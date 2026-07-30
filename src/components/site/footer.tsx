@@ -9,6 +9,7 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { gaAttrs } from "@/lib/analytics";
 import { Logo } from "./logo";
 
 type FooterLink = { label: string; href: string };
@@ -104,6 +105,11 @@ export function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
+                  {...gaAttrs("social_click", {
+                    social_network: social.label,
+                    link_url: social.href,
+                    nav_location: "footer",
+                  })}
                   className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
                 >
                   <FontAwesomeIcon icon={social.icon} className="h-4 w-4" />
@@ -121,6 +127,12 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
+                      {...gaAttrs("nav_click", {
+                        nav_location: "footer",
+                        nav_group: group.title,
+                        nav_item: link.label,
+                        link_url: link.href,
+                      })}
                       className="text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {link.label}
@@ -138,10 +150,24 @@ export function Footer() {
             reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="#" className="transition-colors hover:text-primary">
+            <Link
+              href="#"
+              {...gaAttrs("nav_click", {
+                nav_location: "footer_legal",
+                nav_item: "Privacy",
+              })}
+              className="transition-colors hover:text-primary"
+            >
               Privacy
             </Link>
-            <Link href="#" className="transition-colors hover:text-primary">
+            <Link
+              href="#"
+              {...gaAttrs("nav_click", {
+                nav_location: "footer_legal",
+                nav_item: "Terms",
+              })}
+              className="transition-colors hover:text-primary"
+            >
               Terms
             </Link>
           </div>

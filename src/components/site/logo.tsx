@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site";
+import { gaAttrs } from "@/lib/analytics";
 
 type LogoProps = {
   /** Wrapping link target. */
@@ -26,6 +27,7 @@ export function Logo({
     <Link
       href={href}
       aria-label={siteConfig.name}
+      {...gaAttrs("logo_click", { link_url: href })}
       className={cn("flex items-center gap-2", className)}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}

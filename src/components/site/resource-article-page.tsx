@@ -4,6 +4,7 @@ import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { CtaBanner } from "@/components/site/cta";
 import { PortableText } from "@/components/site/portable-text";
+import { gaAttrs } from "@/lib/analytics";
 import type { DocArticle, DocArticleListItem } from "@/sanity/types";
 
 /** Shared article layout for Documentation and Help Center — both are a
@@ -35,6 +36,12 @@ export function ResourceArticlePage({
                     <li key={sibling._id}>
                       <Link
                         href={`${basePath}/${sibling.slug}`}
+                        {...gaAttrs("nav_click", {
+                          nav_location: "article_sidebar",
+                          nav_group: article.category.title,
+                          nav_item: sibling.title,
+                          link_url: `${basePath}/${sibling.slug}`,
+                        })}
                         className={cn(
                           "block rounded-lg px-3 py-1.5 text-sm transition-colors",
                           sibling.slug === article.slug

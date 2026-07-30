@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Search, X } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import { EmptyState } from "@/components/site/resource-hero";
 import { PostCard } from "@/components/site/post-card";
 import { Input } from "@/components/ui/input";
@@ -71,7 +72,35 @@ export function BlogList({
   const hasActiveFilters =
     search !== "" || selectedCategories.size > 0 || selectedAuthors.size > 0;
 
+  // Report the query once typing settles, with how many posts it matched.
+  // The ref keeps a filter change from re-reporting a query already sent.
+  const reportedSearchRef = useRef("");
+  const resultCount = filteredPosts.length;
+
+  useEffect(() => {
+    const query = search.trim();
+    if (!query || query === reportedSearchRef.current) return;
+    const timer = setTimeout(() => {
+      reportedSearchRef.current = query;
+      trackEvent("search", {
+        search_term: query,
+        search_location: "blog",
+        result_count: resultCount,
+      });
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [search, resultCount]);
+
+  function handleFilterToggle(type: "category" | "author", value: string, active: boolean) {
+    trackEvent(active ? "filter_remove" : "filter_apply", {
+      filter_type: type,
+      filter_value: value,
+      filter_location: "blog",
+    });
+  }
+
   function clearFilters() {
+    trackEvent("filter_clear", { filter_location: "blog" });
     setSearch("");
     setSelectedCategories(new Set());
     setSelectedAuthors(new Set());
@@ -99,7 +128,10 @@ export function BlogList({
               label: category.title,
             }))}
             selected={selectedCategories}
-            onToggle={(value) => setSelectedCategories((prev) => toggle(prev, value))}
+            onToggle={(value) => {
+              handleFilterToggle("category", value, selectedCategories.has(value));
+              setSelectedCategories((prev) => toggle(prev, value));
+            }}
           />
         ) : null}
 
@@ -111,7 +143,10 @@ export function BlogList({
               label: author.name,
             }))}
             selected={selectedAuthors}
-            onToggle={(value) => setSelectedAuthors((prev) => toggle(prev, value))}
+            onToggle={(value) => {
+              handleFilterToggle("author", value, selectedAuthors.has(value));
+              setSelectedAuthors((prev) => toggle(prev, value));
+            }}
           />
         ) : null}
 

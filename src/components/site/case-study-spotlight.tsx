@@ -1,10 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowRight, ChevronLeft, ChevronRight, Play, Quote, X } from "lucide-react";
+import { gaAttrs, trackEvent } from "@/lib/analytics";
+import { useVideoAnalytics } from "@/components/site/use-video-analytics";
 
 type CaseStudy = {
   brand: string;
@@ -110,11 +112,22 @@ const caseStudies: CaseStudy[] = [
 export function CaseStudySpotlight() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [openVideo, setOpenVideo] = useState<string | null>(null);
+  const [openVideo, setOpenVideo] = useState<CaseStudy | null>(null);
+  // Last index reported to analytics, so the initial sync isn't counted.
+  const reportedIndexRef = useRef(0);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
+    const index = emblaApi.selectedScrollSnap();
+    setSelectedIndex(index);
+    if (index !== reportedIndexRef.current) {
+      reportedIndexRef.current = index;
+      trackEvent("carousel_slide_view", {
+        carousel_name: "case_studies",
+        slide_index: index + 1,
+        case_study: caseStudies[index]?.brand,
+      });
+    }
   }, [emblaApi]);
 
   useEffect(() => {
@@ -141,7 +154,11 @@ export function CaseStudySpotlight() {
   }, [openVideo]);
 
   return (
-    <section id="case-study" className="container-px py-20 lg:py-28">
+    <section
+      id="case-study"
+      data-ga-view="case_studies"
+      className="container-px py-20 lg:py-28"
+    >
       <div className="mx-auto mb-12 flex flex-col items-center gap-4 text-center lg:mb-16">
         <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
           Case Studies
@@ -192,6 +209,13 @@ export function CaseStudySpotlight() {
 
                     <Link
                       href="/resources/case-studies"
+                      {...gaAttrs("cta_click", {
+                        cta_location: "case_study_spotlight",
+                        cta_text: "Read more customer stories",
+                        cta_destination: "/resources/case-studies",
+                        cta_type: "inline",
+                        case_study: study.brand,
+                      })}
                       className="group mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary"
                     >
                       Read more customer stories
@@ -203,7 +227,15 @@ export function CaseStudySpotlight() {
                   <div>
                     <button
                       type="button"
-                      onClick={() => setOpenVideo(study.videoSrc)}
+                      onClick={() => {
+                        trackEvent("video_open", {
+                          video_title: `${study.brand} testimonial`,
+                          video_provider: "self_hosted",
+                          cta_location: "case_study_spotlight",
+                          case_study: study.brand,
+                        });
+                        setOpenVideo(study);
+                      }}
                       aria-label={`Play client testimonial from ${study.brand}`}
                       className="group relative block lg:aspect-[4/5] w-full overflow-hidden rounded-3xl border border-border shadow-xl shadow-primary/5 sm:aspect-video"
                     >
@@ -247,7 +279,13 @@ export function CaseStudySpotlight() {
         <button
           type="button"
           aria-label="Previous case study"
-          onClick={() => emblaApi?.scrollPrev()}
+          onClick={() => {
+            trackEvent("carousel_navigate", {
+              carousel_name: "case_studies",
+              direction: "previous",
+            });
+            emblaApi?.scrollPrev();
+          }}
           className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card transition-colors hover:bg-secondary"
         >
           <ChevronLeft className="h-5 w-5" />
@@ -259,7 +297,15 @@ export function CaseStudySpotlight() {
               key={study.brand}
               type="button"
               aria-label={`Go to ${study.brand} case study`}
-              onClick={() => emblaApi?.scrollTo(i)}
+              onClick={() => {
+                trackEvent("carousel_navigate", {
+                  carousel_name: "case_studies",
+                  direction: "dot",
+                  slide_index: i + 1,
+                  case_study: study.brand,
+                });
+                emblaApi?.scrollTo(i);
+              }}
               className={`h-2 rounded-full transition-all ${
                 i === selectedIndex
                   ? "w-8 bg-primary"
@@ -272,7 +318,13 @@ export function CaseStudySpotlight() {
         <button
           type="button"
           aria-label="Next case study"
-          onClick={() => emblaApi?.scrollNext()}
+          onClick={() => {
+            trackEvent("carousel_navigate", {
+              carousel_name: "case_studies",
+              direction: "next",
+            });
+            emblaApi?.scrollNext();
+          }}
           className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card transition-colors hover:bg-secondary"
         >
           <ChevronRight className="h-5 w-5" />
@@ -300,16 +352,33 @@ export function CaseStudySpotlight() {
             onClick={(e) => e.stopPropagation()}
             className="w-full max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl animate-in zoom-in-95 duration-200"
           >
-            <video
-              className="aspect-video h-full w-full"
-              src={openVideo}
-              controls
-              autoPlay
-              playsInline
+            <LightboxVideo
+              key={openVideo.brand}
+              src={openVideo.videoSrc}
+              title={`${openVideo.brand} testimonial`}
             />
           </div>
         </div>
       )}
     </section>
+  );
+}
+
+/**
+ * Split out so the analytics hook's progress state is keyed to one video —
+ * remounting on a different case study restarts the start/progress tracking.
+ */
+function LightboxVideo({ src, title }: { src: string; title: string }) {
+  const videoAnalytics = useVideoAnalytics(title);
+
+  return (
+    <video
+      className="aspect-video h-full w-full"
+      src={src}
+      controls
+      autoPlay
+      playsInline
+      {...videoAnalytics}
+    />
   );
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Clock, ChevronRight, ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
+import { gaAttrs } from "@/lib/analytics";
 
 export function ComingSoon({
   eyebrow = "Resources",
@@ -36,6 +37,13 @@ export function ComingSoon({
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 href="/#contact"
+                {...gaAttrs("cta_click", {
+                  cta_location: "coming_soon",
+                  cta_text: "Get notified",
+                  cta_destination: "/#contact",
+                  cta_type: "primary",
+                  page_section: title,
+                })}
                 className="group inline-flex items-center justify-center rounded-full border border-primary bg-primary px-6 py-3 text-sm font-medium text-white transition-colors xl:px-8"
               >
                 <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">

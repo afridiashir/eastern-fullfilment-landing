@@ -4,6 +4,7 @@ import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { CtaBanner } from "@/components/site/cta";
 import { ResourceHero, EmptyState } from "@/components/site/resource-hero";
+import { gaAttrs } from "@/lib/analytics";
 import type { DocSection } from "@/sanity/types";
 
 /** Shared listing layout for Documentation and Help Center — both group
@@ -60,6 +61,12 @@ export function ResourceSectionsIndex({
                         <li key={article._id}>
                           <Link
                             href={`${basePath}/${article.slug}`}
+                            {...gaAttrs("select_content", {
+                              content_type: eyebrow.toLowerCase().replace(/\s+/g, "_"),
+                              content_id: article.slug,
+                              item_name: article.title,
+                              item_category: section.title,
+                            })}
                             className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-accent hover:text-primary"
                           >
                             {article.title}

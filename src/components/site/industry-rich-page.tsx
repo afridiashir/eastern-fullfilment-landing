@@ -6,6 +6,7 @@ import { CtaBanner } from "@/components/site/cta";
 import { BlockVisual } from "@/components/site/product-solutions";
 import { IndustryOrderFlow } from "@/components/site/industry-order-flow";
 import { cn } from "@/lib/utils";
+import { gaAttrs } from "@/lib/analytics";
 import type { Industry } from "@/lib/industries";
 
 export function IndustryRichPage({ industry }: { industry: Industry }) {
@@ -32,6 +33,13 @@ export function IndustryRichPage({ industry }: { industry: Industry }) {
             <div className="mt-8 flex items-center justify-center gap-3 flex-row">
               <Link
                 href="/#contact"
+                {...gaAttrs("cta_click", {
+                  cta_location: "industry_hero",
+                  cta_text: "Get Started",
+                  cta_destination: "/#contact",
+                  cta_type: "primary",
+                  industry_name: industry.name,
+                })}
                 className="group inline-flex items-center justify-center rounded-full border border-primary bg-primary px-5 py-3 text-sm font-medium text-white transition-colors xl:px-8"
               >
                 <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
@@ -44,6 +52,13 @@ export function IndustryRichPage({ industry }: { industry: Industry }) {
               </Link>
               <Link
                 href="/#contact"
+                {...gaAttrs("cta_click", {
+                  cta_location: "industry_hero",
+                  cta_text: "Book a Demo",
+                  cta_destination: "/#contact",
+                  cta_type: "secondary",
+                  industry_name: industry.name,
+                })}
                 className="inline-flex items-center justify-center rounded-full border bg-secondary px-5 py-3 text-sm font-medium text-secondary-foreground transition-colors hover:bg-accent xl:px-8"
               >
                 Book a Demo

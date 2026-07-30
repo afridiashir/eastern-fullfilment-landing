@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { gaAttrs } from "@/lib/analytics";
 
 const plans = [
   {
@@ -70,7 +71,11 @@ const feeBreakdown = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="container-px py-20 lg:py-28">
+    <section
+      id="pricing"
+      data-ga-view="pricing"
+      className="container-px py-20 lg:py-28"
+    >
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Fulfillment pricing that scales with you
@@ -127,6 +132,13 @@ export function Pricing() {
               render={<Link href="#contact" />}
               variant={plan.featured ? "default" : "outline"}
               className="mt-8 w-full rounded-full"
+              {...gaAttrs("select_plan", {
+                cta_location: "pricing",
+                cta_text: plan.cta,
+                cta_destination: "#contact",
+                plan_name: plan.name,
+                plan_price: plan.price,
+              })}
             >
               {plan.cta}
             </Button>

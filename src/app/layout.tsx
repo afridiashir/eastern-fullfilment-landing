@@ -6,6 +6,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
 import { Loader } from "@/components/site/loader";
 import { InlineScript } from "@/components/site/inline-script";
+import { Analytics } from "@/components/site/analytics";
 import { siteConfig } from "@/lib/site";
 
 const manrope = Manrope({
@@ -104,6 +105,7 @@ export default function RootLayout({
         <NextTopLoader color="#3b5bdb" height={3} showSpinner={false} />
         <Loader />
         <SmoothScroll>{children}</SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, CalendarCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { gaAttrs } from "@/lib/analytics";
 
 const steps = [
   { step: "01", label: "Tell us your volume", detail: "Share your order volume, SKUs, and channels." },
@@ -10,7 +11,7 @@ const steps = [
 
 export function CtaBanner() {
   return (
-    <section className="container-px py-20 lg:py-24">
+    <section data-ga-view="cta_banner" className="container-px py-20 lg:py-24">
       <div className="relative overflow-hidden rounded-[2rem] bg-primary px-6 py-16 text-center text-primary-foreground sm:px-12">
         <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-white/10 blur-2xl" />
         <div className="pointer-events-none absolute -bottom-20 -right-10 h-64 w-64 rounded-full bg-white/10 blur-2xl" />
@@ -28,6 +29,12 @@ export function CtaBanner() {
               size="lg"
               variant="secondary"
               className="rounded-full"
+              {...gaAttrs("cta_click", {
+                cta_location: "cta_banner",
+                cta_text: "Get started",
+                cta_destination: "#contact",
+                cta_type: "primary",
+              })}
             >
               Get started <ArrowRight className="h-4 w-4" />
             </Button>
@@ -35,6 +42,12 @@ export function CtaBanner() {
               render={<Link href="#contact" />}
               size="lg"
               variant="outline"
+              {...gaAttrs("cta_click", {
+                cta_location: "cta_banner",
+                cta_text: "Book a call",
+                cta_destination: "#contact",
+                cta_type: "secondary",
+              })}
               className="rounded-full border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
             >
               <CalendarCheck className="h-4 w-4" /> Book a call

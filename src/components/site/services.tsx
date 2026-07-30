@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { gaAttrs } from "@/lib/analytics";
 
 // Bars for the inventory throughput chart. Classes preserve the responsive
 // bar-count + highlight behavior across lg / xl breakpoints.
@@ -76,7 +77,11 @@ export function Services() {
   const revealDelay = (i: number) => ({ transitionDelay: inView ? `${i * 110}ms` : "0ms" });
 
   return (
-    <section id="services" className="container-px pt-16 lg:pt-24 pb-4 lg:pb-5">
+    <section
+      id="services"
+      data-ga-view="services"
+      className="container-px pt-16 lg:pt-24 pb-4 lg:pb-5"
+    >
       <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Everything You Need to Scale Fulfillment
@@ -120,6 +125,12 @@ export function Services() {
                 <a
                   className="self-start inline-flex items-center justify-center px-5 py-2.5 sm:px-7 sm:py-3.5 text-[13px] sm:text-[15px] font-semibold rounded-full text-text-primary bg-white border border-border-subtle dark:bg-background dark:hover:bg-foreground/10 hover:bg-black/5 transition-colors duration-200"
                   href="#contact"
+                  {...gaAttrs("cta_click", {
+                    cta_location: "services",
+                    cta_text: "Book a demo",
+                    cta_destination: "#contact",
+                    cta_type: "secondary",
+                  })}
                 >
                   Book a demo
                 </a>

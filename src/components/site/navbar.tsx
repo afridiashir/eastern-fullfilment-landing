@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X, Sparkles, ChevronRight, ChevronDown, LayoutGrid, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { gaAttrs, trackEvent } from "@/lib/analytics";
 import { HeadOfficeDrawer } from "./head-office-drawer";
 import { ThemeToggle } from "./theme-toggle";
 import { Logo } from "./logo";
@@ -61,6 +62,7 @@ export function Navbar() {
   const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [staticHidden, setStaticHidden] = useState(false);
+  const lastSearchRef = useRef("");
   const pathname = usePathname();
 
   useEffect(() => {
@@ -81,6 +83,31 @@ export function Navbar() {
     return () => clearTimeout(t);
   }, [scrolled]);
 
+  // Sticky and static bars are the same markup, so the event carries which one
+  // was actually on screen when it was clicked.
+  const navLocation = (sticky: boolean) => (sticky ? "navbar_sticky" : "navbar");
+
+  const openSearch = (location: string, device: "desktop" | "mobile") => {
+    trackEvent("search_open", { nav_location: location, device });
+    setSearchOpen(true);
+  };
+
+  const toggleMobileMenu = () => {
+    trackEvent(open ? "menu_close" : "menu_open", { menu_name: "mobile_nav" });
+    setOpen((v) => !v);
+  };
+
+  // The search box is presentational for now; the query is still worth
+  // capturing so we know what visitors expect to find. Reported on Enter or on
+  // blur, whichever comes first — the ref keeps the same query from counting
+  // twice when both happen.
+  const submitSearch = (term: string) => {
+    const query = term.trim();
+    if (!query || query === lastSearchRef.current) return;
+    lastSearchRef.current = query;
+    trackEvent("search", { search_term: query });
+  };
+
   const bar = (sticky: boolean) => (
     <>
       <nav
@@ -95,7 +122,13 @@ export function Navbar() {
           <button
             type="button"
             aria-label="Open menu"
-            onClick={() => setSideOpen(true)}
+            onClick={() => {
+              trackEvent("menu_open", {
+                menu_name: "head_office",
+                nav_location: navLocation(sticky),
+              });
+              setSideOpen(true);
+            }}
             className="group hidden lg:inline-flex items-center justify-center text-foreground cursor-pointer"
           >
             <LayoutGrid className="h-6 w-6 fill-transparent transition-colors duration-300 group-hover:fill-foreground" />
@@ -141,6 +174,12 @@ export function Navbar() {
                           <Link
                             key={child.href}
                             href={child.href}
+                            {...gaAttrs("nav_click", {
+                              nav_location: navLocation(sticky),
+                              nav_group: link.label,
+                              nav_item: child.label,
+                              link_url: child.href,
+                            })}
                             className={cn(
                               "rounded-full uppercase px-5 py-3 text-sm font-medium leading-5 transition-colors",
                               isChildActive
@@ -163,6 +202,11 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href ?? "#"}
+                {...gaAttrs("nav_click", {
+                  nav_location: navLocation(sticky),
+                  nav_item: link.label,
+                  link_url: link.href,
+                })}
                 className={cn(
                   "group rounded-full uppercase px-5 py-3 text-sm font-medium text-foreground transition-colors xl:px-8",
                   isActive
@@ -189,13 +233,19 @@ export function Navbar() {
           <button
             type="button"
             aria-label="Search"
-            onClick={() => setSearchOpen(true)}
+            onClick={() => openSearch(navLocation(sticky), "desktop")}
             className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground"
           >
             <Search className="h-5 w-5" />
           </button>
           <a
             href="#contact"
+            {...gaAttrs("cta_click", {
+              cta_location: navLocation(sticky),
+              cta_text: "Get Started",
+              cta_destination: "#contact",
+              cta_type: "primary",
+            })}
             className="group inline-flex items-center rounded-full uppercase px-5 py-3 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white xl:px-8"
           >
             <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
@@ -214,7 +264,7 @@ export function Navbar() {
           <button
             type="button"
             aria-label="Search"
-            onClick={() => setSearchOpen(true)}
+            onClick={() => openSearch(navLocation(sticky), "mobile")}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground"
           >
             <Search className="h-5 w-5" />
@@ -222,7 +272,7 @@ export function Navbar() {
           <button
             type="button"
             className="group inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-foreground"
-            onClick={() => setOpen((v) => !v)}
+            onClick={toggleMobileMenu}
             aria-label="Toggle menu"
           >
             {open ? (
@@ -308,9 +358,13 @@ export function Navbar() {
                   <div key={link.label}>
                     <button
                       type="button"
-                      onClick={() =>
-                        setMobileSection(isOpen ? null : link.label)
-                      }
+                      onClick={() => {
+                        trackEvent(
+                          isOpen ? "nav_group_close" : "nav_group_open",
+                          { nav_location: "mobile_nav", nav_group: link.label },
+                        );
+                        setMobileSection(isOpen ? null : link.label);
+                      }}
                       className="flex w-full items-center justify-between rounded-md px-3 py-3 text-sm font-medium uppercase text-foreground transition-colors hover:text-primary"
                     >
                       {link.label}
@@ -333,6 +387,12 @@ export function Navbar() {
                             key={child.href}
                             href={child.href}
                             onClick={() => setOpen(false)}
+                            {...gaAttrs("nav_click", {
+                              nav_location: "mobile_nav",
+                              nav_group: link.label,
+                              nav_item: child.label,
+                              link_url: child.href,
+                            })}
                             className={cn(
                               "block rounded-md px-6 py-2.5 text-sm font-medium uppercase transition-colors",
                               pathname.startsWith(child.href)
@@ -355,6 +415,11 @@ export function Navbar() {
                   key={link.href}
                   href={link.href ?? "#"}
                   onClick={() => setOpen(false)}
+                  {...gaAttrs("nav_click", {
+                    nav_location: "mobile_nav",
+                    nav_item: link.label,
+                    link_url: link.href,
+                  })}
                   className={cn(
                     "rounded-md px-3 py-3 text-sm font-medium uppercase transition-colors",
                     isActive
@@ -368,6 +433,12 @@ export function Navbar() {
             })}
             <a
               href="#contact"
+              {...gaAttrs("cta_click", {
+                cta_location: "mobile_nav",
+                cta_text: "Get Started",
+                cta_destination: "#contact",
+                cta_type: "primary",
+              })}
               className="mt-10 group inline-flex items-center justify-center rounded-full uppercase px-5 py-3 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white xl:px-8"
             >
               <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
@@ -412,6 +483,10 @@ export function Navbar() {
               type="text"
               autoFocus={searchOpen}
               placeholder="Search..."
+              onKeyDown={(e) => {
+                if (e.key === "Enter") submitSearch(e.currentTarget.value);
+              }}
+              onBlur={(e) => submitSearch(e.currentTarget.value)}
               className="w-full bg-transparent text-base text-foreground placeholder:text-muted-foreground focus:outline-none sm:text-lg"
             />
             <button

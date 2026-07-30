@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Send } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,10 +25,20 @@ const orderVolumes = [
   "50,000+ / mo",
 ];
 
+const FORM_NAME = "contact";
+
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // `form_start` is only meaningful once per visit to the form.
+  const startedRef = useRef(false);
+
+  function handleStart() {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    trackEvent("form_start", { form_name: FORM_NAME });
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,6 +47,13 @@ export function ContactForm() {
 
     const formData = new FormData(e.currentTarget);
     const payload = Object.fromEntries(formData.entries());
+    // Volume band only — never send names/emails to GA.
+    const monthlyOrders = String(payload.monthlyOrders ?? "");
+
+    trackEvent("form_submit", {
+      form_name: FORM_NAME,
+      monthly_orders: monthlyOrders,
+    });
 
     try {
       const res = await fetch("/api/contact", {
@@ -49,11 +67,18 @@ export function ContactForm() {
         throw new Error(data?.error ?? "Something went wrong. Please try again.");
       }
 
+      // GA4 recommended conversion event.
+      trackEvent("generate_lead", {
+        form_name: FORM_NAME,
+        monthly_orders: monthlyOrders,
+        lead_type: "contact_request",
+      });
       setSubmitted(true);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Something went wrong. Please try again.",
-      );
+      const message =
+        err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      trackEvent("form_error", { form_name: FORM_NAME, error_message: message });
+      setError(message);
     } finally {
       setSubmitting(false);
     }
@@ -77,6 +102,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
+      onFocus={handleStart}
       className="space-y-5 rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8"
     >
       <div className="grid gap-5 sm:grid-cols-2">

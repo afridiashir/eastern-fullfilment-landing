@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ChevronRight } from "lucide-react";
+import { gaAttrs } from "@/lib/analytics";
 
 type Stat = {
   value: number;
@@ -102,6 +103,12 @@ export function About() {
             </p>
             <a
               href="#contact"
+              {...gaAttrs("cta_click", {
+                cta_location: "about",
+                cta_text: "Get Started",
+                cta_destination: "#contact",
+                cta_type: "primary",
+              })}
               className="group mt-8 inline-flex items-center rounded-full uppercase px-5 py-3 text-sm font-medium transition-colors border-primary border bg-primary text-white xl:px-8"
             >
               <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">

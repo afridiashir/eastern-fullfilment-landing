@@ -14,6 +14,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 import type { ProductSolution, SolutionBlock } from "@/lib/products";
 
 /* ---------- Built-in mock visuals (no images required) ---------- */
@@ -461,7 +462,14 @@ export function ProductSolutions({
             <button
               key={solution.name}
               type="button"
-              onClick={() => setActiveTab(i)}
+              onClick={() => {
+                trackEvent("tab_select", {
+                  tab_group: heading,
+                  tab_name: solution.name,
+                  tab_index: i + 1,
+                });
+                setActiveTab(i);
+              }}
               aria-pressed={i === activeTab}
               className={cn(
                 "rounded-full px-5 py-2.5 text-sm font-medium transition-colors",

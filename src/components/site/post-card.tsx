@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { hasImageAsset, urlFor } from "@/sanity/image";
+import { gaAttrs } from "@/lib/analytics";
 import type { PostListItem } from "@/sanity/types";
 
 function formatDate(date: string) {
@@ -13,9 +14,19 @@ function formatDate(date: string) {
 
 export function PostCard({ post }: { post: PostListItem }) {
   const href = `/resources/blog/${post.slug}`;
+  // On the whole card, so the overlay link and "Read more" both report once.
+  const analytics = gaAttrs("select_content", {
+    content_type: "blog_post",
+    content_id: post.slug,
+    item_name: post.title,
+    item_category: post.categories?.[0]?.title,
+  });
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-sm border border-border bg-card transition-all hover:-translate-y-0.5 hover:shadow-sm">
+    <article
+      {...analytics}
+      className="group relative flex flex-col overflow-hidden rounded-sm border border-border bg-card transition-all hover:-translate-y-0.5 hover:shadow-sm"
+    >
       <Link
         href={href}
         tabIndex={-1}

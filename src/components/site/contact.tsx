@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,10 +14,20 @@ const contactInfo = [
   { icon: MapPin, label: "Fulfillment centers", value: "Dallas, TX · Newark, NJ" },
 ];
 
+const FORM_NAME = "quote";
+
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // `form_start` is only meaningful once per visit to the form.
+  const startedRef = useRef(false);
+
+  function handleStart() {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    trackEvent("form_start", { form_name: FORM_NAME });
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,6 +36,15 @@ export function Contact() {
 
     const formData = new FormData(e.currentTarget);
     const payload = Object.fromEntries(formData.entries());
+    // Qualifying context only — never send names/emails to GA.
+    const volume = String(payload.volume ?? "");
+    const channels = String(payload.channels ?? "");
+
+    trackEvent("form_submit", {
+      form_name: FORM_NAME,
+      monthly_orders: volume,
+      sales_channels: channels,
+    });
 
     try {
       const res = await fetch("/api/quote", {
@@ -38,18 +58,30 @@ export function Contact() {
         throw new Error(data?.error ?? "Something went wrong. Please try again.");
       }
 
+      // GA4 recommended conversion event.
+      trackEvent("generate_lead", {
+        form_name: FORM_NAME,
+        monthly_orders: volume,
+        sales_channels: channels,
+        lead_type: "quote_request",
+      });
       setSubmitted(true);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Something went wrong. Please try again.",
-      );
+      const message =
+        err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      trackEvent("form_error", { form_name: FORM_NAME, error_message: message });
+      setError(message);
     } finally {
       setSubmitting(false);
     }
   }
 
   return (
-    <section id="contact" className="container-px py-20 lg:py-28">
+    <section
+      id="contact"
+      data-ga-view="contact"
+      className="container-px py-20 lg:py-28"
+    >
       <div className="grid gap-12 lg:grid-cols-2">
         <div>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -90,7 +122,11 @@ export function Contact() {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form
+              onSubmit={handleSubmit}
+              onFocus={handleStart}
+              className="space-y-5"
+            >
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">

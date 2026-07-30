@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 export function ThemeToggle({ className }: { className?: string }) {
   const [isDark, setIsDark] = useState(false);
@@ -18,6 +19,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     const next = !isDark;
     setIsDark(next);
     document.documentElement.classList.toggle("dark", next);
+    trackEvent("theme_change", { theme: next ? "dark" : "light" });
     try {
       localStorage.setItem("theme", next ? "dark" : "light");
     } catch {}

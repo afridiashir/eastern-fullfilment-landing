@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { cn } from "@/lib/utils";
+import { gaAttrs } from "@/lib/analytics";
 import { Logo } from "./logo";
 
 interface HeadOfficeDrawerProps {
@@ -144,6 +145,12 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
             <a
               href="#contact"
               onClick={onClose}
+              {...gaAttrs("cta_click", {
+                cta_location: "head_office_drawer",
+                cta_text: "Book Demo",
+                cta_destination: "#contact",
+                cta_type: "primary",
+              })}
               className="group mt-8 inline-flex w-full items-center justify-center rounded-full px-8 py-3 text-sm font-medium uppercase text-white transition-colors bg-primary"
             >
               <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
@@ -164,6 +171,11 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
                   key={label}
                   href={href}
                   aria-label={label}
+                  {...gaAttrs("social_click", {
+                    social_network: label,
+                    link_url: href,
+                    nav_location: "head_office_drawer",
+                  })}
                   className="inline-flex h-9 w-9 items-center justify-center text-foreground transition-colors hover:text-primary"
                 >
                   <FontAwesomeIcon icon={icon} className="h-5 w-5" />

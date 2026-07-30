@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { gaAttrs } from "@/lib/analytics";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -91,6 +92,12 @@ export function WhyChooseUs() {
           <Button
             render={<Link href="#contact" />}
             className="why-intro mt-8 rounded-full"
+            {...gaAttrs("cta_click", {
+              cta_location: "why_choose_us",
+              cta_text: "Get started",
+              cta_destination: "#contact",
+              cta_type: "primary",
+            })}
           >
             Get started <ArrowRight className="h-4 w-4" />
           </Button>

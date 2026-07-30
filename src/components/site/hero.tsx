@@ -3,6 +3,7 @@ import { ArrowRight, ChevronRight, Star, Users, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AnimatedHeading } from "@/components/site/animated-heading";
+import { gaAttrs } from "@/lib/analytics";
 
 export function Hero() {
   return (
@@ -27,6 +28,12 @@ export function Hero() {
           <div className="mt-8 flex flex-col gap-3 flex-row">
             <a
             href="#contact"
+            {...gaAttrs("cta_click", {
+              cta_location: "hero",
+              cta_text: "Get Started",
+              cta_destination: "#contact",
+              cta_type: "primary",
+            })}
             className=" group inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white xl:px-8"
           >
             <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
@@ -39,6 +46,12 @@ export function Hero() {
           </a>
           <a
             href="#contact"
+            {...gaAttrs("cta_click", {
+              cta_location: "hero",
+              cta_text: "Book a Demo",
+              cta_destination: "#contact",
+              cta_type: "secondary",
+            })}
             className=" group inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition-colors border bg-secondary text-secondary-foreground hover:bg-accent xl:px-8"
           >
             <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">

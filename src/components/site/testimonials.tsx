@@ -165,6 +165,7 @@ export function Testimonials() {
     <section
       id="testimonials"
       ref={sectionRef}
+      data-ga-view="testimonials"
       className="overflow-hidden bg-secondary/40 py-20 lg:py-28"
     >
       <div className="flex flex-col gap-10 lg:gap-14">

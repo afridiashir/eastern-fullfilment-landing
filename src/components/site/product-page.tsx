@@ -4,6 +4,7 @@ import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { CtaBanner } from "@/components/site/cta";
 import { cn } from "@/lib/utils";
+import { gaAttrs } from "@/lib/analytics";
 import type { Product } from "@/lib/products";
 
 export function ProductPage({ product }: { product: Product }) {
@@ -33,6 +34,13 @@ export function ProductPage({ product }: { product: Product }) {
                 <div className="mt-8 flex flex-col mx-auto gap-3 sm:flex-row">
                   <Link
                     href="/#contact"
+                    {...gaAttrs("cta_click", {
+                      cta_location: "product_hero",
+                      cta_text: "Get Started",
+                      cta_destination: "/#contact",
+                      cta_type: "primary",
+                      product_name: product.name,
+                    })}
                     className="group inline-flex items-center justify-center rounded-full border border-primary bg-primary px-5 py-3 text-sm font-medium text-white transition-colors xl:px-8"
                   >
                     <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
@@ -45,6 +53,13 @@ export function ProductPage({ product }: { product: Product }) {
                   </Link>
                   <Link
                     href="/#contact"
+                    {...gaAttrs("cta_click", {
+                      cta_location: "product_hero",
+                      cta_text: "Book a Demo",
+                      cta_destination: "/#contact",
+                      cta_type: "secondary",
+                      product_name: product.name,
+                    })}
                     className="group inline-flex items-center justify-center rounded-full border bg-secondary px-5 py-3 text-sm font-medium text-secondary-foreground transition-colors hover:bg-accent xl:px-8"
                   >
                     <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
@@ -221,6 +236,10 @@ export function ProductPage({ product }: { product: Product }) {
                   className="group py-5 [&_summary]:list-none"
                 >
                   <summary
+                    {...gaAttrs("faq_toggle", {
+                      faq_question: faq.question,
+                      faq_location: `product_${product.slug}`,
+                    })}
                     className={cn(
                       "flex cursor-pointer items-center justify-between gap-4 font-medium",
                       "transition-colors hover:text-primary"

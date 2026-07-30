@@ -1,12 +1,8 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { FaqAccordion } from "@/components/site/faq-accordion";
+import { gaAttrs } from "@/lib/analytics";
 
 const faqs = [
   {
@@ -53,7 +49,7 @@ const faqs = [
 
 export function Faq() {
   return (
-    <section id="faq" className="container-px py-20 lg:py-28">
+    <section id="faq" data-ga-view="faq" className="container-px py-20 lg:py-28">
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
         {/* Intro */}
         <div className="lg:sticky lg:top-28 lg:self-start">
@@ -69,28 +65,19 @@ export function Faq() {
             render={<Link href="#contact" />}
             variant="outline"
             className="mt-6 rounded-full"
+            {...gaAttrs("cta_click", {
+              cta_location: "faq",
+              cta_text: "Talk to our team",
+              cta_destination: "#contact",
+              cta_type: "secondary",
+            })}
           >
             Talk to our team
           </Button>
         </div>
 
         {/* Questions */}
-        <Accordion defaultValue={[0]} className="w-full">
-          {faqs.map((faq, i) => (
-            <AccordionItem
-              key={faq.question}
-              value={i}
-              className="border-b border-border"
-            >
-              <AccordionTrigger className="py-5 text-base font-semibold">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="pr-6 text-muted-foreground">
-                <p>{faq.answer}</p>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <FaqAccordion faqs={faqs} />
       </div>
     </section>
   );

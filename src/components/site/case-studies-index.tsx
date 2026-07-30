@@ -7,6 +7,7 @@ import { CtaBanner } from "@/components/site/cta";
 import { ResourceHero, EmptyState } from "@/components/site/resource-hero";
 import { Badge } from "@/components/ui/badge";
 import { hasImageAsset, urlFor } from "@/sanity/image";
+import { gaAttrs } from "@/lib/analytics";
 import type { CaseStudyListItem } from "@/sanity/types";
 
 const industryLabels: Record<string, string> = {
@@ -40,6 +41,12 @@ export function CaseStudiesIndex({
                 <Link
                   key={caseStudy._id}
                   href={`/resources/case-studies/${caseStudy.slug}`}
+                  {...gaAttrs("select_content", {
+                    content_type: "case_study",
+                    content_id: caseStudy.slug,
+                    item_name: caseStudy.title,
+                    item_category: caseStudy.industry,
+                  })}
                   className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-0.5 hover:shadow-sm"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-muted">

@@ -3,12 +3,16 @@
 import { useEffect, useState } from "react";
 import { Play, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/analytics";
+import { useVideoAnalytics } from "@/components/site/use-video-analytics";
 
 // Source played inside the lightbox. Swap for the real product walkthrough.
 const DEMO_SRC = "/eastern-demo.mp4";
+const DEMO_TITLE = "Product walkthrough";
 
 export function VideoSection() {
   const [open, setOpen] = useState(false);
+  const videoAnalytics = useVideoAnalytics(DEMO_TITLE);
 
   // Close on Escape and lock body scroll while the lightbox is open.
   useEffect(() => {
@@ -42,7 +46,14 @@ export function VideoSection() {
           <Button
             type="button"
             size="lg"
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              trackEvent("video_open", {
+                video_title: DEMO_TITLE,
+                video_provider: "self_hosted",
+                cta_location: "video_section",
+              });
+              setOpen(true);
+            }}
             className="h-12 gap-2.5 rounded-full px-6 text-base shadow-lg shadow-primary/20"
           >
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-foreground/20">
@@ -84,6 +95,7 @@ export function VideoSection() {
               controls
               autoPlay
               playsInline
+              {...videoAnalytics}
             />
           </div>
         </div>
