@@ -5,6 +5,7 @@ import { Play, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { useVideoAnalytics } from "@/components/site/use-video-analytics";
+import { useIsDesktop } from "@/components/site/use-is-desktop";
 
 // Source played inside the lightbox. Swap for the real product walkthrough.
 const DEMO_SRC = "/eastern-demo.mp4";
@@ -13,6 +14,9 @@ const DEMO_TITLE = "Product walkthrough";
 export function VideoSection() {
   const [open, setOpen] = useState(false);
   const videoAnalytics = useVideoAnalytics(DEMO_TITLE);
+  // This section is `lg:hidden`, so desktop must not autoplay/download the
+  // looping preview behind a display:none wrapper.
+  const isDesktop = useIsDesktop();
 
   // Close on Escape and lock body scroll while the lightbox is open.
   useEffect(() => {
@@ -34,11 +38,12 @@ export function VideoSection() {
       <div className="group relative mx-auto mt-12 overflow-hidden rounded-3xl overflow-hidden border border-border bg-gradient-to-br from-primary/10 via-secondary to-purple-400/10 shadow-xl shadow-primary/5">
         <video
           className="h-full w-full object-cover"
-          src={DEMO_SRC}
+          src={isDesktop === false ? DEMO_SRC : undefined}
           autoPlay
           muted
           loop
           playsInline
+          preload={isDesktop === false ? "auto" : "none"}
         />
 
         {/* Watch demo overlay */}

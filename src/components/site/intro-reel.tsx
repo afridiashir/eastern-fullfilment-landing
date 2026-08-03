@@ -4,21 +4,22 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useIsDesktop } from "@/components/site/use-is-desktop";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const INTRO_SRC = "/intro-reel.mp4";
 
-// Bottom-left captions — advance one every 5 seconds of scrubbed video.
+// Bottom-center captions — one per SECONDS_PER_CAPTION of scrubbed video.
+// Each line is timed to the matching beat of the reel.
 const captions = [
-  "Your order, received in real time",
-  "Picked with precision",
-  "Packed to protect",
-  "Shipped on the next wave",
-  "Delivered, on time",
+  "Always on the move",
+  "Labeled with precision",
+  "Packed with care",
+  "Managed from one dashboard",
 ];
 
-const SECONDS_PER_CAPTION = 5;
+const SECONDS_PER_CAPTION = 3.4;
 
 export function IntroReel() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -27,21 +28,30 @@ export function IntroReel() {
   const captionRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(0);
   const [active, setActive] = useState(0);
+  // Tablet/mobile render <Hero /> instead, so the reel must not fetch the clip
+  // or claim pinned scroll space until we know we're on a desktop viewport.
+  const isDesktop = useIsDesktop();
 
   useGSAP(
     () => {
       const video = videoRef.current;
-      if (!video) return;
+      if (!video || isDesktop !== true) return;
 
-      // Reduced-motion: no pin/scrub. Loop the clip and cycle captions on a timer.
+      // Reduced-motion: no pin/scrub. Loop the clip, and step the captions
+      // through once on a timer before settling on the last line.
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         video.muted = true;
         video.loop = true;
         void video.play().catch(() => {});
-        const id = setInterval(
-          () => setActive((i) => (i + 1) % captions.length),
-          SECONDS_PER_CAPTION * 1000
-        );
+        const id = setInterval(() => {
+          const next = activeRef.current + 1;
+          if (next >= captions.length) {
+            clearInterval(id);
+            return;
+          }
+          activeRef.current = next;
+          setActive(next);
+        }, SECONDS_PER_CAPTION * 1000);
         return () => clearInterval(id);
       }
 
@@ -64,9 +74,12 @@ export function IntroReel() {
           ease: "none",
           onUpdate: () => {
             if (video.readyState >= 2) video.currentTime = scrubState.time;
-            // Change the caption every 5 seconds of scrubbed footage.
-            const idx =
-              Math.floor(scrubState.time / SECONDS_PER_CAPTION) % captions.length;
+            // Advance the caption once per SECONDS_PER_CAPTION of footage,
+            // then hold the last line — the sequence runs through once.
+            const idx = Math.min(
+              Math.floor(scrubState.time / SECONDS_PER_CAPTION),
+              captions.length - 1
+            );
             if (idx !== activeRef.current) {
               activeRef.current = idx;
               setActive(idx);
@@ -80,7 +93,7 @@ export function IntroReel() {
       if (video.readyState >= 1) build();
       else video.addEventListener("loadedmetadata", build, { once: true });
     },
-    { scope: sectionRef }
+    { scope: sectionRef, dependencies: [isDesktop], revertOnUpdate: true }
   );
 
   // Fade/slide the caption in whenever it changes.
@@ -102,24 +115,24 @@ export function IntroReel() {
         <video
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
-          src={INTRO_SRC}
+          src={isDesktop === true ? INTRO_SRC : undefined}
           muted
           playsInline
-          preload="auto"
+          preload={isDesktop === true ? "auto" : "none"}
           tabIndex={-1}
         />
 
         {/* Legibility gradient for the caption. */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
 
-        {/* Bottom-left caption. */}
-        <div className="absolute bottom-8 left-6 z-10 max-w-md sm:bottom-12 sm:left-12">
-          <div ref={captionRef}>
+        {/* Bottom-center caption. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-8 z-10 flex justify-center px-6 sm:bottom-12">
+          <div ref={captionRef} className="max-w-3xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/60">
               {String(active + 1).padStart(2, "0")} /{" "}
               {String(captions.length).padStart(2, "0")}
             </p>
-            <p className="mt-2 text-2xl font-semibold leading-tight text-white sm:text-4xl">
+            <p className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-5xl">
               {captions[active]}
             </p>
           </div>

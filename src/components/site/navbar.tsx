@@ -62,6 +62,7 @@ export function Navbar() {
   const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [staticHidden, setStaticHidden] = useState(false);
+  const [overIntro, setOverIntro] = useState(false);
   const lastSearchRef = useRef("");
   const pathname = usePathname();
 
@@ -71,6 +72,26 @@ export function Navbar() {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // The intro reel is a full-bleed video that the navbar would otherwise sit on
+  // top of, so stay out of the way until the reel has scrolled past. The reel is
+  // pinned, so its section keeps the full scrub height and its bottom edge only
+  // clears the viewport top once the video is done.
+  useEffect(() => {
+    const intro = document.getElementById("intro-reel");
+    if (!intro) {
+      setOverIntro(false);
+      return;
+    }
+    const onScroll = () => setOverIntro(intro.getBoundingClientRect().bottom > 0);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
 
   // Keep the static navbar hidden while the sticky one is on screen, and only
   // reveal it again after the sticky bar has finished sliding back up.
@@ -296,7 +317,7 @@ export function Navbar() {
       <header
         className={cn(
           "absolute left-0 top-0 z-40 w-full bg-transparent p-3 sm:p-4 lg:px-12",
-          staticHidden && "invisible opacity-0"
+          (staticHidden || overIntro) && "invisible opacity-0"
         )}
       >
         {bar(false)}
@@ -306,7 +327,7 @@ export function Navbar() {
       <header
         className={cn(
           "fixed left-0 top-0 z-50 w-full transition-transform duration-500 ease-out",
-          scrolled ? "translate-y-0" : "-translate-y-full"
+          scrolled && !overIntro ? "translate-y-0" : "-translate-y-full"
         )}
       >
         {bar(true)}
