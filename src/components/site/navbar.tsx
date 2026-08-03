@@ -73,20 +73,21 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // The intro reel is a full-bleed video that the navbar would otherwise sit on
-  // top of, so stay out of the way until the reel has scrolled past. The reel is
-  // pinned, so its section keeps the full scrub height and its bottom edge only
-  // clears the viewport top once the video is done.
+  // The navbar sits on top of the full-bleed intro reel, so it goes transparent
+  // (and switches to the dark palette) for as long as the reel is on screen.
+  // The reel is pinned, so its bottom edge only clears the viewport top once
+  // the whole scrub has played out.
   useEffect(() => {
     const intro = document.getElementById("intro-reel");
-    if (!intro) {
-      setOverIntro(false);
-      return;
-    }
-    const onScroll = () => setOverIntro(intro.getBoundingClientRect().bottom > 0);
+    const onScroll = () => {
+      // Tablet/mobile render the reel inside a `lg:hidden` wrapper, and a
+      // display:none element reports an all-zero rect — so this resolves to
+      // false there without needing its own breakpoint check.
+      setOverIntro(!!intro && intro.getBoundingClientRect().bottom > 0);
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
@@ -129,12 +130,17 @@ export function Navbar() {
     trackEvent("search", { search_term: query });
   };
 
-  const bar = (sticky: boolean) => (
+  // `transparent` drops the bar's own surface so the intro reel shows through.
+  // The `dark` class rescopes the theme variables for everything inside, which
+  // flips `text-foreground` to white and swaps the Logo to its on-dark variant.
+  const bar = (sticky: boolean, transparent = false) => (
     <>
       <nav
         className={cn(
           "container-lg m-auto flex h-14 items-center justify-between px-3 h-18 sm:px-4 lg:h-22",
-          sticky
+          transparent
+            ? "dark rounded-lg border border-transparent bg-transparent text-foreground"
+            : sticky
             ? "rounded-t-none rounded-b-lg md:px-4 md:mx-8 border-b border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
             : "rounded-lg border bg-gray-100 dark:bg-card"
         )}
@@ -154,7 +160,7 @@ export function Navbar() {
           >
             <LayoutGrid className="h-6 w-6 fill-transparent transition-colors duration-300 group-hover:fill-foreground" />
           </button>
-          <Logo />
+          <Logo onDark={transparent} />
         </div>
 
         {/* Desktop links */}
@@ -317,20 +323,20 @@ export function Navbar() {
       <header
         className={cn(
           "absolute left-0 top-0 z-40 w-full bg-transparent p-3 sm:p-4 lg:px-12",
-          (staticHidden || overIntro) && "invisible opacity-0"
+          staticHidden && "invisible opacity-0"
         )}
       >
-        {bar(false)}
+        {bar(false, overIntro)}
       </header>
 
       {/* Sticky navbar (slides down on scroll) */}
       <header
         className={cn(
           "fixed left-0 top-0 z-50 w-full transition-transform duration-500 ease-out",
-          scrolled && !overIntro ? "translate-y-0" : "-translate-y-full"
+          scrolled ? "translate-y-0" : "-translate-y-full"
         )}
       >
-        {bar(true)}
+        {bar(true, overIntro)}
       </header>
 
       <HeadOfficeDrawer open={sideOpen} onClose={() => setSideOpen(false)} />
