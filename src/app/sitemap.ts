@@ -46,6 +46,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     })),
     {
+      url: absoluteUrl("/product/shipping-calculator"),
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    },
+    {
       url: absoluteUrl("/integrations"),
       lastModified,
       changeFrequency: "monthly" as const,

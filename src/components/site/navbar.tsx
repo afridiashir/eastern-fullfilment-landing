@@ -24,6 +24,7 @@ const navLinks: NavLink[] = [
       { label: "Track & Trace", href: "/product/track-trace" },
       { label: "Analytics and Insight", href: "/product/analytics-insight" },
       { label: "3PL Client Portal", href: "/product/3pl-client-portal" },
+      { label: "Shipping Calculator", href: "/product/shipping-calculator" },
       { label: "Integrations", href: "/integrations" },
     ],
   },
