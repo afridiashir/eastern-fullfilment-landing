@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { gaAttrs, trackEvent } from "@/lib/analytics";
 import { HeadOfficeDrawer } from "./head-office-drawer";
+import { SiteSearch } from "./site-search";
 import { ThemeToggle } from "./theme-toggle";
 import { Logo } from "./logo";
 
@@ -64,7 +65,6 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [staticHidden, setStaticHidden] = useState(false);
   const [overIntro, setOverIntro] = useState(false);
-  const lastSearchRef = useRef("");
   const pathname = usePathname();
 
   useEffect(() => {
@@ -118,17 +118,6 @@ export function Navbar() {
   const toggleMobileMenu = () => {
     trackEvent(open ? "menu_close" : "menu_open", { menu_name: "mobile_nav" });
     setOpen((v) => !v);
-  };
-
-  // The search box is presentational for now; the query is still worth
-  // capturing so we know what visitors expect to find. Reported on Enter or on
-  // blur, whichever comes first — the ref keeps the same query from counting
-  // twice when both happen.
-  const submitSearch = (term: string) => {
-    const query = term.trim();
-    if (!query || query === lastSearchRef.current) return;
-    lastSearchRef.current = query;
-    trackEvent("search", { search_term: query });
   };
 
   // `transparent` drops the bar's own surface so the intro reel shows through.
@@ -481,53 +470,7 @@ export function Navbar() {
         </aside>
       </div>
 
-      {/* Search bar */}
-      <div
-        aria-hidden={!searchOpen}
-        className={cn(
-          "fixed inset-x-0 top-0 z-[70]",
-          searchOpen ? "visible" : "pointer-events-none invisible delay-500"
-        )}
-      >
-        {/* Overlay */}
-        <div
-          onClick={() => setSearchOpen(false)}
-          className={cn(
-            "fixed inset-0 bg-black/50 transition-opacity duration-500",
-            searchOpen ? "opacity-100" : "opacity-0"
-          )}
-        />
-
-        {/* Bar */}
-        <div
-          className={cn(
-            "relative bg-background shadow-lg transition-transform duration-500 ease-out",
-            searchOpen ? "translate-y-0" : "-translate-y-full"
-          )}
-        >
-          <div className="container-lg m-auto flex items-center gap-3 px-4 py-5 sm:gap-4 sm:px-8 lg:px-12 lg:py-6">
-            <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
-            <input
-              type="text"
-              autoFocus={searchOpen}
-              placeholder="Search..."
-              onKeyDown={(e) => {
-                if (e.key === "Enter") submitSearch(e.currentTarget.value);
-              }}
-              onBlur={(e) => submitSearch(e.currentTarget.value)}
-              className="w-full bg-transparent text-base text-foreground placeholder:text-muted-foreground focus:outline-none sm:text-lg"
-            />
-            <button
-              type="button"
-              aria-label="Close search"
-              onClick={() => setSearchOpen(false)}
-              className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:bg-foreground hover:text-background"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <SiteSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

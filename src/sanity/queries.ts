@@ -131,3 +131,36 @@ export const HELP_ARTICLE_SIBLINGS_QUERY = /* groq */ `
 *[_type == "helpArticle" && category._ref == $categoryId && defined(slug.current)] | order(order asc) {
   _id, title, "slug": slug.current, summary
 }`;
+
+/**
+ * Site search across every published content type.
+ *
+ * `$term` is a space-separated list of `word*` patterns built by the caller —
+ * `match` requires every token to hit, so multi-word queries narrow rather than
+ * widen. Body text is searched via `pt::text()` so an article still surfaces
+ * when the query only appears in its content. Results are capped per type and
+ * ranked in the app, alongside the static pages, by a single scoring function.
+ */
+export const SEARCH_QUERY = /* groq */ `
+{
+  "posts": *[_type == "post" && defined(slug.current) && (
+    title match $term || excerpt match $term || pt::text(body) match $term
+  )] | order(publishedAt desc) [0...$limit] {
+    _id, title, "slug": slug.current, excerpt
+  },
+  "caseStudies": *[_type == "caseStudy" && defined(slug.current) && (
+    title match $term || client match $term || summary match $term || pt::text(body) match $term
+  )] | order(publishedAt desc) [0...$limit] {
+    _id, title, "slug": slug.current, summary, client
+  },
+  "docArticles": *[_type == "docArticle" && defined(slug.current) && (
+    title match $term || summary match $term || pt::text(body) match $term
+  )] | order(order asc) [0...$limit] {
+    _id, title, "slug": slug.current, summary
+  },
+  "helpArticles": *[_type == "helpArticle" && defined(slug.current) && (
+    title match $term || summary match $term || pt::text(body) match $term
+  )] | order(order asc) [0...$limit] {
+    _id, title, "slug": slug.current, summary
+  }
+}`;
