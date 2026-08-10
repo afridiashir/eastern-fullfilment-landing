@@ -46,7 +46,7 @@ export function ResourceSectionsIndex({
               {sections
                 .filter((section) => section.articles.length > 0)
                 .map((section) => (
-                  <div
+                  <section
                     key={section._id}
                     className="rounded-2xl border border-border bg-card p-6"
                   >
@@ -75,7 +75,7 @@ export function ResourceSectionsIndex({
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </section>
                 ))}
             </div>
           )}
