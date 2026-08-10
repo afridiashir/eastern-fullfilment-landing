@@ -49,6 +49,7 @@ const linkGroups: { title: string; links: FooterLink[] }[] = [
     title: "Company",
     links: [
       { label: "About Us", href: "/about" },
+      { label: "Careers", href: "/careers" },
       { label: "Contact", href: "/contact" },
     ],
   },

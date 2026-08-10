@@ -206,6 +206,13 @@ const staticEntries: StaticEntry[] = [
     keywords: ["team", "company", "warehouses", "locations"],
   },
   {
+    title: "Careers",
+    description: "Open roles at Eastern Fullfilment and how to apply.",
+    href: "/careers",
+    group: "Company",
+    keywords: ["jobs", "hiring", "openings", "apply", "resume", "work"],
+  },
+  {
     title: "Contact",
     description: "Talk to our team about fulfillment, pricing, or onboarding.",
     href: "/contact",
