@@ -9,7 +9,7 @@ import { OrderProcess } from "@/components/site/order-process";
 import { Integrations } from "@/components/site/integrations";
 import { Testimonials } from "@/components/site/testimonials";
 import { CollarsMilestone } from "@/components/site/collars-milestone";
-import { CaseStudySpotlight } from "@/components/site/case-study-spotlight";
+import { CaseStudyPinned } from "@/components/site/case-study-pinned";
 import { Faq } from "@/components/site/faq";
 import { CtaBanner } from "@/components/site/cta";
 import { Contact } from "@/components/site/contact";
@@ -35,13 +35,13 @@ export default function Home() {
           <VideoSection />
         </div>
         <Services />
+        <CaseStudyPinned />
         {/* <OrderProcess /> */}
         <About />
         <Integrations />
         {/* <Pricing /> */}
         <Testimonials />
-        <CollarsMilestone />
-        {/* <CaseStudySpotlight /> */}
+        {/* <CollarsMilestone /> */}
         <Faq />
         <CtaBanner />
         <Contact />
