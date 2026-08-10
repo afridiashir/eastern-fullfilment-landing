@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { gaAttrs } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 
 const plans = [
   {
@@ -22,6 +23,7 @@ const plans = [
       "Email & chat support",
     ],
     cta: "Get started",
+    ctaHref: siteConfig.appUrl,
     featured: false,
   },
   {
@@ -40,6 +42,7 @@ const plans = [
       "Dedicated account manager",
     ],
     cta: "Get started",
+    ctaHref: siteConfig.appUrl,
     featured: true,
   },
   {
@@ -58,6 +61,8 @@ const plans = [
       "24/7 priority support",
     ],
     cta: "Talk to sales",
+    // Sales enquiry, not a sign-up — stays on the contact form.
+    ctaHref: "#contact",
     featured: false,
   },
 ];
@@ -129,13 +134,23 @@ export function Pricing() {
               ))}
             </ul>
             <Button
-              render={<Link href="#contact" />}
+              render={
+                plan.ctaHref.startsWith("#") ? (
+                  <Link href={plan.ctaHref} />
+                ) : (
+                  <a
+                    href={plan.ctaHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                )
+              }
               variant={plan.featured ? "default" : "outline"}
               className="mt-8 w-full rounded-full"
               {...gaAttrs("select_plan", {
                 cta_location: "pricing",
                 cta_text: plan.cta,
-                cta_destination: "#contact",
+                cta_destination: plan.ctaHref,
                 plan_name: plan.name,
                 plan_price: plan.price,
               })}

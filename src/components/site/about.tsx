@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { gaAttrs } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 
 type Stat = {
   value: number;
@@ -102,11 +103,13 @@ export function About() {
               daily operations.
             </p>
             <a
-              href="#contact"
+              href={siteConfig.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               {...gaAttrs("cta_click", {
                 cta_location: "about",
                 cta_text: "Get Started",
-                cta_destination: "#contact",
+                cta_destination: siteConfig.appUrl,
                 cta_type: "primary",
               })}
               className="group mt-8 inline-flex items-center rounded-full uppercase px-5 py-3 text-sm font-medium transition-colors border-primary border bg-primary text-white xl:px-8"

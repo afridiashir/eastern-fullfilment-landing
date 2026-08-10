@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { gaAttrs } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 
 // Bars for the inventory throughput chart. Classes preserve the responsive
 // bar-count + highlight behavior across lg / xl breakpoints.
@@ -124,11 +125,13 @@ export function Services() {
                 <div className="flex-1 hidden sm:block" />
                 <a
                   className="self-start inline-flex items-center justify-center px-5 py-2.5 sm:px-7 sm:py-3.5 text-[13px] sm:text-[15px] font-semibold rounded-full text-text-primary bg-white border border-border-subtle dark:bg-background dark:hover:bg-foreground/10 hover:bg-black/5 transition-colors duration-200"
-                  href="#contact"
+                  href={siteConfig.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   {...gaAttrs("cta_click", {
                     cta_location: "services",
                     cta_text: "Book a demo",
-                    cta_destination: "#contact",
+                    cta_destination: siteConfig.demoUrl,
                     cta_type: "secondary",
                   })}
                 >

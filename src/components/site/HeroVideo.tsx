@@ -1,6 +1,7 @@
 import React from 'react'
 import { ChevronRight } from 'lucide-react'
 import { gaAttrs } from '@/lib/analytics'
+import { siteConfig } from '@/lib/site'
 
 const HeroVideo = () => {
   return (
@@ -36,11 +37,13 @@ const HeroVideo = () => {
             </p>
             <div className='mt-8 flex flex-row flex-wrap gap-3'>
               <a
-                href='#contact'
+                href={siteConfig.appUrl}
+                target='_blank'
+                rel='noopener noreferrer'
                 {...gaAttrs('cta_click', {
                   cta_location: 'hero_video',
                   cta_text: 'Get Started',
-                  cta_destination: '#contact',
+                  cta_destination: siteConfig.appUrl,
                   cta_type: 'primary',
                 })}
                 className='group inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition-colors border-primary border bg-primary text-primary-foreground xl:px-8'
@@ -54,11 +57,13 @@ const HeroVideo = () => {
                 </span>
               </a>
               <a
-                href='#contact'
+                href={siteConfig.demoUrl}
+                target='_blank'
+                rel='noopener noreferrer'
                 {...gaAttrs('cta_click', {
                   cta_location: 'hero_video',
                   cta_text: 'Book a Demo',
-                  cta_destination: '#contact',
+                  cta_destination: siteConfig.demoUrl,
                   cta_type: 'secondary',
                 })}
                 className='group inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition-colors border border-white/30 bg-white/15 text-white hover:bg-white/25 xl:px-8'

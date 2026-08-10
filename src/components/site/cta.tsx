@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, CalendarCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { gaAttrs } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 
 const steps = [
   { step: "01", label: "Tell us your volume", detail: "Share your order volume, SKUs, and channels." },
@@ -25,14 +26,20 @@ export function CtaBanner() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button
-              render={<Link href="#contact" />}
+              render={
+                <a
+                  href={siteConfig.appUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
               size="lg"
               variant="secondary"
               className="rounded-full"
               {...gaAttrs("cta_click", {
                 cta_location: "cta_banner",
                 cta_text: "Get started",
-                cta_destination: "#contact",
+                cta_destination: siteConfig.appUrl,
                 cta_type: "primary",
               })}
             >

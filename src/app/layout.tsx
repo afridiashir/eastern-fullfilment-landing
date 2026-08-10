@@ -7,6 +7,7 @@ import { SmoothScroll } from "@/components/site/smooth-scroll";
 import { Loader } from "@/components/site/loader";
 import { InlineScript } from "@/components/site/inline-script";
 import { Analytics } from "@/components/site/analytics";
+import { CalendlyPopup } from "@/components/site/calendly-popup";
 import { siteConfig } from "@/lib/site";
 
 const manrope = Manrope({
@@ -106,6 +107,7 @@ export default function RootLayout({
         <Loader />
         <SmoothScroll>{children}</SmoothScroll>
         <Analytics />
+        <CalendlyPopup />
       </body>
     </html>
   );

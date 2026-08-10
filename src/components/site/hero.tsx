@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AnimatedHeading } from "@/components/site/animated-heading";
 import { gaAttrs } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 
 export function Hero() {
   return (
@@ -27,11 +28,13 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 flex-row">
             <a
-            href="#contact"
+            href={siteConfig.appUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             {...gaAttrs("cta_click", {
               cta_location: "hero",
               cta_text: "Get Started",
-              cta_destination: "#contact",
+              cta_destination: siteConfig.appUrl,
               cta_type: "primary",
             })}
             className=" group inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white xl:px-8"
@@ -45,11 +48,13 @@ export function Hero() {
             </span>
           </a>
           <a
-            href="#contact"
+            href={siteConfig.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             {...gaAttrs("cta_click", {
               cta_location: "hero",
               cta_text: "Book a Demo",
-              cta_destination: "#contact",
+              cta_destination: siteConfig.demoUrl,
               cta_type: "secondary",
             })}
             className=" group inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium transition-colors border bg-secondary text-secondary-foreground hover:bg-accent xl:px-8"

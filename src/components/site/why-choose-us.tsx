@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -17,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { gaAttrs } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -90,12 +90,18 @@ export function WhyChooseUs() {
             daily operations.
           </p>
           <Button
-            render={<Link href="#contact" />}
+            render={
+              <a
+                href={siteConfig.appUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
             className="why-intro mt-8 rounded-full"
             {...gaAttrs("cta_click", {
               cta_location: "why_choose_us",
               cta_text: "Get started",
-              cta_destination: "#contact",
+              cta_destination: siteConfig.appUrl,
               cta_type: "primary",
             })}
           >

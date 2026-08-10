@@ -25,6 +25,11 @@ export const siteConfig = {
   locale: "en_US",
   email: "hello@easternfulfillment.com",
   telephone: "+1-555-012-3456",
+  // Customer app sign-in — the destination for every "Get Started" CTA.
+  appUrl: "https://easternfullfilmnet-vue.vercel.app/login",
+  // External scheduling link behind every "Book a Demo" CTA.
+  demoUrl:
+    "https://calendly.com/hello-easternfulfillment/30min?back=1&month=2026-08",
   // Social profiles — update hrefs as accounts go live (used for sameAs in JSON-LD).
   socials: {
     facebook: "https://www.facebook.com/easternfulfillment",

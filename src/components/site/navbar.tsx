@@ -7,6 +7,7 @@ import { X, Sparkles, ChevronRight, ChevronDown, LayoutGrid, Search } from "luci
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { gaAttrs, trackEvent } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 import { HeadOfficeDrawer } from "./head-office-drawer";
 import { SiteSearch } from "./site-search";
 import { ThemeToggle } from "./theme-toggle";
@@ -256,11 +257,13 @@ export function Navbar() {
             <Search className="h-5 w-5" />
           </button>
           <a
-            href="#contact"
+            href={siteConfig.appUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             {...gaAttrs("cta_click", {
               cta_location: navLocation(sticky),
               cta_text: "Get Started",
-              cta_destination: "#contact",
+              cta_destination: siteConfig.appUrl,
               cta_type: "primary",
             })}
             className="group inline-flex items-center rounded-full uppercase px-5 py-3 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white xl:px-8"
@@ -449,11 +452,13 @@ export function Navbar() {
               );
             })}
             <a
-              href="#contact"
+              href={siteConfig.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               {...gaAttrs("cta_click", {
                 cta_location: "mobile_nav",
                 cta_text: "Get Started",
-                cta_destination: "#contact",
+                cta_destination: siteConfig.appUrl,
                 cta_type: "primary",
               })}
               className="mt-10 group inline-flex items-center justify-center rounded-full uppercase px-5 py-3 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white xl:px-8"

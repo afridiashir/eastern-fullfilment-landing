@@ -12,6 +12,7 @@ import {
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { cn } from "@/lib/utils";
 import { gaAttrs } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 import { Logo } from "./logo";
 
 interface HeadOfficeDrawerProps {
@@ -143,12 +144,14 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
 
             {/* CTA */}
             <a
-              href="#contact"
+              href={siteConfig.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={onClose}
               {...gaAttrs("cta_click", {
                 cta_location: "head_office_drawer",
                 cta_text: "Book Demo",
-                cta_destination: "#contact",
+                cta_destination: siteConfig.demoUrl,
                 cta_type: "primary",
               })}
               className="group mt-8 inline-flex w-full items-center justify-center rounded-full px-8 py-3 text-sm font-medium uppercase text-white transition-colors bg-primary"

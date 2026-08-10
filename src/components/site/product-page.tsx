@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { ChevronRight, Check } from "lucide-react";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { CtaBanner } from "@/components/site/cta";
 import { cn } from "@/lib/utils";
 import { gaAttrs } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 import type { Product } from "@/lib/products";
 
 export function ProductPage({ product }: { product: Product }) {
@@ -32,12 +32,14 @@ export function ProductPage({ product }: { product: Product }) {
                   {product.subtitle}
                 </p>
                 <div className="mt-8 flex flex-col mx-auto gap-3 sm:flex-row">
-                  <Link
-                    href="/#contact"
+                  <a
+                    href={siteConfig.appUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     {...gaAttrs("cta_click", {
                       cta_location: "product_hero",
                       cta_text: "Get Started",
-                      cta_destination: "/#contact",
+                      cta_destination: siteConfig.appUrl,
                       cta_type: "primary",
                       product_name: product.name,
                     })}
@@ -50,13 +52,15 @@ export function ProductPage({ product }: { product: Product }) {
                     <span className="inline-flex h-4 w-0 items-center justify-end overflow-hidden transition-all duration-500 ease-out group-hover:w-4 group-hover:ml-2">
                       <ChevronRight className="h-4 w-4 shrink-0 translate-x-4 transition-transform duration-500 ease-out group-hover:translate-x-0" />
                     </span>
-                  </Link>
-                  <Link
-                    href="/#contact"
+                  </a>
+                  <a
+                    href={siteConfig.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     {...gaAttrs("cta_click", {
                       cta_location: "product_hero",
                       cta_text: "Book a Demo",
-                      cta_destination: "/#contact",
+                      cta_destination: siteConfig.demoUrl,
                       cta_type: "secondary",
                       product_name: product.name,
                     })}
@@ -69,7 +73,7 @@ export function ProductPage({ product }: { product: Product }) {
                     <span className="inline-flex h-4 w-0 items-center justify-end overflow-hidden transition-all duration-500 ease-out group-hover:w-4 group-hover:ml-2">
                       <ChevronRight className="h-4 w-4 shrink-0 translate-x-4 transition-transform duration-500 ease-out group-hover:translate-x-0" />
                     </span>
-                  </Link>
+                  </a>
                 </div>
               </div>
 
