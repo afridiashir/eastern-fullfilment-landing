@@ -18,7 +18,7 @@ type NavLink = { label: string; href?: string; children?: NavChild[] };
 const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   {
-    label: "Product",
+    label: "Features",
     children: [
       { label: "Fullfilment Automation", href: "/product/fullfilment-automation" },
       { label: "Dispatch Planning", href: "/product/dispatch-planning" },
