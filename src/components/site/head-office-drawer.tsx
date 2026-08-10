@@ -6,8 +6,6 @@ import {
   faFacebookF,
   faInstagram,
   faLinkedinIn,
-  faXTwitter,
-  faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { cn } from "@/lib/utils";
@@ -20,12 +18,11 @@ interface HeadOfficeDrawerProps {
   onClose: () => void;
 }
 
+// Only the accounts that actually exist — see `siteConfig.socials`.
 const socials: { label: string; href: string; icon: IconDefinition }[] = [
-  { label: "Facebook", href: "#", icon: faFacebookF },
-  { label: "Instagram", href: "#", icon: faInstagram },
-  { label: "LinkedIn", href: "#", icon: faLinkedinIn },
-  { label: "Twitter", href: "#", icon: faXTwitter },
-  { label: "YouTube", href: "#", icon: faYoutube },
+  { label: "Instagram", href: siteConfig.socials.instagram, icon: faInstagram },
+  { label: "Facebook", href: siteConfig.socials.facebook, icon: faFacebookF },
+  { label: "LinkedIn", href: siteConfig.socials.linkedin, icon: faLinkedinIn },
 ];
 
 export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
@@ -173,6 +170,8 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   {...gaAttrs("social_click", {
                     social_network: label,

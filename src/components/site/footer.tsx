@@ -5,11 +5,10 @@ import {
   faFacebookF,
   faInstagram,
   faLinkedinIn,
-  faXTwitter,
-  faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { gaAttrs } from "@/lib/analytics";
+import { siteConfig } from "@/lib/site";
 import { Logo } from "./logo";
 
 type FooterLink = { label: string; href: string };
@@ -55,12 +54,11 @@ const linkGroups: { title: string; links: FooterLink[] }[] = [
   },
 ];
 
+// Only the accounts that actually exist — see `siteConfig.socials`.
 const socials: { icon: IconDefinition; href: string; label: string }[] = [
-  { icon: faFacebookF, href: "#", label: "Facebook" },
-  { icon: faXTwitter, href: "#", label: "Twitter" },
-  { icon: faLinkedinIn, href: "#", label: "LinkedIn" },
-  { icon: faInstagram, href: "#", label: "Instagram" },
-  { icon: faYoutube, href: "#", label: "YouTube" },
+  { icon: faInstagram, href: siteConfig.socials.instagram, label: "Instagram" },
+  { icon: faFacebookF, href: siteConfig.socials.facebook, label: "Facebook" },
+  { icon: faLinkedinIn, href: siteConfig.socials.linkedin, label: "LinkedIn" },
 ];
 
 export function Footer() {
@@ -103,9 +101,11 @@ export function Footer() {
 
             <div className="mt-6 flex gap-3">
               {socials.map((social) => (
-                <Link
+                <a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.label}
                   {...gaAttrs("social_click", {
                     social_network: social.label,
@@ -115,7 +115,7 @@ export function Footer() {
                   className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
                 >
                   <FontAwesomeIcon icon={social.icon} className="h-4 w-4" />
-                </Link>
+                </a>
               ))}
             </div>
           </div>

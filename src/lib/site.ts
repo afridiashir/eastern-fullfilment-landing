@@ -30,11 +30,12 @@ export const siteConfig = {
   // External scheduling link behind every "Book a Demo" CTA.
   demoUrl:
     "https://calendly.com/hello-easternfulfillment/30min?back=1&month=2026-08",
-  // Social profiles — update hrefs as accounts go live (used for sameAs in JSON-LD).
+  // The only social profiles that exist — also the `sameAs` list in JSON-LD.
+  // Anything not listed here is deliberately not surfaced anywhere on the site.
   socials: {
+    instagram: "https://www.instagram.com/easternfulfillment",
     facebook: "https://www.facebook.com/easternfulfillment",
-    twitter: "https://twitter.com/easternfulfillment",
-    linkedin: "https://www.linkedin.com/company/easternfulfillment",
+    linkedin: "https://www.linkedin.com/company/eastern-fulfillment-co/",
   },
   // @handle for Twitter/X cards. Update once the account exists.
   twitterHandle: "@easternfulfill",
