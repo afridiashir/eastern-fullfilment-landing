@@ -303,20 +303,23 @@ function MilestonePanel({
         )}
       </div>
 
-      {/* Photo */}
-      <div
-        data-reveal-image
-        className={`relative w-full overflow-hidden rounded-2xl ${
-          compact ? "h-full" : milestone.image.aspect
-        }`}
-      >
-        <Image
-          src={milestone.image.src}
-          alt={milestone.image.alt}
-          fill
-          sizes="(min-width: 1024px) 42vw, 100vw"
-          className="object-cover"
-        />
+      {/* Photo — always 1:1. When pinned the square is driven by the available
+          height (so it can't overflow the panel); otherwise by the column width. */}
+      <div className={compact ? "flex h-full min-h-0 items-center justify-center" : ""}>
+        <div
+          data-reveal-image
+          className={`relative aspect-square overflow-hidden rounded-2xl ${
+            compact ? "h-full w-auto max-w-full" : "w-full"
+          }`}
+        >
+          <Image
+            src={milestone.image.src}
+            alt={milestone.image.alt}
+            fill
+            sizes="(min-width: 1024px) 42vw, 100vw"
+            className="object-cover"
+          />
+        </div>
       </div>
     </div>
   );

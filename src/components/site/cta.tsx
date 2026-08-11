@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowRight, CalendarCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { gaAttrs } from "@/lib/analytics";
@@ -45,14 +44,21 @@ export function CtaBanner() {
             >
               Get started <ArrowRight className="h-4 w-4" />
             </Button>
+            {/* Intercepted by <CalendlyPopup /> — falls back to a new tab. */}
             <Button
-              render={<Link href="#contact" />}
+              render={
+                <a
+                  href={siteConfig.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
               size="lg"
               variant="outline"
               {...gaAttrs("cta_click", {
                 cta_location: "cta_banner",
                 cta_text: "Book a call",
-                cta_destination: "#contact",
+                cta_destination: siteConfig.demoUrl,
                 cta_type: "secondary",
               })}
               className="rounded-full border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"

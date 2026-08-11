@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const alt = `${siteConfig.name} — ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
@@ -7,7 +9,10 @@ export const contentType = "image/png";
 
 // Dynamically generated social share card. Uses only flexbox + the default font
 // so no external assets are required at build time.
-export default function OpenGraphImage() {
+export default async function  OpenGraphImage() {
+
+    const logo = await readFile(join(process.cwd(), "public/logo_dark.png"));
+    const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
   return new ImageResponse(
     (
       <div
@@ -38,7 +43,7 @@ export default function OpenGraphImage() {
               fontWeight: 700,
             }}
           >
-            E
+            <img src={logoSrc} alt="Eastern Fullfilment" />
           </div>
           <div
             style={{
