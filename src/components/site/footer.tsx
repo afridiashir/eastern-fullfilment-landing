@@ -9,6 +9,7 @@ import {
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { gaAttrs } from "@/lib/analytics";
 import { siteConfig } from "@/lib/site";
+import { AuthorizeNetSeal } from "./authorize-net-seal";
 import { Logo } from "./logo";
 
 type FooterLink = { label: string; href: string };
@@ -118,6 +119,8 @@ export function Footer() {
                 </a>
               ))}
             </div>
+
+            <AuthorizeNetSeal className="mt-6" />
           </div>
 
           {/* Link columns */}
@@ -152,25 +155,28 @@ export function Footer() {
             reserved.
           </p>
           <div className="flex gap-6">
+            {/* Hidden until a privacy policy exists — restore once it's written.
             <Link
-              href="#"
+              href="/privacy"
               {...gaAttrs("nav_click", {
                 nav_location: "footer_legal",
                 nav_item: "Privacy",
+                link_url: "/privacy",
               })}
               className="transition-colors hover:text-primary"
             >
               Privacy
-            </Link>
+            </Link> */}
             <Link
-              href="#"
+              href="/terms-and-conditions"
               {...gaAttrs("nav_click", {
                 nav_location: "footer_legal",
-                nav_item: "Terms",
+                nav_item: "Terms and Conditions",
+                link_url: "/terms-and-conditions",
               })}
               className="transition-colors hover:text-primary"
             >
-              Terms
+              Terms and Conditions
             </Link>
           </div>
         </div>

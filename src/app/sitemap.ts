@@ -70,6 +70,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.4,
     },
     {
+      url: absoluteUrl("/terms-and-conditions"),
+      lastModified,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    },
+    {
       url: absoluteUrl("/contact"),
       lastModified,
       changeFrequency: "monthly" as const,

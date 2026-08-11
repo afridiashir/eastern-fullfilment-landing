@@ -213,6 +213,22 @@ const staticEntries: StaticEntry[] = [
     keywords: ["jobs", "hiring", "openings", "apply", "resume", "work"],
   },
   {
+    title: "Terms and Conditions",
+    description:
+      "Terms covering fulfillment, storage, shipping, payment, and termination.",
+    href: "/terms-and-conditions",
+    group: "Company",
+    keywords: [
+      "terms",
+      "conditions",
+      "agreement",
+      "legal",
+      "policy",
+      "liability",
+      "insurance",
+    ],
+  },
+  {
     title: "Contact",
     description: "Talk to our team about fulfillment, pricing, or onboarding.",
     href: "/contact",

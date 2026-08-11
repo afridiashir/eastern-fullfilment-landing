@@ -25,6 +25,9 @@ export const siteConfig = {
   locale: "en_US",
   email: "hello@easternfulfillment.com",
   telephone: "+1-555-012-3456",
+  // Public merchant id behind the Authorize.Net trust seal (rendered in the
+  // footer). Not a secret — it appears in the seal's verification URL.
+  authorizeNetSealId: "1a886595-f95c-43f2-b17c-8354a6b02499",
   // Customer app sign-in — the destination for every "Get Started" CTA.
   appUrl: "https://easternfullfilmnet-vue.vercel.app/login",
   // External scheduling link behind every "Book a Demo" CTA.
