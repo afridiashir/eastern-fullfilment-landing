@@ -181,18 +181,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-
-      {/* Giant wordmark, fading out at the bottom. Sits outside the padded
-          container so it runs edge to edge; `overflow-hidden` keeps the
-          oversized text from widening the page. */}
-      <div
-        aria-hidden
-        className="select-none overflow-hidden border-t border-border pt-6"
-      >
-        <p className="font-heading bg-gradient-to-b from-foreground/15 to-transparent bg-clip-text text-center text-[20vw] font-semibold leading-[0.8] tracking-tight text-transparent md:text-[13rem]">
-          EASTERN FULFILLMENT
-        </p>
-      </div>
     </footer>
   );
 }
