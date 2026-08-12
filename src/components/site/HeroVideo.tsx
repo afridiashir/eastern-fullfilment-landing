@@ -16,6 +16,7 @@ const HeroVideo = () => {
             preload='auto'
             tabIndex={-1}
           >
+            <source src='/intro-reel.webm' type='video/webm' />
             <source src='/intro-reel.mp4' type='video/mp4' />
           </video>
 
