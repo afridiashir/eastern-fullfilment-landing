@@ -16,7 +16,7 @@ type FooterLink = { label: string; href: string };
 
 const linkGroups: { title: string; links: FooterLink[] }[] = [
   {
-    title: "Product",
+    title: "Features",
     links: [
       { label: "Fullfilment Automation", href: "/product/fullfilment-automation" },
       { label: "Dispatch Planning", href: "/product/dispatch-planning" },
@@ -91,12 +91,12 @@ export function Footer() {
                   href="tel:+14701234567"
                   className="transition-colors hover:text-primary"
                 >
-                  +1 (470) 123-45678
+                  +1 (470) xxx-xxxxx
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-primary" />
-                <span>Atlanta, GA · Lahore, PK</span>
+                <span>Frederick MD</span>
               </li>
             </ul>
 

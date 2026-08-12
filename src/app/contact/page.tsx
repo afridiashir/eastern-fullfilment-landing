@@ -25,16 +25,9 @@ const offices: Office[] = [
   {
     flag: "🇺🇸",
     country: "United States",
-    address: ["235 Mitchell St SW, Suite 235A", "Atlanta, GA 30303", "United States"],
-    phone: "+1 (470) 123-45678",
-    phoneHref: "tel:+14701234567",
-  },
-  {
-    flag: "🇵🇰",
-    country: "Pakistan",
-    address: ["Vogue Towers, MM Alam Road", "Block C2, Gulberg III", "Lahore, 54000, Pakistan"],
-    phone: "+92 310 1234 567",
-    phoneHref: "tel:+923101234567",
+    address: ["Frederick MD"],
+    phone: "+1 xxx xxx xxxx",
+    phoneHref: "tel:+1xxxxxx",
   },
 ];
 

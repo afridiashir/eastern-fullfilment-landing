@@ -10,8 +10,8 @@ import { Badge } from "@/components/ui/badge";
 
 const contactInfo = [
   { icon: Mail, label: "Email", value: "hello@easternfulfillment.com" },
-  { icon: Phone, label: "Phone", value: "+1 (555) 012-3456" },
-  { icon: MapPin, label: "Fulfillment centers", value: "Dallas, TX · Newark, NJ" },
+  { icon: Phone, label: "Phone", value: "+1 (555) xxx-xxxx" },
+  { icon: MapPin, label: "Fulfillment centers", value: "Frederick MD" },
 ];
 
 const FORM_NAME = "quote";

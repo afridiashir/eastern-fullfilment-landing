@@ -76,30 +76,30 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
 
             {/* Offices */}
             <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-foreground">
-              Our Offices
+              Our Warehouses
             </h3>
             <ul className="mt-4 space-y-5">
               <li className="text-sm leading-relaxed">
-                <p className="font-medium text-foreground">🇵🇰 Pakistan Office</p>
-                <p className="text-muted-foreground">
+                <p className="font-medium text-foreground">- Eastern Fulfillment IAD  I</p>
+                {/* <p className="text-muted-foreground">
                   Vogue Towers, MM Alam Road
                   <br />
                   Block C2, Gulberg III
                   <br />
                   Lahore, 54000, Pakistan
-                </p>
+                </p> */}
               </li>
               <li className="text-sm leading-relaxed">
                 <p className="font-medium text-foreground">
-                  🇺🇸 United States Office
+                  - Eastern Fulfilment IAD II
                 </p>
-                <p className="text-muted-foreground">
+                {/* <p className="text-muted-foreground">
                   235 Mitchell St SW, Suite 235A
                   <br />
                   Atlanta, GA 30303
                   <br />
                   United States
-                </p>
+                </p> */}
               </li>
             </ul>
 
@@ -111,20 +111,20 @@ export function HeadOfficeDrawer({ open, onClose }: HeadOfficeDrawerProps) {
               </span>
             </h3>
             <ul className="mt-4 space-y-3">
-              <li className="flex items-center gap-3">
+              {/* <li className="flex items-center gap-3">
                 <a
                   href="tel:+923280865227"
                   className="text-base text-muted-foreground transition-colors hover:text-foreground"
                 >
                   🇵🇰 Pakistan: +92 310 1234 567
                 </a>
-              </li>
+              </li> */}
               <li className="flex items-center gap-3">
                 <a
                   href="tel:+14702327717"
                   className="text-base text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  🇺🇸 United States: +1 (470) 123-45678
+                  🇺🇸 United States: +1 (470) xxx-xxxxx
                 </a>
               </li>
             </ul>
