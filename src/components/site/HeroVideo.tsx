@@ -8,7 +8,7 @@ const HeroVideo = () => {
     <div className='h-dvh p-12 pt-30'>
         <div className='relative bg-black h-full w-full rounded-md overflow-hidden'>
           <video
-            className='absolute inset-0 h-full w-full object-cover'
+            className='absolute inset-0 h-full w-full object-cover object-top'
             autoPlay
             muted
             loop
