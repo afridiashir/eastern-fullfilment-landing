@@ -37,7 +37,7 @@ export const milestones: Milestone[] = [
   {
     period: "November 2023",
     title: "The catalog",
-    body: "Sweaters, outerwear, new collar styles â€” 100+ SKUs added in twelve months. We re-slotted the pick faces and rebuilt the pick paths, so a catalog thirty times larger didn't mean pick times thirty times longer.",
+    body: "Sweaters, outerwear, new collar styles — 100+ SKUs added in twelve months. We re-slotted the pick faces and rebuilt the pick paths, so a catalog thirty times larger didn't mean pick times thirty times longer.",
     image: {
       src: "/collars-co/warehouse-build.jpeg",
       alt: "Team rebuilding shelving levels to re-slot an expanded Collars & Co catalog",
