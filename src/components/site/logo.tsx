@@ -28,7 +28,7 @@ export function Logo({
       href={href}
       aria-label={siteConfig.name}
       {...gaAttrs("logo_click", { link_url: href })}
-      className={cn("flex items-center gap-2", className)}
+      className={cn("flex shrink-0 items-center gap-2", className)}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -49,7 +49,9 @@ export function Logo({
       {withWordmark && (
         <span
           className={cn(
-            "text-base font-semibold tracking-tight sm:text-lg",
+            // `whitespace-nowrap` so a tight navbar can never break the
+            // wordmark onto a second line.
+            "whitespace-nowrap text-base font-semibold tracking-tight sm:text-lg lg:text-base wide:text-lg",
             onDark && "text-white"
           )}
         >

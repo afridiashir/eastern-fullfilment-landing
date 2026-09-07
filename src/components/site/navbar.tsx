@@ -128,15 +128,19 @@ export function Navbar() {
     <>
       <nav
         className={cn(
-          "container-lg m-auto flex h-14 items-center justify-between px-3 h-18 sm:px-4 lg:h-22",
+          // The desktop bar has to hold logo + 5 nav groups + 3 actions. Below
+          // `wide` that only fits if the paddings, gaps and control sizes step
+          // down — a 14" 1080p screen at 150% Windows scale is a 1280px
+          // viewport, and at 175% a 1097px one.
+          "container-lg m-auto flex h-18 items-center justify-between gap-2 px-3 sm:px-4 lg:h-20 wide:h-22",
           transparent
             ? "dark rounded-lg border border-transparent bg-transparent text-foreground"
             : sticky
-            ? "rounded-t-none rounded-b-lg md:px-4 md:mx-8 border-b border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
+            ? "rounded-t-none rounded-b-lg md:px-4 md:mx-4 wide:mx-8 border-b border-white/20 dark:border-white/10 bg-gray-100/60 dark:bg-card/50 backdrop-blur-xl backdrop-saturate-150"
             : "rounded-lg border bg-gray-100 dark:bg-card"
         )}
       >
-        <div className="flex items-center gap-3 sm:gap-6 lg:gap-8">
+        <div className="flex shrink-0 items-center gap-3 sm:gap-6 lg:gap-4 wide:gap-8">
           <button
             type="button"
             aria-label="Open menu"
@@ -149,7 +153,7 @@ export function Navbar() {
             }}
             className="group hidden lg:inline-flex items-center justify-center text-foreground cursor-pointer"
           >
-            <LayoutGrid className="h-6 w-6 fill-transparent transition-colors duration-300 group-hover:fill-foreground" />
+            <LayoutGrid className="h-5 w-5 fill-transparent transition-colors duration-300 group-hover:fill-foreground wide:h-6 wide:w-6" />
           </button>
           <Logo onDark={transparent} />
         </div>
@@ -166,7 +170,7 @@ export function Navbar() {
                   <button
                     type="button"
                     className={cn(
-                      "group flex items-center gap-1.5 rounded-full uppercase px-4 py-3 text-sm font-medium text-foreground transition-colors xl:px-6",
+                      "group flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full uppercase px-2 py-2.5 text-sm font-medium text-foreground transition-colors wide:gap-1.5 wide:px-5 wide:py-3",
                       isActive
                         ? "bg-white text-black"
                         : "bg-transparent hover:bg-primary hover:text-white"
@@ -226,7 +230,7 @@ export function Navbar() {
                   link_url: link.href,
                 })}
                 className={cn(
-                  "group rounded-full uppercase px-5 py-3 text-sm font-medium text-foreground transition-colors xl:px-8",
+                  "group shrink-0 whitespace-nowrap rounded-full uppercase px-3.5 py-2.5 text-sm font-medium text-foreground transition-colors wide:px-6 wide:py-3",
                   isActive
                     ? "bg-white text-black"
                     : "bg-transparent hover:bg-primary hover:text-white"
@@ -246,13 +250,13 @@ export function Navbar() {
         </div>
 
         {/* Desktop actions */}
-        <div className="hidden items-center gap-2 lg:flex">
-          <ThemeToggle className="h-11 w-11" />
+        <div className="hidden shrink-0 items-center gap-1 lg:flex wide:gap-2">
+          <ThemeToggle className="h-10 w-10 wide:h-11 wide:w-11" />
           <button
             type="button"
             aria-label="Search"
             onClick={() => openSearch(navLocation(sticky), "desktop")}
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-foreground transition-colors hover:text-muted-foreground wide:h-11 wide:w-11"
           >
             <Search className="h-5 w-5" />
           </button>
@@ -266,7 +270,7 @@ export function Navbar() {
               cta_destination: siteConfig.appUrl,
               cta_type: "primary",
             })}
-            className="group inline-flex items-center rounded-full uppercase px-5 py-3 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white xl:px-8"
+            className="group inline-flex shrink-0 items-center whitespace-nowrap rounded-full uppercase px-4 py-2.5 text-sm font-medium text-black transition-colors border-primary border bg-primary text-white wide:px-7 wide:py-3"
           >
             <span className="inline-flex h-4 w-4 mr-2 items-center justify-start overflow-hidden transition-all duration-500 ease-out group-hover:w-0 group-hover:mr-0">
               <ChevronRight className="h-4 w-4 shrink-0 transition-transform duration-500 ease-out group-hover:-translate-x-4" />
@@ -315,7 +319,7 @@ export function Navbar() {
       {/* Static navbar (over hero) */}
       <header
         className={cn(
-          "absolute left-0 top-0 z-40 w-full bg-transparent p-3 sm:p-4 lg:px-12",
+          "absolute left-0 top-0 z-40 w-full bg-transparent p-3 sm:p-4 lg:px-4 wide:px-12",
           staticHidden && "invisible opacity-0"
         )}
       >

@@ -4,6 +4,30 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * `tall:` is for layout that is constrained by viewport HEIGHT rather than
+ * width — the pinned case-study panel, which has to fit a header, a two-column
+ * milestone and a timeline rail into one screen. Keying that off `wide` was
+ * wrong: a 1360x640 window is wide enough to earn the roomy styles but far too
+ * short to hold them, so the copy spilled over the rail.
+ */
+@custom-variant tall (@media (min-height: 45rem));
+
+/*
+ * `wide:` is the point where the desktop navbar has room for its roomy padding
+ * and full-size controls. It deliberately sits above Tailwind's `xl` (1280px),
+ * because 1280px is exactly what a 14" 1080p laptop reports at 150% Windows
+ * scaling — the most common client setup — and 1097px is the same screen at
+ * 175%. Both must get the compact treatment, not the roomy one.
+ *
+ * Must be declared in `rem`, like Tailwind's built-in breakpoints: v4 sorts
+ * breakpoints to decide cascade order, and a `px` value here sorts ahead of the
+ * `rem` defaults, which would let `lg:` override `wide:` at every width.
+ */
+@theme {
+  --breakpoint-wide: 85rem;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

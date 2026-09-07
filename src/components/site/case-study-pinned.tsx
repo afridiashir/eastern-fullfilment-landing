@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { gaAttrs, trackEvent } from "@/lib/analytics";
 import { useIsDesktop } from "@/components/site/use-is-desktop";
 import { milestones, type Milestone } from "@/components/site/collars-story-data";
@@ -144,16 +145,18 @@ export function CaseStudyPinned() {
       {pinned ? (
         <div
           ref={pinRef}
-          className="relative flex h-dvh w-full flex-col justify-center items-center overflow-hidden py-10 pt-30"
+          className="relative flex h-dvh w-full flex-col justify-center items-center overflow-hidden pb-6 pt-24 wide:pt-28 tall:pb-10"
         >
           {/* Panel is 80dvh, centred in a full-height pin so the sections above
-              and below stay off-screen while it holds. */}
-          <div className="container-px flex h-[80dvh] flex-col">
-            <div className="flex h-full flex-col overflow-hidden rounded-[2rem] bg-secondary/50 px-6 py-10 sm:px-12 lg:px-16">
-              <StoryHeader />
+              and below stay off-screen while it holds. `max-h-full` + `min-h-0`
+              let it shrink instead of spilling past the pin once the viewport is
+              short enough that 80dvh no longer clears the padding. */}
+          <div className="container-px flex h-[80dvh] max-h-full min-h-0 flex-col">
+            <div className="flex h-full flex-col overflow-hidden rounded-[2rem] bg-secondary/50 px-6 py-6 sm:px-12 lg:px-16 tall:py-10">
+              <StoryHeader compact />
 
               {/* One absolutely-stacked layer per milestone, so they crossfade. */}
-              <div className="relative mt-8 min-h-0 flex-1">
+              <div className="relative mt-4 min-h-0 flex-1 tall:mt-8">
                 {milestones.map((milestone, i) => (
                   <div
                     key={milestone.period}
@@ -174,7 +177,7 @@ export function CaseStudyPinned() {
               </div>
 
               {/* Timeline rail: the periods, with the active one filled. */}
-              <div className="mt-8 flex items-center justify-between gap-2">
+              <div className="mt-4 flex items-center justify-between gap-2 tall:mt-8">
                 {milestones.map((milestone, i) => (
                   <button
                     key={milestone.period}
@@ -220,17 +223,41 @@ export function CaseStudyPinned() {
   );
 }
 
-function StoryHeader() {
+/**
+ * `compact` is for the pinned panel, where the header competes with the
+ * milestone content for a fixed slice of viewport height. A 14" 1080p laptop at
+ * 150% scale only leaves the panel ~460px, so the header has to give some back.
+ */
+function StoryHeader({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div className="flex shrink-0 flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <span className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
+        <span
+          className={cn(
+            "inline-flex items-center rounded-full bg-primary/10 font-medium text-primary",
+            compact
+              ? "px-3 py-1 text-xs tall:px-4 tall:py-1.5 tall:text-sm"
+              : "px-4 py-1.5 text-sm"
+          )}
+        >
           Client Story
         </span>
-        <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+        <h2
+          className={cn(
+            "font-bold tracking-tight",
+            compact
+              ? "mt-2 text-2xl tall:mt-4 tall:text-4xl"
+              : "mt-4 text-3xl sm:text-4xl"
+          )}
+        >
           Three SKUs to a <span className="text-primary">million orders</span>
         </h2>
-        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+        <p
+          className={cn(
+            "font-semibold uppercase tracking-[0.22em] text-muted-foreground",
+            compact ? "mt-1.5 text-[10px] tall:mt-3 tall:text-xs" : "mt-3 text-xs"
+          )}
+        >
           Collars &amp; Co · 2021–2026
         </p>
       </div>
@@ -259,9 +286,10 @@ function StoryHeader() {
 }
 
 /**
- * Same milestone content either way. `compact` only swaps the photo's fixed
- * aspect ratio for a fill of the pinned viewport — a 4:5 box overflows a
- * pinned screen.
+ * Same milestone content either way. `compact` is the pinned panel, which has
+ * to fit a fixed slice of viewport height: it steps the type down a notch below
+ * `wide` and lets the photo fill its grid cell rather than sizing itself from
+ * the leftover height.
  */
 function MilestonePanel({
   milestone,
@@ -272,12 +300,15 @@ function MilestonePanel({
 }) {
   return (
     <div
-      className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
-        compact ? "h-full" : ""
-      }`}
+      className={cn(
+        "grid items-center lg:grid-cols-2",
+        compact
+          ? "h-full min-h-0 gap-6 tall:gap-12"
+          : "gap-10 lg:gap-16"
+      )}
     >
       {/* Copy */}
-      <div>
+      <div className={compact ? "min-h-0" : undefined}>
         <p
           data-reveal
           className="text-xs font-semibold uppercase tracking-[0.18em] text-primary"
@@ -286,31 +317,50 @@ function MilestonePanel({
         </p>
         <h3
           data-reveal
-          className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl"
+          className={cn(
+            "font-bold tracking-tight",
+            compact
+              ? "mt-1.5 text-xl tall:mt-2 tall:text-3xl"
+              : "mt-2 text-2xl sm:text-3xl"
+          )}
         >
           {milestone.title}
         </h3>
-        <p data-reveal className="mt-4 leading-relaxed text-muted-foreground">
+        <p
+          data-reveal
+          className={cn(
+            "leading-relaxed text-muted-foreground",
+            compact ? "mt-2 text-sm tall:mt-4 tall:text-base" : "mt-4"
+          )}
+        >
           {milestone.body}
         </p>
         {milestone.callout && (
           <p
             data-reveal
-            className="mt-5 inline-block rounded-xl bg-primary/10 px-4 py-3 text-sm font-medium text-primary"
+            className={cn(
+              "inline-block rounded-xl bg-primary/10 font-medium text-primary",
+              compact
+                ? "mt-3 px-3 py-2 text-xs tall:mt-5 tall:px-4 tall:py-3 tall:text-sm"
+                : "mt-5 px-4 py-3 text-sm"
+            )}
           >
             {milestone.callout}
           </p>
         )}
       </div>
 
-      {/* Photo — always 1:1. When pinned the square is driven by the available
-          height (so it can't overflow the panel); otherwise by the column width. */}
-      <div className={compact ? "flex h-full min-h-0 items-center justify-center" : ""}>
+      {/* Photo. Standalone it is a 1:1 square driven by the column width. Pinned
+          it fills the whole grid cell instead — a height-driven square wastes
+          most of the column on a short viewport, which is where this section is
+          tightest. */}
+      <div className={compact ? "h-full min-h-0" : undefined}>
         <div
           data-reveal-image
-          className={`relative aspect-square overflow-hidden rounded-2xl ${
-            compact ? "h-full w-auto max-w-full" : "w-full"
-          }`}
+          className={cn(
+            "relative overflow-hidden rounded-2xl",
+            compact ? "h-full w-full" : "aspect-square w-full"
+          )}
         >
           <Image
             src={milestone.image.src}
