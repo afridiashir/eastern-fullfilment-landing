@@ -29,7 +29,7 @@ export const milestones: Milestone[] = [
     body: "Justin Baer pitches on Shark Tank. Mark Cuban and Peter Jones invest. Traffic quadruples overnight, and daily orders go from 50 to 300 inside a week.",
     callout: "No backlog. No missed cutoff. No 2 a.m. phone call.",
     image: {
-      src: "/collars-co/leadership.jpeg",
+      src: "/collars-co/leadership.jpg",
       alt: "Collars & Co and Eastern Fulfillment leadership together at an evening event",
       aspect: "aspect-[4/5]",
     },
@@ -49,7 +49,7 @@ export const milestones: Milestone[] = [
     title: "The ceiling moves",
     body: "Daily capacity clears 2,500 orders. Q4 peaks and TV-driven surges absorbed without a temp-labor scramble.",
     image: {
-      src: "/collars-co/team.jpeg",
+      src: "/collars-co/team.png",
       alt: "The Eastern Fulfillment floor team on the warehouse stairs",
       aspect: "aspect-[4/5]",
     },
@@ -59,7 +59,7 @@ export const milestones: Milestone[] = [
     title: "One million",
     body: "250+ SKUs. 0.40% order-issue rate across the life of the account.",
     image: {
-      src: "/collars-co/showroom.jpeg",
+      src: "/collars-co/showroom.jpg",
       alt: "Collars & Co and Eastern Fulfillment at the Collars & Co showroom",
       aspect: "aspect-[4/5]",
     },
