@@ -9,7 +9,7 @@ const HeroVideo = () => {
     // under (h-20 + p-4 at `lg`, h-22 at `wide`). A tall fixed min-height would
     // push the hero past the fold on a short screen — a 14" 1080p laptop at
     // 150% Windows scale only has 720 CSS px of height.
-    <div className='h-dvh min-h-[560px] p-6 pt-24 wide:p-10 wide:pt-28'>
+    <div className='h-dvh min-h-[560px] p-6 pt-24 wide:p-10 wide:pt-30'>
         <div className='relative bg-black h-full w-full rounded-md overflow-hidden'>
           <video
             className='absolute inset-0 h-full w-full object-cover object-top'
