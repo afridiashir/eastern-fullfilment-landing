@@ -88,6 +88,16 @@ export function CaseStudyPinned() {
       const current = layersRef.current[active];
       if (!current) return;
 
+      // Fast scrolling flips `active` before the last crossfade finishes. Kill
+      // every in-flight tween first — otherwise an older fade-in can outlast
+      // the newer fade-out and leave two layers visible on top of each other.
+      layers.forEach((layer) => {
+        gsap.killTweensOf([
+          layer,
+          ...layer.querySelectorAll("[data-reveal], [data-reveal-image]"),
+        ]);
+      });
+
       layers.forEach((layer) => {
         if (layer === current) return;
         gsap.to(layer, { autoAlpha: 0, duration: 0.35, ease: "power2.out" });
